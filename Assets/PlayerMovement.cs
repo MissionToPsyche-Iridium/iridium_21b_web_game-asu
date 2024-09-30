@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Created by Robert DeLucia Jr. during Sprint 1
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
