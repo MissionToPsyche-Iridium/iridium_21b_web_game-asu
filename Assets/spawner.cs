@@ -1,0 +1,68 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class spawner : MonoBehaviour
+{
+    public GameObject Player;
+    public GameObject asteroid;
+    public GameObject areaOfEffect;
+    public GameObject areaOfEffectRand;
+    public float height = 20;
+    private float timer = 0;
+    private float randTimer = 0;
+    private float spawnrate = 1;
+    private float randSpawnrate = 1;
+    private float randX;
+    private float randY;
+    // Start is called before the first frame update
+    void Start()
+    { 
+        areaOfEffect = Instantiate(areaOfEffect, Player.transform.position, transform.rotation); //Targetting Player
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + height, Player.transform.position.z);
+        if (timer < spawnrate )
+        {
+            timer = timer + Time.deltaTime;
+        }
+        else
+        {
+            Instantiate(asteroid, transform.position, transform.rotation);
+            areaOfEffect.transform.position = Player.transform.position;
+            
+            /*
+            randX = (float)Random.Range(0, 4) + Player.transform.position.x;
+            randY = (float)Random.Range(0, 3) + Player.transform.position.y;
+
+            Instantiate(asteroid, new Vector3(randX, randY + height, 1), transform.rotation);
+            Instantiate(areaOfEffectRand, new Vector3(randX, randY, 1), transform.rotation);
+            */
+            timer = 0;
+            
+        }
+    }
+
+    /* Doesn't work, want to fix so don't worry about it
+    void randomSpawner()
+    {
+        if (randTimer < randSpawnrate)
+        {
+            randTimer += Time.deltaTime;
+        }
+        else
+        {
+            randX = (float)Random.Range(0, 4) + Player.transform.position.x;
+            randY = (float)Random.Range(0, 3) + Player.transform.position.y;
+
+            Instantiate(asteroid, new Vector3(randX, randY + height, 1), transform.rotation);
+            Instantiate(areaOfEffectRand, new Vector3(randX, randY, 1), transform.rotation);
+            randTimer = 0;
+        }
+
+    }
+    */
+}
