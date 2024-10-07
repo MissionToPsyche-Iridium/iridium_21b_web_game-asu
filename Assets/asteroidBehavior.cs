@@ -25,4 +25,13 @@ public class asteroidBehavior : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "PlayerTag")
+        {
+            //If the GameObject has the same tag as specified, output this message in the console
+            Debug.Log("Player Hit!");
+        }
+    }
 }
