@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Capstone.sln"
+    "dotnet.defaultSolution": "iridium_21b_web_game-asu.sln"
 }
