@@ -380,6 +380,8 @@ MonoBehaviour:
   speedBoostMultiplier: 2
   boostDuration: 2
   boostCooldown: 2
+  dashDistance: 1
+  doublePressThreshold: 0.3
 --- !u!4 &241846885
 Transform:
   m_ObjectHideFlags: 0
