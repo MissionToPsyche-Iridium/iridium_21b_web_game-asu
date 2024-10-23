@@ -6,7 +6,9 @@ public class asteroidBehavior : MonoBehaviour
 {
     public float startingYPos;
     public float dropSpeed = 5.5f;
-    public float destroyHeight;
+    public float destroyY;
+    public float destroyX;
+    public float hitRadius = 0.5f;
     public float despawnDelay = .72f;   // need to make it line up with the frames of the animation
     public GameObject Player;
     public Animator animator;
@@ -18,7 +20,8 @@ public class asteroidBehavior : MonoBehaviour
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
-        destroyHeight = Player.transform.position.y;
+        destroyY = Player.transform.position.y;
+        destroyX = Player.transform.position.x;
     }
 
 
@@ -26,7 +29,7 @@ public class asteroidBehavior : MonoBehaviour
     void Update()
     {
         transform.position += (Vector3.down) * dropSpeed * Time.deltaTime;
-        if (transform.position.y <= destroyHeight)
+        if (transform.position.y <= destroyY)
         {
             dropSpeed = 0f;
             //Destroy(gameObject);
@@ -36,11 +39,21 @@ public class asteroidBehavior : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "PlayerTag")
+        if (collision.gameObject.tag == "PlayerTag" && 
+           (this.inRange(collision.gameObject.transform.position.y, destroyY - hitRadius, destroyY + hitRadius)))
         {
             //If the GameObject has the same tag as specified, output this message in the console
             Debug.Log("Player Hit!");
         }
+    }
+
+    bool inRange(float location, float min, float max)
+    {
+        if (min <= location && max >= location)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void DespawnObject() {
