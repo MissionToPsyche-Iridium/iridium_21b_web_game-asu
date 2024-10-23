@@ -121,7 +121,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3.6
+  m_Radius: 0.9
 --- !u!114 &5718194296435593044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,7 +136,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingYPos: 0
   dropSpeed: 5
-  destroyHeight: 0
+  destroyY: 0
+  destroyX: 0
   despawnDelay: 0.72
   Player: {fileID: 0}
   animator: {fileID: 1022428788357400822}
