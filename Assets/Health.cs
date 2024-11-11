@@ -34,5 +34,6 @@ public class Health : MonoBehaviour
     private void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("You Died!");
     }
 }
