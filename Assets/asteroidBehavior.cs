@@ -14,12 +14,14 @@ public class asteroidBehavior : MonoBehaviour
     public Animator animator;
 
     private bool isDespawn = false;
+    private Health playerHealth;
     
 
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
+        playerHealth = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Health>();
         destroyY = Player.transform.position.y;
         destroyX = Player.transform.position.x;
     }
@@ -43,6 +45,7 @@ public class asteroidBehavior : MonoBehaviour
            (this.inRange(collision.gameObject.transform.position.y, destroyY - hitRadius, destroyY + hitRadius)))
         {
             //If the GameObject has the same tag as specified, output this message in the console
+            playerHealth.DamagePlayer(20);
             Debug.Log("Player Hit!");
         }
     }
