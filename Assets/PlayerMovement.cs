@@ -2,52 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Created by Robert DeLucia Jr. during Sprint 1
-// Updated to have boost mechanic during Sprint 2
-// Updated to have jump forward mechanic during Sprint 3
 public class PlayerMovement : MonoBehaviour
 {
     public CoinManager cm;
     public float moveSpeed = 5f;
-    public float speedBoostMultiplier = 2f;  // speed boost grants double velocity
-    public float boostDuration = 2f;         // boost is 2s long
-    public float boostCooldown = 2f;         // cooldown is 2s long
-    public float dashDistance = 2.5f;        // how far to jump forward on double press
-    public float doublePressThreshold = 0.3f; // max time between double presses
-    public float dashCooldown = 2f;          // 2-second cooldown for dashing
+    public float speedBoostMultiplier = 2f;
+    public float boostDuration = 2f;
+    public float boostCooldown = 2f;
+    public float dashDistance = 2.5f;
+    public float doublePressThreshold = 0.3f;
+    public float dashCooldown = 2f;
 
     private bool isBoosting = false;
     private bool isOnCooldown = false;
-    private bool isDashOnCooldown = false;   // flag to track if dashing is on cooldown
+    private bool isDashOnCooldown = false;
 
-    private float lastPressTimeX = -1f;      // track last press time for X-axis
-    private float lastPressTimeY = -1f;      // track last press time for Y-axis
+    private float lastPressTimeX = -1f;
+    private float lastPressTimeY = -1f;
+
+    private Rigidbody2D rb;
+    private Vector2 lastMovement;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     void Update()
     {
-        float moveX = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-        float moveY = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+        float moveX = Input.GetAxis("Horizontal") * moveSpeed;
+        float moveY = Input.GetAxis("Vertical") * moveSpeed;
 
-        Vector3 movement = new Vector3(moveX, moveY, 0);
-        transform.position += movement;
+        lastMovement = new Vector2(moveX, moveY);
 
-        // Will speed boost if not on cooldown and not currently boosting
+        // Only move if there’s no collision
+        MovePlayer();
+
         if (Input.GetKeyDown(KeyCode.Space) && !isBoosting && !isOnCooldown)
         {
             StartCoroutine(SpeedBoost());
         }
 
-        // Handle X-axis jump forward
         if (Input.GetButtonDown("Horizontal") && !isDashOnCooldown)
         {
-            if (Time.time - lastPressTimeX < doublePressThreshold) // checks if keys were pressed rapidly in succession
+            if (Time.time - lastPressTimeX < doublePressThreshold)
             {
                 Dash(Vector3.right * Mathf.Sign(Input.GetAxisRaw("Horizontal")));
             }
             lastPressTimeX = Time.time;
         }
 
-        // Handle Y-axis jump forward
         if (Input.GetButtonDown("Vertical") && !isDashOnCooldown)
         {
             if (Time.time - lastPressTimeY < doublePressThreshold)
@@ -58,44 +62,53 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // Function to dash the player forward
+    void MovePlayer()
+    {
+        rb.MovePosition(rb.position + lastMovement * Time.fixedDeltaTime);
+    }
+
     void Dash(Vector3 direction)
     {
-        transform.position += direction * dashDistance;
-        StartCoroutine(DashCooldown());  // Start dash cooldown after each dash
+        rb.MovePosition(rb.position + (Vector2)(direction * dashDistance));
+        StartCoroutine(DashCooldown());
     }
 
-    // Dash cooldown coroutine
     IEnumerator DashCooldown()
     {
-        isDashOnCooldown = true;                // Set dash on cooldown
-        yield return new WaitForSeconds(dashCooldown);  // Wait for the cooldown duration
-        isDashOnCooldown = false;               // Dash is no longer on cooldown
+        isDashOnCooldown = true;
+        yield return new WaitForSeconds(dashCooldown);
+        isDashOnCooldown = false;
     }
 
-    // Speed boost method
     IEnumerator SpeedBoost()
     {
         isBoosting = true;
         moveSpeed *= speedBoostMultiplier;
 
-        yield return new WaitForSeconds(boostDuration);  // Give boost for 2 seconds
+        yield return new WaitForSeconds(boostDuration);
 
-        moveSpeed /= speedBoostMultiplier;  // After 2 seconds, revert to normal speed
+        moveSpeed /= speedBoostMultiplier;
         isBoosting = false;
 
-        StartCoroutine(SpeedBoostCooldown());  // Start cooldown coroutine for speed boost
+        StartCoroutine(SpeedBoostCooldown());
     }
 
-    // Speed boost cooldown method
     IEnumerator SpeedBoostCooldown()
     {
         isOnCooldown = true;
-        yield return new WaitForSeconds(boostCooldown);  // Cooldown is 2 seconds long
+        yield return new WaitForSeconds(boostCooldown);
         isOnCooldown = false;
     }
 
-    // Handle collisions between coins and player object
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Boulder"))
+        {
+            // Stop the player on collision with the boulder
+            lastMovement = Vector2.zero;
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Coin"))
