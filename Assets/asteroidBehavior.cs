@@ -5,7 +5,7 @@ using UnityEngine;
 public class asteroidBehavior : MonoBehaviour
 {
     public float startingYPos;
-    public float dropSpeed = 5.5f;
+    private float dropSpeed = 0f; //5.5
     public float destroyY;
     public float destroyX;
     public float hitRadius = 0.5f;

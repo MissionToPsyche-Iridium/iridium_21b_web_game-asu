@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,18 +25,29 @@ public class PlayerMovement : MonoBehaviour
     private float lastPressTimeX = -1f;      // track last press time for X-axis
     private float lastPressTimeY = -1f;      // track last press time for Y-axis
 
-    private Vector3 lastNonZeroMovement = Vector3.zero; // Tracks the last non-zero movement for rotation
+    public Animator animator;
 
+    private Vector3 lastNonZeroMovement = Vector3.zero; // Tracks the last non-zero movement for rotation
+    
     void Update()
     {
-        float moveX = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-        float moveY = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
 
-        Vector3 movement = new Vector3(moveX, moveY, 0);
-        transform.position += movement;
+        // Create a normalized movement vector
+        Vector3 movement = new Vector3(moveX, moveY, 0).normalized;
+
+        // Move the character
+        if(!animator.GetBool("Death")) {
+            transform.position += movement * moveSpeed * Time.deltaTime;
+
+            direction(movement);
+        }
+        
+        
 
         // Rotate the sprite based on movement
-        RotateSprite(movement);
+        // RotateSprite(movement);
 
         // Will speed boost if not on cooldown and not currently boosting
         if (Input.GetKeyDown(KeyCode.Space) && !isBoosting && !isOnCooldown)
@@ -62,6 +74,49 @@ public class PlayerMovement : MonoBehaviour
             }
             lastPressTimeY = Time.time;
         }
+       if(Input.GetKeyDown(KeyCode.Alpha1)) {
+            animator.SetBool("isProbe", true);
+            animator.SetBool("isRover", false);
+            animator.SetBool("isRoverSimple", false);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            animator.SetBool("isRover", true);
+            animator.SetBool("isProbe", false);
+            animator.SetBool("isRoverSimple", false);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            animator.SetBool("isRoverSimple", true);
+            animator.SetBool("isProbe", false);
+            animator.SetBool("isRover", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4)) {
+            if(!animator.GetBool("isOutlined")) {
+                animator.SetBool("isOutlined", true);
+            }
+            else {
+                animator.SetBool("isOutlined", false);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5)) {
+            if (!animator.GetBool("probeAlt")) {
+                animator.SetBool("probeAlt", true);
+            }
+            else {
+                animator.SetBool("probeAlt", false);
+            }
+        }
+        
+        if(Input.GetKeyDown(KeyCode.C)) {
+            if(!animator.GetBool("cat")) {
+                animator.SetBool("cat", true);
+            }
+            else {
+                animator.SetBool("cat", false);
+            }
+        }
+        
+
     }
 
     // Function to dash the player forward
@@ -112,6 +167,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Rotate the sprite based on movement direction
+    /*
     void RotateSprite(Vector3 movement)
     {
         if (movement != Vector3.zero) // Only rotate if there's movement
@@ -120,5 +176,14 @@ public class PlayerMovement : MonoBehaviour
             float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg; // Calculate angle
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 180)); // Rotate sprite (offset to face "north")
         }
+    }
+    */
+    void direction(Vector3 move) {
+
+        if (move.sqrMagnitude > 0) {
+            animator.SetFloat("X", move.x);
+            animator.SetFloat("Y", move.y);
+        }
+
     }
 }
