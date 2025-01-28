@@ -5,6 +5,7 @@ using UnityEngine;
 // Created by Robert DeLucia Jr. during Sprint 1
 // Updated to have boost mechanic during Sprint 2
 // Updated to have jump forward mechanic during Sprint 3
+// Updated to rotate sprite based on movement direction during Sprint 5
 public class PlayerMovement : MonoBehaviour
 {
     public CoinManager cm;
@@ -23,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     private float lastPressTimeX = -1f;      // track last press time for X-axis
     private float lastPressTimeY = -1f;      // track last press time for Y-axis
 
+    private Vector3 lastNonZeroMovement = Vector3.zero; // Tracks the last non-zero movement for rotation
+
     void Update()
     {
         float moveX = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
@@ -30,6 +33,9 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 movement = new Vector3(moveX, moveY, 0);
         transform.position += movement;
+
+        // Rotate the sprite based on movement
+        RotateSprite(movement);
 
         // Will speed boost if not on cooldown and not currently boosting
         if (Input.GetKeyDown(KeyCode.Space) && !isBoosting && !isOnCooldown)
@@ -102,6 +108,17 @@ public class PlayerMovement : MonoBehaviour
         {
             cm.coinCount++;
             Destroy(other.gameObject);
+        }
+    }
+
+    // Rotate the sprite based on movement direction
+    void RotateSprite(Vector3 movement)
+    {
+        if (movement != Vector3.zero) // Only rotate if there's movement
+        {
+            lastNonZeroMovement = movement; // Update the last non-zero movement
+            float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg; // Calculate angle
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 180)); // Rotate sprite (offset to face "north")
         }
     }
 }
