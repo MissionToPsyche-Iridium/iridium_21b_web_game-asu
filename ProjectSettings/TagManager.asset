@@ -8,6 +8,7 @@ TagManager:
   - PlayerTag
   - randAOE
   - Asteroid
+  - Gear
   layers:
   - Default
   - TransparentFX

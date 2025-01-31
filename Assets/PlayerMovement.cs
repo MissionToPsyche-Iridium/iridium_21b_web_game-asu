@@ -10,9 +10,10 @@ public class PlayerMovement : MonoBehaviour
 {
     public CoinManager cm;
     public float moveSpeed = 5f;
-    public float speedBoostMultiplier = 2f;  // speed boost grants double velocity
+    public float speedBoostMultiplier = 1.5f;  // speed boost grants extra velocity
     public float boostDuration = 2f;         // boost is 2s long
     public float boostCooldown = 2f;         // cooldown is 2s long
+    public float boostAvailabilityDuration = 30f; // how long the gear power-up gives the user the ability to boost
     public float dashDistance = 2.5f;        // how far to jump forward on double press
     public float doublePressThreshold = 0.3f; // max time between double presses
     public float dashCooldown = 2f;          // 2-second cooldown for dashing
@@ -20,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isBoosting = false;
     private bool isOnCooldown = false;
     private bool isDashOnCooldown = false;   // flag to track if dashing is on cooldown
+    private bool canUseBoost = false;
 
     private float lastPressTimeX = -1f;      // track last press time for X-axis
     private float lastPressTimeY = -1f;      // track last press time for Y-axis
@@ -38,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         RotateSprite(movement);
 
         // Will speed boost if not on cooldown and not currently boosting
-        if (Input.GetKeyDown(KeyCode.Space) && !isBoosting && !isOnCooldown)
+        if (Input.GetKeyDown(KeyCode.Space) && canUseBoost && !isBoosting && !isOnCooldown)
         {
             StartCoroutine(SpeedBoost());
         }
@@ -101,12 +103,28 @@ public class PlayerMovement : MonoBehaviour
         isOnCooldown = false;
     }
 
-    // Handle collisions between coins and player object
+    IEnumerator BoostAvailability()
+    {
+        canUseBoost = true;
+        Debug.Log("Speed Boost Activated! You have 30 seconds to use it.");
+
+        yield return new WaitForSeconds(boostAvailabilityDuration);
+
+        canUseBoost = false;
+        Debug.Log("Speed Boost Availability Ended.");
+    }
+
+    // Handle collisions between trigger objects and player object
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Coin"))
         {
             cm.coinCount++;
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Gear"))
+        {
+            StartCoroutine(BoostAvailability());
             Destroy(other.gameObject);
         }
     }
