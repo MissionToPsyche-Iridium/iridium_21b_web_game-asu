@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public CoinManager cm;
     public float moveSpeed = 5f;
-    public float speedBoostMultiplier = 2f;  // speed boost grants double velocity
+    public float speedBoostMultiplier = 1.5f;  // speed boost grants extra velocity
     public float boostDuration = 2f;         // boost is 2s long
     public float boostCooldown = 2f;         // cooldown is 2s long
     public float boostAvailabilityDuration = 30f; // how long the gear power-up gives the user the ability to boost
