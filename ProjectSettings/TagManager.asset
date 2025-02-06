@@ -9,6 +9,7 @@ TagManager:
   - randAOE
   - Asteroid
   - Gear
+  - basic_enemy
   layers:
   - Default
   - TransparentFX
