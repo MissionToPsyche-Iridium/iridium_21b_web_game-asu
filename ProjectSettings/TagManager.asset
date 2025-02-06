@@ -10,6 +10,7 @@ TagManager:
   - Asteroid
   - Gear
   - Rocket
+  - basic_enemy
   layers:
   - Default
   - TransparentFX
