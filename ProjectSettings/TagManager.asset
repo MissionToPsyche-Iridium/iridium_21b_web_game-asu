@@ -9,6 +9,7 @@ TagManager:
   - randAOE
   - Asteroid
   - Gear
+  - Rocket
   layers:
   - Default
   - TransparentFX
