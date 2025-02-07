@@ -560,6 +560,7 @@ GameObject:
   - component: {fileID: 241846882}
   - component: {fileID: 241846886}
   - component: {fileID: 241846887}
+  - component: {fileID: 241846888}
   m_Layer: 0
   m_Name: Player
   m_TagString: PlayerTag
@@ -635,7 +636,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 4a3024732f23816408c8153925bb4c6c, type: 3}
+  m_Sprite: {fileID: 1499588649, guid: 830de3e80fcbf034dadf449817786e04, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -668,6 +669,7 @@ MonoBehaviour:
   dashDistance: 1
   doublePressThreshold: 0.3
   dashCooldown: 2
+  animator: {fileID: 241846888}
 --- !u!4 &241846885
 Transform:
   m_ObjectHideFlags: 0
@@ -719,7 +721,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.49, y: 0.39}
+    oldSize: {x: 0.9375, y: 0.9375}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -743,6 +745,28 @@ MonoBehaviour:
   curHealth: 0
   maxHealth: 100
   healthBar: {fileID: 1139849441}
+  animator: {fileID: 241846888}
+--- !u!95 &241846888
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241846881}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ad507d09671426540b106ef4b2b56bee, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &292062407
 GameObject:
   m_ObjectHideFlags: 0
@@ -7313,7 +7337,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 360809754cb0aba4dbd83279379d4bc6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e61b0f824a4e46a47bcf66f767fc86a1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7334,7 +7358,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.42, y: 1.29, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
