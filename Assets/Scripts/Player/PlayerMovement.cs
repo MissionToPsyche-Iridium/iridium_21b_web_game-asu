@@ -29,17 +29,22 @@ public class PlayerMovement : MonoBehaviour
     private float lastPressTimeY = -1f;      // track last press time for Y-axis
 
     private Vector3 lastNonZeroMovement = Vector3.zero; // Tracks the last non-zero movement for rotation
+    public Animator animator;
 
     void Update()
     {
-        float moveX = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-        float moveY = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+        float moveX = Input.GetAxis("Horizontal");
+        float moveY = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(moveX, moveY, 0);
-        transform.position += movement;
+        Vector3 movement = new Vector3(moveX, moveY, 0).normalized;
+        if (!animator.GetBool("Death")) {
+            transform.position +=  moveSpeed * Time.deltaTime * movement;
+
+            direction(movement);
+        }
 
         // Rotate the sprite based on movement
-        RotateSprite(movement);
+        //RotateSprite(movement);
 
         // Will speed boost if not on cooldown and not currently boosting
         if (Input.GetKeyDown(KeyCode.Space) && canUseBoost && !isBoosting && !isOnCooldown)
@@ -145,7 +150,14 @@ public class PlayerMovement : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+    void direction(Vector3 move) {
 
+        if (move.sqrMagnitude > 0) {
+            animator.SetFloat("x", move.x);
+            animator.SetFloat("y", move.y);
+        }
+
+    }
     // Rotate the sprite based on movement direction
     void RotateSprite(Vector3 movement)
     {
