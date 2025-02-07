@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float boostDuration = 2f;         // boost is 2s long
     public float boostCooldown = 2f;         // cooldown is 2s long
     public float boostAvailabilityDuration = 30f; // how long the gear power-up gives the user the ability to boost
+    public float dashAvailabilityDuration = 30f;
     public float dashDistance = 2.5f;        // how far to jump forward on double press
     public float doublePressThreshold = 0.3f; // max time between double presses
     public float dashCooldown = 2f;          // 2-second cooldown for dashing
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isOnCooldown = false;
     private bool isDashOnCooldown = false;   // flag to track if dashing is on cooldown
     private bool canUseBoost = false;
+    private bool canUseDash = false;
 
     private float lastPressTimeX = -1f;      // track last press time for X-axis
     private float lastPressTimeY = -1f;      // track last press time for Y-axis
@@ -56,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Handle Y-axis jump forward
-        if (Input.GetButtonDown("Vertical") && !isDashOnCooldown)
+        if (Input.GetButtonDown("Vertical") && canUseDash && !isDashOnCooldown)
         {
             if (Time.time - lastPressTimeY < doublePressThreshold)
             {
@@ -106,12 +108,22 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator BoostAvailability()
     {
         canUseBoost = true;
-        Debug.Log("Speed Boost Activated! You have 30 seconds to use it.");
+        Debug.Log("Speed Boost activated! You have 30 seconds to use it.");
 
         yield return new WaitForSeconds(boostAvailabilityDuration);
 
         canUseBoost = false;
-        Debug.Log("Speed Boost Availability Ended.");
+        Debug.Log("Speed Boost availability ended.");
+    }
+    IEnumerator DashAvailability()
+    {
+        canUseDash = true;
+        Debug.Log("Dash activated! You have 30 seconds to use it.");
+
+        yield return new WaitForSeconds(dashAvailabilityDuration);
+
+        canUseDash = false;
+        Debug.Log("Dash Availability Ended.");
     }
 
     // Handle collisions between trigger objects and player object
@@ -125,6 +137,11 @@ public class PlayerMovement : MonoBehaviour
         else if (other.gameObject.CompareTag("Gear"))
         {
             StartCoroutine(BoostAvailability());
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Rocket"))
+        {
+            StartCoroutine(DashAvailability());
             Destroy(other.gameObject);
         }
     }
