@@ -1,20 +1,27 @@
-// Written by Robert Delucia Jr. 11/11/24 for Sprint 4
-
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class Health : MonoBehaviour
 {
-    public int curHealth = 0;
+    public int curHealth = 100;
     public int maxHealth = 100;
     public HealthBar healthBar;
     public Animator animator;
+    public GameObject gameOverScreen; // Reference to Game Over UI
 
     void Start()
     {
         curHealth = maxHealth;
+
+        // Ensure Game Over screen is hidden at start
+        if (gameOverScreen != null)
+        {
+            gameOverScreen.SetActive(false);
+        }
     }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -22,6 +29,7 @@ public class Health : MonoBehaviour
             DamagePlayer(10);
         }
     }
+
     public void DamagePlayer(int damage)
     {
         curHealth -= damage;
@@ -29,41 +37,25 @@ public class Health : MonoBehaviour
 
         if (curHealth <= 0)
         {
-            animator.SetBool("death", true);
-
-            StartCoroutine(WaitAndRestart(2f));
+            animator.SetBool("death", true); // Trigger death animation
+            StartCoroutine(ShowGameOverScreen(2f)); // Wait before showing Game Over
         }
     }
 
-    private void RestartGame() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Debug.Log("You Died!");
-    }
-    private IEnumerator WaitAndRestart(float waitTime) {
-        yield return new WaitForSeconds(waitTime);  // Wait for the specified time to despawn
-                                                   
+    private IEnumerator ShowGameOverScreen(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime); // Wait for animation
 
-        RestartGame();  // Restart the game after the wait
-    }
-
-
-    void OnDeathAnimationEnd() {
-
-        MakeTransparent(); // Destroy the game object once the death animation is finished. Called in Animator
-
-    }
-    public void MakeTransparent() {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null) {
-            Color color = spriteRenderer.color;
-            color.a = 0f;  // Set alpha to 0 for full transparency when dead
-            spriteRenderer.color = color;
+        if (gameOverScreen != null)
+        {
+            gameOverScreen.SetActive(true); // Show Game Over screen
+            Time.timeScale = 0f; // Pause the game
         }
+    }
 
-        // disables collider
-        Collider2D collider = GetComponent<Collider2D>();
-        if (collider != null) {
-            collider.enabled = false;
-        }
+    public void RestartGame()
+    {
+        Time.timeScale = 1f; // Resume time before restarting
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload the scene
     }
 }
