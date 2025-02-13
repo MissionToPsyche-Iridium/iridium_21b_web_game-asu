@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Handle X-axis jump forward
-        if (Input.GetButtonDown("Horizontal") && !isDashOnCooldown)
+        if (Input.GetButtonDown("Horizontal") && canUseDash && !isDashOnCooldown)
         {
             if (Time.time - lastPressTimeX < doublePressThreshold) // checks if keys were pressed rapidly in succession
             {
