@@ -11,6 +11,7 @@ TagManager:
   - Gear
   - basic_enemy
   - Rocket
+  - PushBack
   layers:
   - Default
   - TransparentFX

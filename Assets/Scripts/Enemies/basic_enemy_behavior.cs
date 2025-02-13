@@ -12,62 +12,72 @@ public class basic_enemy_behavior : MonoBehaviour
     private float lastEnemyY;
     private float speed = 2.0f;
     private GameObject[] enemyObjects;
-    // Start is called before the first frame update
+
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-        enemyObjects = GameObject.FindGameObjectsWithTag("basic_enemy");
-        Debug.Log(enemyObjects.Length);
-
         float step = speed * Time.deltaTime;
-        //Move towards player as long as there is line of sight
-        if (hasLineOfSight() )
+
+        // Move towards the player if there is line of sight
+        if (hasLineOfSight())
         {
             hasTarget = true;
             speed = 2.0f;
             transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
         }
-        //Once line of sight breaks move towards where it last was
+        // Once line of sight breaks, move towards where the player was last seen
         else
         {
             hasTarget = false;
             speed = 2.5f;
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
         }
-        //No clue if this works
+
+        // If not moving, find the nearest enemy that has a target
         if (!isMoving(transform.position.x, transform.position.y))
         {
             GameObject nearest = findNearestEnemy();
-            transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
+            if (nearest != null)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, nearest.transform.position, step);
+            }
         }
     }
 
     bool hasLineOfSight()
     {
         bool ret = false;
-        RaycastHit2D hit = Physics2D.Linecast(transform.position, Player.transform.position, 1 << LayerMask.NameToLayer("Default"));
 
-        if (hit.collider != null)
+        // Perform the Linecast and get all hits
+        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, Player.transform.position);
+
+        foreach (RaycastHit2D hit in hits)
         {
+            // Skip the enemy's own collider
+            if (hit.collider.gameObject == this.gameObject)
+            {
+                continue;
+            }
+
+            // Check if the hit collider is the player
             if (hit.collider.gameObject.CompareTag("PlayerTag"))
             {
                 Debug.DrawLine(transform.position, Player.transform.position, Color.red);
                 lastSeenX = Player.transform.position.x;
                 lastSeenY = Player.transform.position.y;
                 ret = true;
+                break;
             }
             else
             {
+                // Line of sight is blocked by another object
                 Debug.DrawLine(transform.position, Player.transform.position, Color.blue);
+                break;
             }
-            Debug.Log(hit.collider.gameObject);
-            
         }
 
         return ret;
@@ -76,29 +86,41 @@ public class basic_enemy_behavior : MonoBehaviour
     GameObject findNearestEnemy()
     {
         GameObject nearest = null;
-        float dist = 100000f;
-        for (int i = 0; i < enemyObjects.Length; i++)
+        float minDist = float.MaxValue;
+
+        enemyObjects = GameObject.FindGameObjectsWithTag("basic_enemy");
+
+        foreach (GameObject enemy in enemyObjects)
         {
-            if (Vector3.Distance(transform.position,  enemyObjects[i].transform.position) < dist &&
-                enemyObjects[i].GetComponent<basic_enemy_behavior>().hasTarget)
+            if (enemy == this.gameObject)
+                continue;
+
+            basic_enemy_behavior enemyBehavior = enemy.GetComponent<basic_enemy_behavior>();
+            if (enemyBehavior != null && enemyBehavior.hasTarget)
             {
-                hasTarget = true;
-                nearest = enemyObjects[i];
+                float dist = Vector3.Distance(transform.position, enemy.transform.position);
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    nearest = enemy;
+                }
             }
         }
+
         return nearest;
     }
 
     bool isMoving(float x, float y)
     {
-        if (x == lastEnemyX && y == lastEnemyY) 
+        if (Mathf.Approximately(x, lastEnemyX) && Mathf.Approximately(y, lastEnemyY))
+        {
             return false;
+        }
         else
         {
-            lastEnemyX = x; 
+            lastEnemyX = x;
             lastEnemyY = y;
             return true;
         }
     }
 }
-

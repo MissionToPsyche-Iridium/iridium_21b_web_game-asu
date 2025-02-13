@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: -7181453872083157898}
   - component: {fileID: 8652868582898079585}
   - component: {fileID: 4333148301124759205}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: test_enemy1
   m_TagString: basic_enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6734560692120131451
 Transform:
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
+  hasTarget: 1
 --- !u!58 &8652868582898079585
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -147,7 +148,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
