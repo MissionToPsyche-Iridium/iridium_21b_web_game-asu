@@ -6,27 +6,39 @@ using UnityEngine;
 // Updated to have boost mechanic during Sprint 2
 // Updated to have jump forward mechanic during Sprint 3
 // Updated to rotate sprite based on movement direction during Sprint 5
+// Updated to include push-back power-up integration
 public class PlayerMovement : MonoBehaviour
 {
     public CoinManager cm;
     public float moveSpeed = 5f;
-    public float speedBoostMultiplier = 1.5f;  // speed boost grants extra velocity
-    public float boostDuration = 2f;         // boost is 2s long
-    public float boostCooldown = 2f;         // cooldown is 2s long
-    public float boostAvailabilityDuration = 30f; // how long the gear power-up gives the user the ability to boost
+    public float speedBoostMultiplier = 1.5f;  // Speed boost grants extra velocity
+    public float boostDuration = 2f;            // Boost lasts for 2 seconds
+    public float boostCooldown = 2f;            // Boost cooldown is 2 seconds
+    public float boostAvailabilityDuration = 30f; // Duration the boost power-up is available
     public float dashAvailabilityDuration = 30f;
-    public float dashDistance = 2.5f;        // how far to jump forward on double press
-    public float doublePressThreshold = 0.3f; // max time between double presses
-    public float dashCooldown = 2f;          // 2-second cooldown for dashing
+    public float dashDistance = 2.5f;           // Distance covered during a dash
+    public float doublePressThreshold = 0.3f;   // Max time between double presses for dash
+    public float dashCooldown = 2f;              // 2-second cooldown for dashing
+
+    // --- Push-Back Power-Up Variables ---
+    [Header("Push-Back Power-Up Settings")]
+    public float pushBackRadius = 5f;            // Radius within which enemies are pushed
+    public float pushBackForce = 500f;           // Force applied to enemies
+    public float pushBackCooldown = 2f;          // Cooldown between push-back activations
+    public float pushBackAvailabilityDuration = 30f; // Duration the push-back ability is available
 
     private bool isBoosting = false;
     private bool isOnCooldown = false;
-    private bool isDashOnCooldown = false;   // flag to track if dashing is on cooldown
+    private bool isDashOnCooldown = false;        // Flag to track if dashing is on cooldown
     private bool canUseBoost = false;
     private bool canUseDash = false;
 
-    private float lastPressTimeX = -1f;      // track last press time for X-axis
-    private float lastPressTimeY = -1f;      // track last press time for Y-axis
+    // --- Push-Back State Flags ---
+    private bool canUsePushBack = false;
+    private bool isPushBackOnCooldown = false;
+
+    private float lastPressTimeX = -1f;           // Track last press time for X-axis
+    private float lastPressTimeY = -1f;           // Track last press time for Y-axis
 
     private Vector3 lastNonZeroMovement = Vector3.zero; // Tracks the last non-zero movement for rotation
     public Animator animator;
@@ -37,32 +49,29 @@ public class PlayerMovement : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
 
         Vector3 movement = new Vector3(moveX, moveY, 0).normalized;
-        if (!animator.GetBool("Death")) {
-            transform.position +=  moveSpeed * Time.deltaTime * movement;
-
+        if (!animator.GetBool("Death"))
+        {
+            transform.position += moveSpeed * Time.deltaTime * movement;
             direction(movement);
         }
 
-        // Rotate the sprite based on movement
-        //RotateSprite(movement);
-
-        // Will speed boost if not on cooldown and not currently boosting
+        // Handle Speed Boost Activation
         if (Input.GetKeyDown(KeyCode.Space) && canUseBoost && !isBoosting && !isOnCooldown)
         {
             StartCoroutine(SpeedBoost());
         }
 
-        // Handle X-axis jump forward
-        if (Input.GetButtonDown("Horizontal") && !isDashOnCooldown)
+        // Handle X-axis Dash
+        if (Input.GetButtonDown("Horizontal") && canUseDash && !isDashOnCooldown)
         {
-            if (Time.time - lastPressTimeX < doublePressThreshold) // checks if keys were pressed rapidly in succession
+            if (Time.time - lastPressTimeX < doublePressThreshold) // Checks for rapid double press
             {
                 Dash(Vector3.right * Mathf.Sign(Input.GetAxisRaw("Horizontal")));
             }
             lastPressTimeX = Time.time;
         }
 
-        // Handle Y-axis jump forward
+        // Handle Y-axis Dash
         if (Input.GetButtonDown("Vertical") && canUseDash && !isDashOnCooldown)
         {
             if (Time.time - lastPressTimeY < doublePressThreshold)
@@ -70,6 +79,13 @@ public class PlayerMovement : MonoBehaviour
                 Dash(Vector3.up * Mathf.Sign(Input.GetAxisRaw("Vertical")));
             }
             lastPressTimeY = Time.time;
+        }
+
+        // --- Push-Back Activation ---
+        if (Input.GetKeyDown(KeyCode.P) && canUsePushBack && !isPushBackOnCooldown)
+        {
+           Debug.Log("Pushback activated");
+           ActivatePushBack();
         }
     }
 
@@ -88,28 +104,29 @@ public class PlayerMovement : MonoBehaviour
         isDashOnCooldown = false;               // Dash is no longer on cooldown
     }
 
-    // Speed boost method
+    // Speed boost coroutine
     IEnumerator SpeedBoost()
     {
         isBoosting = true;
         moveSpeed *= speedBoostMultiplier;
 
-        yield return new WaitForSeconds(boostDuration);  // Give boost for 2 seconds
+        yield return new WaitForSeconds(boostDuration);  // Boost lasts for specified duration
 
-        moveSpeed /= speedBoostMultiplier;  // After 2 seconds, revert to normal speed
+        moveSpeed /= speedBoostMultiplier;  // Revert to normal speed
         isBoosting = false;
 
         StartCoroutine(SpeedBoostCooldown());  // Start cooldown coroutine for speed boost
     }
 
-    // Speed boost cooldown method
+    // Speed boost cooldown coroutine
     IEnumerator SpeedBoostCooldown()
     {
         isOnCooldown = true;
-        yield return new WaitForSeconds(boostCooldown);  // Cooldown is 2 seconds long
+        yield return new WaitForSeconds(boostCooldown);  // Cooldown duration
         isOnCooldown = false;
     }
 
+    // Boost availability coroutine
     IEnumerator BoostAvailability()
     {
         canUseBoost = true;
@@ -120,6 +137,8 @@ public class PlayerMovement : MonoBehaviour
         canUseBoost = false;
         Debug.Log("Speed Boost availability ended.");
     }
+
+    // Dash availability coroutine
     IEnumerator DashAvailability()
     {
         canUseDash = true;
@@ -129,6 +148,56 @@ public class PlayerMovement : MonoBehaviour
 
         canUseDash = false;
         Debug.Log("Dash Availability Ended.");
+    }
+
+    // --- Push-Back Availability Coroutine ---
+    IEnumerator PushBackAvailability()
+    {
+        canUsePushBack = true;
+        Debug.Log("Push-Back activated! You have 30 seconds to use it.");
+
+        yield return new WaitForSeconds(pushBackAvailabilityDuration);
+
+        canUsePushBack = false;
+        Debug.Log("Push-Back availability ended.");
+    }
+
+    // --- Push-Back Cooldown Coroutine ---
+    IEnumerator PushBackCooldown()
+    {
+        isPushBackOnCooldown = true;
+        yield return new WaitForSeconds(pushBackCooldown);  // Cooldown duration
+        isPushBackOnCooldown = false;
+    }
+
+    // Function to activate push-back
+    void ActivatePushBack()
+    {
+        Debug.Log("ActivatePushBack called");
+
+        // Find all colliders within the pushBackRadius
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, pushBackRadius);
+        Debug.Log($"Found {hitColliders.Length} colliders within radius");
+
+        foreach (Collider2D collider in hitColliders)
+        {
+            if (collider.CompareTag("basic_enemy"))
+            {
+                Debug.Log($"Pushing back enemy: {collider.name}");
+                Rigidbody2D enemyRb = collider.GetComponent<Rigidbody2D>();
+                if (enemyRb != null)
+                {
+                    Vector2 direction = (collider.transform.position - transform.position).normalized;
+                    enemyRb.AddForce(direction * pushBackForce);
+                }
+                else
+                {
+                    Debug.LogWarning($"Enemy {collider.name} does not have a Rigidbody2D component.");
+                }
+            }
+        }
+
+        StartCoroutine(PushBackCooldown());
     }
 
     // Handle collisions between trigger objects and player object
@@ -149,15 +218,22 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(DashAvailability());
             Destroy(other.gameObject);
         }
+        else if (other.gameObject.CompareTag("PushBack")) // --- Handle Push-Back Power-Up ---
+        {
+            StartCoroutine(PushBackAvailability());
+            Destroy(other.gameObject);
+        }
     }
-    void direction(Vector3 move) {
 
-        if (move.sqrMagnitude > 0) {
+    void direction(Vector3 move)
+    {
+        if (move.sqrMagnitude > 0)
+        {
             animator.SetFloat("x", move.x);
             animator.SetFloat("y", move.y);
         }
-
     }
+
     // Rotate the sprite based on movement direction
     void RotateSprite(Vector3 movement)
     {
@@ -167,5 +243,15 @@ public class PlayerMovement : MonoBehaviour
             float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg; // Calculate angle
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 180)); // Rotate sprite (offset to face "north")
         }
+    }
+
+    // --- Optional: Visualize Push-Back Radius in Editor ---
+    private void OnDrawGizmosSelected()
+    {
+        // Existing Gizmos (if any)
+
+        // Draw Push-Back Radius
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, pushBackRadius);
     }
 }
