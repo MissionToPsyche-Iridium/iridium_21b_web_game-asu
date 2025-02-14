@@ -1163,7 +1163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 617441151782884097, guid: c33049a0f6e085548a5e489fc68ca243, type: 3}
   firePoint: {fileID: 281871028}
-  fireRate: 10
+  fireRate: 3
 --- !u!1 &281871027
 GameObject:
   m_ObjectHideFlags: 0
@@ -1189,7 +1189,7 @@ Transform:
   m_GameObject: {fileID: 281871027}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1506,7 +1506,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 437f92408c07ee44cbeff5d3df1cc64c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -6697,11 +6697,11 @@ RectTransform:
   - {fileID: 1875039268}
   m_Father: {fileID: 648509643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 467, y: 246}
-  m_SizeDelta: {x: 58.0558, y: 69.4995}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -53.972168, y: -10}
+  m_SizeDelta: {x: 58.055786, y: 69.49951}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &1192885692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8480,7 +8480,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10.486, y: 7.6251}
+  m_AnchoredPosition: {x: 10.486, y: 7.625107}
   m_SizeDelta: {x: 79.028, y: 84.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1875039269

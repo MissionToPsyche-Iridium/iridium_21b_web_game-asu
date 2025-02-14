@@ -6,7 +6,7 @@ public class AutoShooter : MonoBehaviour
 {
     public GameObject projectilePrefab; // Assign your Projectile prefab here
     public Transform firePoint; // Assign an empty child transform on the player where projectiles spawn
-    public float fireRate = 1f; // How many seconds between shots
+    public float fireRate = 2.5f; // How many seconds between shots
     private float nextFireTime = 0f;
 
     // Start is called before the first frame update
