@@ -13,11 +13,12 @@ TagManager:
   - Rocket
   - dash_enemy
   - shoot_enemy
+  - PushBack
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Projectiles
   - Water
   - UI
   - 
