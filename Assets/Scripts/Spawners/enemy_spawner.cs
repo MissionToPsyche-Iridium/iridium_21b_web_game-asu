@@ -12,7 +12,7 @@ public class enemy_spawner : MonoBehaviour
     public float levelMaxX;
     public float levelMinX;
     private float randTimer = 0;
-    private float randSpawnrate = .7f;
+    private float randSpawnrate = .5f;
     private float randX;
     private float randY;
     private float randYPos, randXPos;
@@ -36,7 +36,7 @@ public class enemy_spawner : MonoBehaviour
         {
             randTimer += Time.deltaTime;
         }
-        else if (numEnemies < 20)
+        else if (numEnemies < 100)
         {
             randXNeg = (float)UnityEngine.Random.Range(levelMinX, Player.transform.position.x);
             randYNeg = (float)UnityEngine.Random.Range(levelMinY, Player.transform.position.y);

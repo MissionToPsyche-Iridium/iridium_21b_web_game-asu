@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float speed = 10f; // How fast the projectile travels
-    public int damageAmount = 50; // Damage dealt to the enemy
+    public int damageAmount = 34; // Damage dealt to the enemy
     public float lifetime = 2f; // How long the projectile exists
     private Vector3 moveDirection;
 

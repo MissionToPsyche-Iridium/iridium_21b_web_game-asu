@@ -9,6 +9,11 @@ using UnityEngine;
 // Updated to include push-back power-up integration
 public class PlayerMovement : MonoBehaviour
 {
+
+    private Health health;
+    public int curHealth;
+    public int maxHealth;
+
     public CoinManager cm;
     public float moveSpeed = 5f;
     public float speedBoostMultiplier = 1.5f;  // Speed boost grants extra velocity
@@ -42,6 +47,11 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 lastNonZeroMovement = Vector3.zero; // Tracks the last non-zero movement for rotation
     public Animator animator;
+
+    private void Start()
+    {
+        health = GetComponent<Health>();
+    }
 
     void Update()
     {
@@ -203,6 +213,11 @@ public class PlayerMovement : MonoBehaviour
     // Handle collisions between trigger objects and player object
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.CompareTag("basic_enemy"))
+        {
+            health.DamagePlayer(10);
+        }
+
         if (other.gameObject.CompareTag("Coin"))
         {
             cm.coinCount++;
