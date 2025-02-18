@@ -21,7 +21,7 @@ public class enemy_spawner : MonoBehaviour
     private float randYNeg, randXNeg;
     private int numEnemies = 0;
     private int waveNumber = 1;
-    private int maxWaveEnemies = 20;
+    private int maxWaveEnemies = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +51,7 @@ public class enemy_spawner : MonoBehaviour
         if (numEnemies >= maxWaveEnemies)
         {
             numEnemies = 0;
-            maxWaveEnemies += 10;
+            maxWaveEnemies += 5;
             waveNumber++;
             Debug.Log("Entering Wave: " + waveNumber);
         }
