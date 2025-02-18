@@ -13,6 +13,7 @@ public class enemy_spawner : MonoBehaviour
     public float levelMinY;//which enemies spawn
     public float levelMaxX;//--------
     public float levelMinX;//--------
+    private GameObject[] enemies;
     private float randTimer = 0;
     private float randSpawnrate = .7f;
     private float randX;
@@ -31,6 +32,7 @@ public class enemy_spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        enemies = GameObject.FindGameObjectsWithTag("basic_enemy");
         randomSpawner();
     }
 
@@ -43,12 +45,11 @@ public class enemy_spawner : MonoBehaviour
         else if (numEnemies < maxWaveEnemies)
         {
             spawnEnemy();
-            numEnemies++;
             randTimer = 0;
         }
 
         //Move on to next wave
-        if (numEnemies >= maxWaveEnemies)
+        if (numEnemies == maxWaveEnemies && enemies.Length == 0)
         {
             numEnemies = 0;
             maxWaveEnemies += 5;
@@ -76,6 +77,7 @@ public class enemy_spawner : MonoBehaviour
             default:
                 break;
         }
+        numEnemies++;
     }
 
     void getRandCoord()
