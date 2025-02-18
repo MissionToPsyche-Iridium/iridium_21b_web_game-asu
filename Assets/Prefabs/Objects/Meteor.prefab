@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingYPos: 0
-  dropSpeed: 5
+  dropSpeed: 4
   destroyY: 0
   destroyX: 0
   hitRadius: 0.5

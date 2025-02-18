@@ -7,6 +7,10 @@ public class dash_enemy_script : MonoBehaviour
     public GameObject Player;
     public float speed = 2.0f;
     private Vector3 dash_location;
+    private float lastSeenX;
+    private float lastSeenY;
+    private float lastEnemyX;
+    private float lastEnemyY;
     public float dashSpeed = 8.0f;
     public float waitTimeAfterDash = 3.0f; // Time to wait after dashing
     private bool isDashing = false;
@@ -29,7 +33,14 @@ public class dash_enemy_script : MonoBehaviour
         // Check if enemy should dash
         if (!isDashing && distance <= 4.0f)
         {
-            dash_location = Player.transform.position; // Capture the player's position for dashing
+            if (hasLineOfSight())
+            {
+                dash_location = Player.transform.position; // Capture the player's position for dashing
+            }
+            else
+            {
+                dash_location = new Vector3(lastSeenX, lastSeenY, 0);
+            }
             isDashing = true;
         }
 
@@ -37,6 +48,7 @@ public class dash_enemy_script : MonoBehaviour
         if (isDashing)
         {
             transform.position = Vector3.MoveTowards(transform.position, dash_location, dashSpeed * Time.deltaTime);
+            
 
             // Stop dashing when reaching the target
             if (Vector3.Distance(transform.position, dash_location) < 0.1f)
@@ -61,5 +73,40 @@ public class dash_enemy_script : MonoBehaviour
 
         Debug.Log("Resuming movement.");
         isWaiting = false; // Resume movement
+    }
+
+    bool hasLineOfSight()
+    {
+        bool ret = false;
+
+        // Perform the Linecast and get all hits
+        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, Player.transform.position);
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            // Skip the enemy's own collider
+            if (hit.collider.gameObject == this.gameObject)
+            {
+                continue;
+            }
+
+            // Check if the hit collider is the player
+            if (hit.collider.gameObject.CompareTag("PlayerTag"))
+            {
+                Debug.DrawLine(transform.position, Player.transform.position, Color.red);
+                lastSeenX = Player.transform.position.x;
+                lastSeenY = Player.transform.position.y;
+                ret = true;
+                break;
+            }
+            else
+            {
+                // Line of sight is blocked by another object
+                Debug.DrawLine(transform.position, Player.transform.position, Color.blue);
+                break;
+            }
+        }
+
+        return ret;
     }
 }

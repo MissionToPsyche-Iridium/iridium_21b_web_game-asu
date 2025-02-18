@@ -6,7 +6,7 @@ public class projectile_behavior : MonoBehaviour
 {
     public GameObject Player;
     private Vector3 dest;
-    private float speed = 12.0f;
+    private float speed = 9.0f;
     // Start is called before the first frame update
     void Start()
     {

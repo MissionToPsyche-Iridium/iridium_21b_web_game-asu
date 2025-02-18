@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 8652868582898079585}
   - component: {fileID: 4333148301124759205}
   - component: {fileID: 8385916206831732880}
+  - component: {fileID: 7762960953214339670}
   m_Layer: 2
   m_Name: dash_enemy
-  m_TagString: dash_enemy
+  m_TagString: basic_enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,5 +164,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   speed: 2
-  destination_set: 0
-  dash_location: {x: 0, y: 0, z: 0}
+  dashSpeed: 8
+  waitTimeAfterDash: 3
+--- !u!114 &7762960953214339670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6899617583450277495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87bf2d21b0481284facc7a7d529137a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
