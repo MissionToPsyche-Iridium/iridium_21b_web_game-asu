@@ -45,7 +45,6 @@ public class enemy_spawner : MonoBehaviour
             randX = UnityEngine.Random.Range(0,2) == 1 ? randXNeg : randXPos;
             randY = UnityEngine.Random.Range(0,2) == 1 ? randYNeg : randYPos;
 
-            Debug.Log(randX + " " + randY);
             Instantiate(Enemy, new Vector3(randX, randY, 1), transform.rotation);
             numEnemies++;
             randTimer = 0;
