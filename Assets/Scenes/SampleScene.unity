@@ -8549,6 +8549,18 @@ PrefabInstance:
       propertyPath: levelMinY
       value: -7
       objectReference: {fileID: 0}
+    - target: {fileID: 5714734533695841802, guid: 62df138f3b8933044a5c1b3e32b972ab, type: 3}
+      propertyPath: EnemyType1
+      value: 
+      objectReference: {fileID: 6899617583450277495, guid: 28416c412767f4c4081c99277c033c6d, type: 3}
+    - target: {fileID: 5714734533695841802, guid: 62df138f3b8933044a5c1b3e32b972ab, type: 3}
+      propertyPath: EnemyType2
+      value: 
+      objectReference: {fileID: 6899617583450277495, guid: ca8f6c7f494b423479cbabe4f8d04a25, type: 3}
+    - target: {fileID: 5714734533695841802, guid: 62df138f3b8933044a5c1b3e32b972ab, type: 3}
+      propertyPath: EnemyType3
+      value: 
+      objectReference: {fileID: 6899617583450277495, guid: ac9e64a9be1042746be9988900e40047, type: 3}
     - target: {fileID: 7408083700682426458, guid: 62df138f3b8933044a5c1b3e32b972ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.230181

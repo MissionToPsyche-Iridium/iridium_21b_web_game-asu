@@ -11,6 +11,8 @@ TagManager:
   - Gear
   - basic_enemy
   - Rocket
+  - dash_enemy
+  - shoot_enemy
   - PushBack
   layers:
   - Default

@@ -188,7 +188,9 @@ public class PlayerMovement : MonoBehaviour
 
         foreach (Collider2D collider in hitColliders)
         {
-            if (collider.CompareTag("basic_enemy"))
+            if (collider.CompareTag("basic_enemy") ||
+                collider.CompareTag("dash_enemy") ||
+                collider.CompareTag("shoot_enemy"))
             {
                 Debug.Log($"Pushing back enemy: {collider.name}");
                 Rigidbody2D enemyRb = collider.GetComponent<Rigidbody2D>();
