@@ -61,9 +61,8 @@ public class enemy_spawner : MonoBehaviour
     void spawnEnemy()
     {
         getRandCoord();
-        /*
         float randomEnemy = UnityEngine.Random.Range(0, 3);
-        
+
         switch(randomEnemy)
         {
             case 0:
@@ -78,8 +77,6 @@ public class enemy_spawner : MonoBehaviour
             default:
                 break;
         }
-        */
-        Instantiate(EnemyType1, new Vector3(randX, randY, 1), transform.rotation);
         numEnemies++;
     }
 

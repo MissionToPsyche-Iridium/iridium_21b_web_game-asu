@@ -8,14 +8,18 @@ public class basic_enemy_behavior : MonoBehaviour
 {
     public GameObject Player;
     public bool hasTarget = false;
-    public float[][] nodeList = new float[][]{ new float[]{ 6.0f, 6.0f }, new float[]{-8.0f, 9.0f }, new float[]{ 7.0f, 5.0f } };
+    public float[][] nodeList = new float[][]{ new float[]{ 6.0f, -6.0f }, new float[]{-8.0f, 9.0f }, new float[]{ 7.0f, 4.0f } };
     private float lastSeenX;
     private float lastSeenY;
     private float speed = 2.0f;
+    private int currentNode = 0;
+    public int[] nodeSeq;
     private GameObject[] enemyObjects;
 
     void Start()
     {
+        lastSeenX = transform.position.x;
+        lastSeenY = transform.position.y;
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
     }
 
@@ -31,17 +35,36 @@ public class basic_enemy_behavior : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
         }
         // Once line of sight breaks, move towards where the player was last seen
-        else
+        else if (hasTarget)
         {
-            hasTarget = false;
             speed = 2.5f;
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
         }
 
-        // If not moving, find the nearest enemy that has a target
-        if (!isMoving(transform.position.x, transform.position.y))
+        // If the enemy reaches the last seen and it still doesnt have line of sight, no longer has target
+        if (transform.position.x == lastSeenX && transform.position.y == lastSeenY && !hasLineOfSight())
         {
-            Debug.Log("NOOOOOOOOOOOOOOOT MOOOOOOVING");
+            hasTarget = false;
+            nodeSeq = generateNodeSequence();
+        }
+        // If the enemy doesnt have a target
+        if (!hasTarget)
+        {
+            //if player is at node select next node
+            if (transform.position.x > nodeList[nodeSeq[currentNode]][0] - 2 && 
+                transform.position.x < nodeList[nodeSeq[currentNode]][0] + 2 &&
+                transform.position.y > nodeList[nodeSeq[currentNode]][1] - 2 &&
+                transform.position.y < nodeList[nodeSeq[currentNode]][1] + 2)
+            {
+                currentNode++;
+                if (currentNode == 3)
+                {
+                    currentNode = 0;
+                }
+            }
+            //move towards current node
+            Debug.Log("Moving towards " + nodeSeq[currentNode]);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(nodeList[nodeSeq[currentNode]][0], nodeList[nodeSeq[currentNode]][1]), step);
         }
     }
 

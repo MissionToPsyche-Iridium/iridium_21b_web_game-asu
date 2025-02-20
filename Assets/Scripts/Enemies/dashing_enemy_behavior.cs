@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,16 +10,20 @@ public class dash_enemy_script : MonoBehaviour
     private Vector3 dash_location;
     private float lastSeenX;
     private float lastSeenY;
-    private float lastEnemyX;
-    private float lastEnemyY;
     public float dashSpeed = 8.0f;
     public float waitTimeAfterDash = 3.0f; // Time to wait after dashing
+    public float[][] nodeList = new float[][] { new float[] { 6.0f, -6.0f }, new float[] { -8.0f, 9.0f }, new float[] { 7.0f, 4.0f } };
+    private int[] nodeSeq;
+    private int currentNode = 0;
+    private bool hasTarget = false;
     private bool isDashing = false;
     private bool isWaiting = false;
     
     // Start is called before the first frame update
     void Start()
     {
+        lastSeenX = transform.position.x;
+        lastSeenY = transform.position.y;
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
     }
 
@@ -35,12 +40,14 @@ public class dash_enemy_script : MonoBehaviour
         {
             if (hasLineOfSight())
             {
+                hasTarget = true;
                 dash_location = Player.transform.position; // Capture the player's position for dashing
             }
             else
             {
                 dash_location = new Vector3(lastSeenX, lastSeenY, 0);
             }
+
             isDashing = true;
         }
 
@@ -58,8 +65,44 @@ public class dash_enemy_script : MonoBehaviour
         }
         else
         {
-            // Regular movement towards the player
-            transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
+            if (hasLineOfSight())
+            {
+                hasTarget = true;
+                speed = 2.0f;
+                transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
+            }
+            // Once line of sight breaks, move towards where the player was last seen
+            else if (hasTarget)
+            {
+                speed = 2.5f;
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
+            }
+
+            // If the enemy reaches the last seen and it still doesnt have line of sight, no longer has target
+            if (transform.position.x == lastSeenX && transform.position.y == lastSeenY && !hasLineOfSight())
+            {
+                hasTarget = false;
+                nodeSeq = generateNodeSequence();
+            }
+            // If the enemy doesnt have a target
+            if (!hasTarget)
+            {
+                //if player is at node select next node
+                if (transform.position.x > nodeList[nodeSeq[currentNode]][0] - 2 &&
+                    transform.position.x < nodeList[nodeSeq[currentNode]][0] + 2 &&
+                    transform.position.y > nodeList[nodeSeq[currentNode]][1] - 2 &&
+                    transform.position.y < nodeList[nodeSeq[currentNode]][1] + 2)
+                {
+                    currentNode++;
+                    if (currentNode == 3)
+                    {
+                        currentNode = 0;
+                    }
+                }
+                //move towards current node
+                Debug.Log("Moving towards " + nodeSeq[currentNode]);
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(nodeList[nodeSeq[currentNode]][0], nodeList[nodeSeq[currentNode]][1]), step);
+            }
         }
     }
 
@@ -68,11 +111,29 @@ public class dash_enemy_script : MonoBehaviour
         isDashing = false; // Stop dashing
         isWaiting = true;  // Prevent movement
 
-        Debug.Log("Waiting for " + waitTimeAfterDash + " seconds...");
         yield return new WaitForSeconds(waitTimeAfterDash);
 
-        Debug.Log("Resuming movement.");
         isWaiting = false; // Resume movement
+    }
+
+    int[] generateNodeSequence()
+    {
+        Dictionary<float, int> index_distance_pair = new Dictionary<float, int>();
+        float[] distance = new float[nodeList.Length];
+        int[] indexes = new int[nodeList.Length];
+
+        for (int i = 0; i < nodeList.Length; i++)
+        {
+            distance[i] = Vector3.Distance(transform.position, new Vector3(nodeList[i][0], nodeList[i][1]));
+            index_distance_pair.Add(distance[i], i);
+        }
+        Array.Sort(distance);
+
+        for (int i = 0; i < distance.Length; i++)
+        {
+            indexes[i] = index_distance_pair[distance[i]];
+        }
+        return indexes;
     }
 
     bool hasLineOfSight()
