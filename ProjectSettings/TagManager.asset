@@ -14,6 +14,7 @@ TagManager:
   - dash_enemy
   - shoot_enemy
   - PushBack
+  - enemy_projectile
   layers:
   - Default
   - TransparentFX

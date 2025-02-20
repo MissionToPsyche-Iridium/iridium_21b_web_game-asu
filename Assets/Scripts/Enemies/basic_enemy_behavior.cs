@@ -1,15 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class basic_enemy_behavior : MonoBehaviour
 {
     public GameObject Player;
     public bool hasTarget = false;
+    public float[][] nodeList = new float[][]{ new float[]{ 6.0f, 6.0f }, new float[]{-8.0f, 9.0f }, new float[]{ 7.0f, 5.0f } };
     private float lastSeenX;
     private float lastSeenY;
-    private float lastEnemyX;
-    private float lastEnemyY;
     private float speed = 2.0f;
     private GameObject[] enemyObjects;
 
@@ -40,11 +41,7 @@ public class basic_enemy_behavior : MonoBehaviour
         // If not moving, find the nearest enemy that has a target
         if (!isMoving(transform.position.x, transform.position.y))
         {
-            GameObject nearest = findNearestEnemy();
-            if (nearest != null)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, nearest.transform.position, step);
-            }
+            Debug.Log("NOOOOOOOOOOOOOOOT MOOOOOOVING");
         }
     }
 
@@ -83,43 +80,35 @@ public class basic_enemy_behavior : MonoBehaviour
         return ret;
     }
 
-    GameObject findNearestEnemy()
+    int[] generateNodeSequence()
     {
-        GameObject nearest = null;
-        float minDist = float.MaxValue;
+        Dictionary<float, int> index_distance_pair = new Dictionary<float, int>();
+        float[] distance = new float[nodeList.Length];
+        int[] indexes = new int[nodeList.Length];
 
-        enemyObjects = GameObject.FindGameObjectsWithTag("basic_enemy");
-
-        foreach (GameObject enemy in enemyObjects)
+        for (int i = 0; i < nodeList.Length; i++)
         {
-            if (enemy == this.gameObject)
-                continue;
+            distance[i] = Vector3.Distance(transform.position, new Vector3(nodeList[i] [0], nodeList[i][1]));
+            index_distance_pair.Add(distance[i], i);
+        }
+        Array.Sort(distance);
 
-            basic_enemy_behavior enemyBehavior = enemy.GetComponent<basic_enemy_behavior>();
-            if (enemyBehavior != null && enemyBehavior.hasTarget)
-            {
-                float dist = Vector3.Distance(transform.position, enemy.transform.position);
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                    nearest = enemy;
-                }
-            }
+        for (int i = 0; i < distance.Length; i++)
+        {
+            indexes[i] = index_distance_pair[distance[i]];
         }
 
-        return nearest;
+        return indexes;
     }
 
     bool isMoving(float x, float y)
     {
-        if (Mathf.Approximately(x, lastEnemyX) && Mathf.Approximately(y, lastEnemyY))
+        if (Mathf.Approximately(x, lastSeenX) && Mathf.Approximately(y, lastSeenY))
         {
             return false;
         }
         else
         {
-            lastEnemyX = x;
-            lastEnemyY = y;
             return true;
         }
     }

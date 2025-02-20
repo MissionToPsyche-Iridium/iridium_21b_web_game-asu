@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
 
         Vector3 movement = new Vector3(moveX, moveY, 0).normalized;
-        if (!animator.GetBool("Death"))
+        if (!animator.GetBool("death"))
         {
             transform.position += moveSpeed * Time.deltaTime * movement;
             direction(movement);
@@ -212,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
     // Handle collisions between trigger objects and player object
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("basic_enemy"))
+        if (other.gameObject.CompareTag("basic_enemy") || other.gameObject.CompareTag("enemy_projectile"))
         {
             health.DamagePlayer(10);
         }
