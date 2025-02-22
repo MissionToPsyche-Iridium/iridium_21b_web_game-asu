@@ -85,7 +85,7 @@ public class dash_enemy_script : MonoBehaviour
                 nodeSeq = generateNodeSequence();
             }
             // If the enemy doesnt have a target
-            if (!hasTarget)
+            if (!hasTarget && nodeSeq != null)
             {
                 //if player is at node select next node
                 if (transform.position.x > nodeList[nodeSeq[currentNode]][0] - 2 &&
@@ -100,7 +100,6 @@ public class dash_enemy_script : MonoBehaviour
                     }
                 }
                 //move towards current node
-                Debug.Log("Moving towards " + nodeSeq[currentNode]);
                 transform.position = Vector3.MoveTowards(transform.position, new Vector3(nodeList[nodeSeq[currentNode]][0], nodeList[nodeSeq[currentNode]][1]), step);
             }
         }
