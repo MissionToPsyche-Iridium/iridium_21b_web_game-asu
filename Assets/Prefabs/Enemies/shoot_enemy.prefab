@@ -179,8 +179,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 1500
-  healthBar: {fileID: 0}
+  currentHealth: 100
+  healthBar: {fileID: 3945409782440782652}
 --- !u!58 &5305748641073265508
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -277,6 +277,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ee69bf6afc165e4e84811066a33e86a, type: 3}
+--- !u!1 &3945409782440782652 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7084631434066656919, guid: 5ee69bf6afc165e4e84811066a33e86a, type: 3}
+  m_PrefabInstance: {fileID: 6093726038437664171}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8694480689531528038 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3186371043218765517, guid: 5ee69bf6afc165e4e84811066a33e86a, type: 3}

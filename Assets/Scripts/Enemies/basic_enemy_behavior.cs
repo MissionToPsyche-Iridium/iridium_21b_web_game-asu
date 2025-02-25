@@ -123,6 +123,7 @@ public class basic_enemy_behavior : MonoBehaviour
         return indexes;
     }
 
+    
     bool isMoving(float x, float y)
     {
         if (Mathf.Approximately(x, lastSeenX) && Mathf.Approximately(y, lastSeenY))
@@ -134,4 +135,5 @@ public class basic_enemy_behavior : MonoBehaviour
             return true;
         }
     }
+    
 }

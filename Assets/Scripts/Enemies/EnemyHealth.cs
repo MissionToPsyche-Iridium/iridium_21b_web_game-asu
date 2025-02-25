@@ -9,10 +9,12 @@ public class EnemyHealth : MonoBehaviour
     public GameObject healthBar;
     private float newXScale;
     private Vector3 healthBar_Scale;
+    private Vector3 healthBar_Pos;
     // Start is called before the first frame update
     void Start()
     {
         healthBar_Scale = healthBar.transform.localScale;
+        healthBar_Pos = healthBar.transform.localPosition;
     }
 
     public void TakeDamage(int amount)
@@ -22,6 +24,7 @@ public class EnemyHealth : MonoBehaviour
             currentHealth -= amount;
             newXScale = (float)currentHealth / maxHealth;
             healthBar.transform.localScale = new Vector3(newXScale, healthBar_Scale.y, healthBar_Scale.z);
+            healthBar.transform.localPosition = new Vector3(-1 * ((1 - newXScale)/2), healthBar_Pos.y, healthBar_Pos.z);
         } 
         else
         {
