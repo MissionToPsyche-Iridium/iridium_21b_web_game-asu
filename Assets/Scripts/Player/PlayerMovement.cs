@@ -45,8 +45,6 @@ public class PlayerMovement : MonoBehaviour
     private float lastPressTimeX = -1f;           // Track last press time for X-axis
     private float lastPressTimeY = -1f;           // Track last press time for Y-axis
 
-    private Health health;
-
     private Vector3 lastNonZeroMovement = Vector3.zero; // Tracks the last non-zero movement for rotation
     public Animator animator;
 
