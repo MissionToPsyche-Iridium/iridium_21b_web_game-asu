@@ -9,6 +9,11 @@ using UnityEngine;
 // Updated to include push-back power-up integration
 public class PlayerMovement : MonoBehaviour
 {
+
+    private Health health;
+    public int curHealth;
+    public int maxHealth;
+
     public CoinManager cm;
     public float moveSpeed = 5f;
     public float speedBoostMultiplier = 1.5f;  // Speed boost grants extra velocity
@@ -39,8 +44,6 @@ public class PlayerMovement : MonoBehaviour
 
     private float lastPressTimeX = -1f;           // Track last press time for X-axis
     private float lastPressTimeY = -1f;           // Track last press time for Y-axis
-
-    private Health health;
 
     private Vector3 lastNonZeroMovement = Vector3.zero; // Tracks the last non-zero movement for rotation
     public Animator animator;

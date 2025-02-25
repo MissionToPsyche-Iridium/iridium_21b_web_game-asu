@@ -15,7 +15,7 @@ public class enemy_spawner : MonoBehaviour
     public float levelMinX;//--------
     private GameObject[] enemies;
     private float randTimer = 0;
-    private float randSpawnrate = .7f;
+    private float randSpawnrate = .5f;
     private float randX;
     private float randY;
     private float randYPos, randXPos;
