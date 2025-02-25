@@ -11,9 +11,14 @@ public class Health : MonoBehaviour
     public Animator animator;
     public GameObject gameOverScreen; // Reference to Game Over UI
 
+    // Damage audio vars
+    public AudioClip damageSFX;
+    private AudioSource damageSFXfile;
+
     void Start()
     {
         curHealth = maxHealth;
+        damageSFXfile = GetComponent<AudioSource>();
 
         // Ensure Game Over screen is hidden at start
         if (gameOverScreen != null)
@@ -34,6 +39,7 @@ public class Health : MonoBehaviour
     {
         curHealth -= damage;
         healthBar.SetHealth(curHealth);
+        damageSFXfile.PlayOneShot(damageSFX, .75f); // Play damage audio 
 
         if (curHealth <= 0)
         {

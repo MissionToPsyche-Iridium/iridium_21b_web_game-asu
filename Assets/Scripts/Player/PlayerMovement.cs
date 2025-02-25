@@ -45,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
     private float lastPressTimeX = -1f;           // Track last press time for X-axis
     private float lastPressTimeY = -1f;           // Track last press time for Y-axis
 
+    private Health health;
+
     private Vector3 lastNonZeroMovement = Vector3.zero; // Tracks the last non-zero movement for rotation
     public Animator animator;
 
@@ -59,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
 
         Vector3 movement = new Vector3(moveX, moveY, 0).normalized;
-        if (!animator.GetBool("Death"))
+        if (!animator.GetBool("death"))
         {
             transform.position += moveSpeed * Time.deltaTime * movement;
             direction(movement);
@@ -191,7 +193,9 @@ public class PlayerMovement : MonoBehaviour
 
         foreach (Collider2D collider in hitColliders)
         {
-            if (collider.CompareTag("basic_enemy"))
+            if (collider.CompareTag("basic_enemy") ||
+                collider.CompareTag("dash_enemy") ||
+                collider.CompareTag("shoot_enemy"))
             {
                 Debug.Log($"Pushing back enemy: {collider.name}");
                 Rigidbody2D enemyRb = collider.GetComponent<Rigidbody2D>();
@@ -213,12 +217,11 @@ public class PlayerMovement : MonoBehaviour
     // Handle collisions between trigger objects and player object
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("basic_enemy"))
+        if (other.gameObject.CompareTag("basic_enemy") || other.gameObject.CompareTag("enemy_projectile"))
         {
             health.DamagePlayer(10);
         }
-
-        if (other.gameObject.CompareTag("Coin"))
+        else if (other.gameObject.CompareTag("Coin"))
         {
             cm.coinCount++;
             Destroy(other.gameObject);
