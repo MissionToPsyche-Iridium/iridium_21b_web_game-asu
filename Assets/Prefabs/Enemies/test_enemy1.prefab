@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4333148301124759205}
   - component: {fileID: 3474776129184654195}
   - component: {fileID: 2908680493611904104}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: test_enemy1
   m_TagString: basic_enemy
   m_Icon: {fileID: 0}
@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   hasTarget: 1
+  nodeSeq: 
 --- !u!58 &8652868582898079585
 CircleCollider2D:
   m_ObjectHideFlags: 0
