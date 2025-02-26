@@ -62,7 +62,6 @@ public class enemy_spawner : MonoBehaviour
     {
         getRandCoord();
         float randomEnemy = UnityEngine.Random.Range(0, 3);
-
         switch(randomEnemy)
         {
             case 0:

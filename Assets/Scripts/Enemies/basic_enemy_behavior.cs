@@ -7,20 +7,23 @@ using UnityEngine;
 public class basic_enemy_behavior : MonoBehaviour
 {
     public GameObject Player;
-    public bool hasTarget = false;
-    public float[][] nodeList = new float[][]{ new float[]{ 6.0f, -6.0f }, new float[]{-8.0f, 9.0f }, new float[]{ 7.0f, 4.0f } };
+    public GameObject nodeMap;
+    public Node[] nodeList = new Node[6];
+    private Node currentNode;
+    private GameObject[] enemyObjects;
     private float lastSeenX;
     private float lastSeenY;
     private float speed = 2.0f;
-    private int currentNode = 0;
-    public int[] nodeSeq;
-    private GameObject[] enemyObjects;
+    private bool hasTarget = false;
+    private bool patrolling = false;
 
     void Start()
     {
         lastSeenX = transform.position.x;
         lastSeenY = transform.position.y;
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
+        nodeMap = GameObject.FindGameObjectWithTag("node_map");
+        establishNodes();
     }
 
     void Update()
@@ -28,52 +31,43 @@ public class basic_enemy_behavior : MonoBehaviour
         float step = speed * Time.deltaTime;
 
         // Move towards the player if there is line of sight
-        if (hasLineOfSight())
+        if (hasLineOfSight(Player.transform, "PlayerTag"))
         {
-            hasTarget = true;
-            speed = 2.0f;
-            transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
+            moveTowardsPlayer(step);
         }
         // Once line of sight breaks, move towards where the player was last seen
         else if (hasTarget)
         {
-            speed = 2.5f;
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
+            moveTowardsLast(step);
         }
 
         // If the enemy reaches the last seen and it still doesnt have line of sight, no longer has target
-        if (transform.position.x == lastSeenX && transform.position.y == lastSeenY && !hasLineOfSight())
+        if (transform.position.x < lastSeenX + 2 &&
+            transform.position.x > lastSeenX - 2 &&
+            transform.position.y < lastSeenY + 2 &&
+            transform.position.y > lastSeenY - 2 &&
+            !hasLineOfSight(Player.transform, "PlayerTag"))
         {
             hasTarget = false;
-            nodeSeq = generateNodeSequence();
         }
         // If the enemy doesnt have a target
-        if (!hasTarget && nodeSeq != null)
+        if (!hasTarget && !patrolling)
         {
-            //if player is at node select next node
-            if (transform.position.x > nodeList[nodeSeq[currentNode]][0] - 2 && 
-                transform.position.x < nodeList[nodeSeq[currentNode]][0] + 2 &&
-                transform.position.y > nodeList[nodeSeq[currentNode]][1] - 2 &&
-                transform.position.y < nodeList[nodeSeq[currentNode]][1] + 2)
-            {
-                currentNode++;
-                if (currentNode == 3)
-                {
-                    currentNode = 0;
-                }
-            }
-            //move towards current node
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(nodeList[nodeSeq[currentNode]][0], nodeList[nodeSeq[currentNode]][1]), step);
+            moveToRoute(step);
+        }
+
+        if (patrolling)
+        {
+            patrol(step);
         }
     }
 
-    bool hasLineOfSight()
+    bool hasLineOfSight(Transform target, string tag)
     {
         bool ret = false;
 
         // Perform the Linecast and get all hits
-        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, Player.transform.position);
-
+        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, target.position);
         foreach (RaycastHit2D hit in hits)
         {
             // Skip the enemy's own collider
@@ -83,18 +77,21 @@ public class basic_enemy_behavior : MonoBehaviour
             }
 
             // Check if the hit collider is the player
-            if (hit.collider.gameObject.CompareTag("PlayerTag"))
+            if (hit.collider.gameObject.CompareTag(tag))
             {
-                Debug.DrawLine(transform.position, Player.transform.position, Color.red);
-                lastSeenX = Player.transform.position.x;
-                lastSeenY = Player.transform.position.y;
+                Debug.DrawLine(transform.position, target.position, Color.red);
+                if (tag == "PlayerTag")
+                {
+                    lastSeenX = target.position.x;
+                    lastSeenY = target.position.y;
+                }
                 ret = true;
                 break;
             }
             else
             {
                 // Line of sight is blocked by another object
-                Debug.DrawLine(transform.position, Player.transform.position, Color.blue);
+                Debug.DrawLine(transform.position, target.position, Color.blue);
                 break;
             }
         }
@@ -102,36 +99,88 @@ public class basic_enemy_behavior : MonoBehaviour
         return ret;
     }
 
-    int[] generateNodeSequence()
+    void moveTowardsPlayer(float step)
     {
-        Dictionary<float, int> index_distance_pair = new Dictionary<float, int>();
-        float[] distance = new float[nodeList.Length];
-        int[] indexes = new int[nodeList.Length];
-
-        for (int i = 0; i < nodeList.Length; i++)
-        {
-            distance[i] = Vector3.Distance(transform.position, new Vector3(nodeList[i] [0], nodeList[i][1]));
-            index_distance_pair.Add(distance[i], i);
-        }
-        Array.Sort(distance);
-
-        for (int i = 0; i < distance.Length; i++)
-        {
-            indexes[i] = index_distance_pair[distance[i]];
-        }
-
-        return indexes;
+        hasTarget = true;
+        patrolling = false;
+        speed = 2.0f;
+        transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
     }
 
-    bool isMoving(float x, float y)
+    void moveTowardsLast(float step)
     {
-        if (Mathf.Approximately(x, lastSeenX) && Mathf.Approximately(y, lastSeenY))
+        speed = 2.5f;
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
+    }
+
+    void moveToRoute(float step)
+    {
+        Node start = findNearestSeenNode();
+        Debug.Log(start.node_obj.name);
+        transform.position = Vector3.MoveTowards(transform.position, start.node_obj.position, step);
+        if (transform.position.x < start.node_obj.position.x + 2 &&
+            transform.position.x > start.node_obj.position.x - 2 &&
+            transform.position.y < start.node_obj.position.y + 2 &&
+            transform.position.y > start.node_obj.position.y - 2)
         {
-            return false;
-        }
-        else
-        {
-            return true;
+            currentNode = start;
+            patrolling = true;
         }
     }
+
+    void patrol(float step)
+    {
+        transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
+        if (transform.position.x < currentNode.node_obj.position.x + 2 &&
+            transform.position.x > currentNode.node_obj.position.x - 2 &&
+            transform.position.y < currentNode.node_obj.position.y + 2 &&
+            transform.position.y > currentNode.node_obj.position.y - 2)
+        {
+            currentNode = currentNode.next;
+        }
+    }
+
+    void establishNodes()
+    {
+        int i = 0;
+        foreach (Transform node in nodeMap.transform)
+        {
+            nodeList[i] = new Node(node, nodeMap.transform.position.x, nodeMap.transform.position.y);
+            i++;
+        }
+
+        for (int j = 0; j < 6; j++)
+        {
+            if ((j + 1) == 6)
+            {
+                nodeList[j].next = nodeList[0];
+            }
+            else
+            {
+                nodeList[j].next = nodeList[j + 1];
+            }
+
+        }
+    }
+
+    Node findNearestSeenNode()
+    {
+        Node ret_node = null;
+        float temp_dist;
+        float dist = 1000000f;
+        foreach (Node node in nodeList)
+        {
+            if (hasLineOfSight(node.node_obj, "node"))
+            {
+                temp_dist = Vector3.Distance(node.node_obj.position, transform.position);
+                if (temp_dist < dist)
+                {
+                    dist = temp_dist;
+                    ret_node = node;
+                }
+            }
+        }
+        return ret_node;
+    }
+
 }
