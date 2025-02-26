@@ -166,6 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   Projectile: {fileID: 4770445908274976074, guid: 54d432263c63829418d1ac98f3b4f7bc, type: 3}
+  nodeMap: {fileID: 4317903792429269812, guid: bc5edef9079d36f42a74824ba69ae001, type: 3}
 --- !u!114 &8815284805590740518
 MonoBehaviour:
   m_ObjectHideFlags: 0
