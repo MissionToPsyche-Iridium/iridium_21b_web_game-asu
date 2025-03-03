@@ -116,7 +116,6 @@ public class basic_enemy_behavior : MonoBehaviour
     void moveToRoute(float step)
     {
         Node start = findNearestSeenNode();
-        Debug.Log(start.node_obj.name);
         transform.position = Vector3.MoveTowards(transform.position, start.node_obj.position, step);
         if (transform.position.x < start.node_obj.position.x + 2 &&
             transform.position.x > start.node_obj.position.x - 2 &&
