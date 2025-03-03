@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public int curHealth;
     public int maxHealth;
 
+    private AutoShooter autoShooterScript;
+
     public CoinManager cm;
     public float moveSpeed = 5f;
     public float speedBoostMultiplier = 1.5f;  // Speed boost grants extra velocity
@@ -21,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public float boostCooldown = 2f;            // Boost cooldown is 2 seconds
     public float boostAvailabilityDuration = 30f; // Duration the boost power-up is available
     public float dashAvailabilityDuration = 30f;
+    public float fireRateBoostDuration = 30f;
     public float dashDistance = 2.5f;           // Distance covered during a dash
     public float doublePressThreshold = 0.3f;   // Max time between double presses for dash
     public float dashCooldown = 2f;              // 2-second cooldown for dashing
@@ -51,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         health = GetComponent<Health>();
+        autoShooterScript = GetComponent<AutoShooter>();
     }
 
     void Update()
@@ -180,6 +184,13 @@ public class PlayerMovement : MonoBehaviour
         isPushBackOnCooldown = false;
     }
 
+    IEnumerator FireRateAvailability()
+    {
+        autoShooterScript.fireRate = 5f;
+        yield return new WaitForSeconds(fireRateBoostDuration);
+        autoShooterScript.fireRate = 2.5f;
+    }
+
     // Function to activate push-back
     void ActivatePushBack()
     {
@@ -239,6 +250,11 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(PushBackAvailability());
             Destroy(other.gameObject);
         }
+        else if(other.gameObject.CompareTag("FireRate"))
+        {
+            StartCoroutine(FireRateAvailability());
+            Destroy(other.gameObject);
+        }
     }
 
     void direction(Vector3 move)
@@ -261,10 +277,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // --- Optional: Visualize Push-Back Radius in Editor ---
+    // draws pushback radius for visual indication
     private void OnDrawGizmosSelected()
     {
-        // Existing Gizmos (if any)
 
         // Draw Push-Back Radius
         Gizmos.color = Color.green;

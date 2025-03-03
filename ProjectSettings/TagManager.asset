@@ -17,6 +17,7 @@ TagManager:
   - enemy_projectile
   - node
   - node_map
+  - FireRate
   layers:
   - Default
   - TransparentFX
