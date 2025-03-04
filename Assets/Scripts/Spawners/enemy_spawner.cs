@@ -60,6 +60,7 @@ public class enemy_spawner : MonoBehaviour
 
     void spawnEnemy()
     {
+        /*
         getRandCoord();
         float randomEnemy = UnityEngine.Random.Range(0, 3);
         switch(randomEnemy)
@@ -77,6 +78,7 @@ public class enemy_spawner : MonoBehaviour
                 break;
         }
         numEnemies++;
+        */
     }
 
     void getRandCoord()

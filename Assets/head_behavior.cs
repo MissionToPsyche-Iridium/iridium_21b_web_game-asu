@@ -1,21 +1,23 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
-public class basic_enemy_behavior : MonoBehaviour
+public class head_behavior : MonoBehaviour
 {
     public GameObject Player;
     public GameObject nodeMap;
+    public GameObject body;
     public Node[] nodeList = new Node[6];
+    public int numSegments;
+    private List<GameObject> segments = new List<GameObject>();
     private Node currentNode;
     private GameObject[] enemyObjects;
     private float lastSeenX;
     private float lastSeenY;
-    public float speed = 2.0f;
+    private float speed = 4.0f;
     private bool hasTarget = false;
     private bool patrolling = false;
+    private bool isSegment;
 
     void Start()
     {
@@ -24,6 +26,7 @@ public class basic_enemy_behavior : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
         nodeMap = GameObject.FindGameObjectWithTag("node_map");
         establishNodes();
+        createSegments();
     }
 
     void Update()
@@ -114,7 +117,6 @@ public class basic_enemy_behavior : MonoBehaviour
     void moveToRoute(float step)
     {
         Node start = findNearestSeenNode();
-        Debug.Log(start.node_obj.name);
         transform.position = Vector3.MoveTowards(transform.position, start.node_obj.position, step);
         if (transform.position.x < start.node_obj.position.x + 2 &&
             transform.position.x > start.node_obj.position.x - 2 &&
@@ -166,7 +168,7 @@ public class basic_enemy_behavior : MonoBehaviour
         Node ret_node = null;
         float temp_dist;
         float dist = 1000000f;
-        Debug.Log(nodeList.Length);
+        Debug.Log(nodeList[0]);
         foreach (Node node in nodeList)
         {
             if (hasLineOfSight(node.node_obj, "node"))
@@ -182,4 +184,23 @@ public class basic_enemy_behavior : MonoBehaviour
         return ret_node;
     }
 
+    void createSegments()
+    {
+        for (int i = 0; i < numSegments; i++)
+        {
+            GameObject newSeg = Instantiate(body, transform.position, Quaternion.identity);
+            segments.Add(newSeg);
+            body_follow segmentScript = newSeg.GetComponent<body_follow>();
+            if (i == 0)
+            {
+                segmentScript.target = transform;
+            }
+            else
+            {
+                segmentScript.target = segments[i - 1].transform;
+            }
+            
+            segmentScript.delay = segmentScript.delay * i;
+        }
+    }
 }
