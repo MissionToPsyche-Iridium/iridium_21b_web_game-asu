@@ -165,7 +165,7 @@ public class head_behavior : MonoBehaviour
 
     Node findNearestSeenNode()
     {
-        Node ret_node = null;
+        Node ret_node = nodeList[1];
         float temp_dist;
         float dist = 1000000f;
         Debug.Log(nodeList[0]);

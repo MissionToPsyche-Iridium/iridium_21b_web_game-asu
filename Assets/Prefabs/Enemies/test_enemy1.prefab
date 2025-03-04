@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4333148301124759205}
   - component: {fileID: 3474776129184654195}
   - component: {fileID: 2908680493611904104}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: test_enemy1
   m_TagString: basic_enemy
   m_Icon: {fileID: 0}
@@ -103,8 +103,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  hasTarget: 1
-  nodeSeq: 
+  nodeMap: {fileID: 0}
+  speed: 2
 --- !u!58 &8652868582898079585
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -272,6 +272,10 @@ PrefabInstance:
     - target: {fileID: 7084631434066656919, guid: 5ee69bf6afc165e4e84811066a33e86a, type: 3}
       propertyPath: m_Name
       value: health_bar
+      objectReference: {fileID: 0}
+    - target: {fileID: 7084631434066656919, guid: 5ee69bf6afc165e4e84811066a33e86a, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

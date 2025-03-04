@@ -9,10 +9,11 @@ public class enemy_spawner : MonoBehaviour
     public GameObject EnemyType1;
     public GameObject EnemyType2;
     public GameObject EnemyType3;
-    public float levelMaxY;//Edit to change the range in
-    public float levelMinY;//which enemies spawn
-    public float levelMaxX;//--------
-    public float levelMinX;//--------
+    public GameObject EnemyType4;
+    public float levelMaxY; // Edit to change the range in
+    public float levelMinY; // which enemies spawn
+    public float levelMaxX; // --------
+    public float levelMinX; // --------
     private GameObject[] enemies;
     private float randTimer = 0;
     private float randSpawnrate = .5f;
@@ -21,49 +22,76 @@ public class enemy_spawner : MonoBehaviour
     private float randYPos, randXPos;
     private float randYNeg, randXNeg;
     private int numEnemies = 0;
-    private int waveNumber = 1;
+    private int bossEnemies = 0;
+    private int waveNumber = 5; // Start from wave 1
     private int maxWaveEnemies = 10;
-    // Start is called before the first frame update
+    private int maxBossWaveEnemies = 1;
+    private bool isBossWave = false;
+
     void Start()
     {
-        
+        Debug.Log("Entering Wave: " + waveNumber);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        enemies = GameObject.FindGameObjectsWithTag("basic_enemy");
         randomSpawner();
     }
 
     void randomSpawner()
     {
-        if (randTimer < randSpawnrate)
-        {
-            randTimer += Time.deltaTime;
-        }
-        else if (numEnemies < maxWaveEnemies)
-        {
-            spawnEnemy();
-            randTimer = 0;
-        }
+        // Update the enemies array
+        enemies = GameObject.FindGameObjectsWithTag("basic_enemy");
 
-        //Move on to next wave
-        if (numEnemies == maxWaveEnemies && enemies.Length == 0)
+        if (waveNumber % 5 != 0)
         {
-            numEnemies = 0;
-            maxWaveEnemies += 5;
-            waveNumber++;
-            Debug.Log("Entering Wave: " + waveNumber);
+            // Regular wave
+            if (randTimer < randSpawnrate)
+            {
+                randTimer += Time.deltaTime;
+            }
+            else if (numEnemies < maxWaveEnemies)
+            {
+                spawnEnemy();
+                randTimer = 0;
+            }
+
+            // Move on to the next wave
+            if (numEnemies == maxWaveEnemies && enemies.Length == 0)
+            {
+                numEnemies = 0;
+                maxWaveEnemies += 5;
+                waveNumber++;
+                Debug.Log("Entering Wave: " + waveNumber);
+            }
+        }
+        else
+        {
+            // Boss wave
+            if (!isBossWave)
+            {
+                spawnBoss();
+                isBossWave = true;
+            }
+
+            // Move on to the next wave
+            if (bossEnemies == maxBossWaveEnemies && enemies.Length == 0)
+            {
+                bossEnemies = 0;
+                maxBossWaveEnemies += 1;
+                waveNumber++;
+                isBossWave = false;
+                Debug.Log("Entering Wave: " + waveNumber);
+            }
         }
     }
 
     void spawnEnemy()
     {
-        /*
         getRandCoord();
+
         float randomEnemy = UnityEngine.Random.Range(0, 3);
-        switch(randomEnemy)
+        switch (randomEnemy)
         {
             case 0:
                 Instantiate(EnemyType1, new Vector3(randX, randY, 1), transform.rotation);
@@ -78,7 +106,13 @@ public class enemy_spawner : MonoBehaviour
                 break;
         }
         numEnemies++;
-        */
+    }
+
+    void spawnBoss()
+    {
+        getRandCoord();
+        Instantiate(EnemyType4, new Vector3(randX, randY, 1), transform.rotation);
+        bossEnemies++;
     }
 
     void getRandCoord()

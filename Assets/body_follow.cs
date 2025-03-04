@@ -38,20 +38,25 @@ public class body_follow : MonoBehaviour
             }
         } else if (target == null && !hasNewBehavior)
         {
+            //Giving basic behavior
             basic_enemy_behavior movScript = gameObject.AddComponent<basic_enemy_behavior>();
+
+            //Allowing player damage
             EnemyHealth healthScript = gameObject.AddComponent<EnemyHealth>();
             Transform healthBar = transform.GetChild(0);
             healthScript.currentHealth = 1500;
             healthScript.maxHealth = 1500;
             healthScript.healthBar = healthBar.gameObject;
+
+            //Adding colliders for physics and damage
             CircleCollider2D triggerCollider = gameObject.AddComponent<CircleCollider2D>();
             CircleCollider2D physicsCollider = gameObject.AddComponent<CircleCollider2D>();
             triggerCollider.isTrigger = true;
+
+            //Assigning as official enemy
             gameObject.tag = "basic_enemy";
             hasNewBehavior = true;
-            Debug.Log(movScript.speed);
             movScript.speed = 4.0f;
-            Debug.Log(movScript.speed);
         }
     }
 

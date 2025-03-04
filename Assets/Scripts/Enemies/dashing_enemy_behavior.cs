@@ -212,7 +212,7 @@ public class dash_enemy_script : MonoBehaviour
 
     Node findNearestSeenNode()
     {
-        Node ret_node = null;
+        Node ret_node = nodeList[1];
         float temp_dist;
         float dist = 1000000f;
         foreach (Node node in nodeList)
