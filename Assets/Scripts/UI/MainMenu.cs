@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
     // Loads the game scene
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync("SampleScene");
     }
 
     // Loads the About scene

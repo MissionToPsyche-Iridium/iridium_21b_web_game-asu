@@ -26,4 +26,9 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f; // Ensure time resumes
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload current scene
     }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadSceneAsync("Main Menu"); // Loads the Main Menu scene
+    }
 }
