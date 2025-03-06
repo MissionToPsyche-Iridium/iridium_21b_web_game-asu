@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8385916206831732880}
   - component: {fileID: 7762960953214339670}
   - component: {fileID: 3659187388071124661}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: dash_enemy
   m_TagString: basic_enemy
   m_Icon: {fileID: 0}
@@ -277,7 +277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7084631434066656919, guid: 5ee69bf6afc165e4e84811066a33e86a, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
