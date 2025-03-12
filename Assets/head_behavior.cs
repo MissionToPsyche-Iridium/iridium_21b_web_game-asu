@@ -168,7 +168,6 @@ public class head_behavior : MonoBehaviour
         Node ret_node = nodeList[1];
         float temp_dist;
         float dist = 1000000f;
-        Debug.Log(nodeList[0]);
         foreach (Node node in nodeList)
         {
             if (hasLineOfSight(node.node_obj, "node"))

@@ -122,6 +122,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &2292535 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4317903792429269812, guid: bc5edef9079d36f42a74824ba69ae001, type: 3}
+  m_PrefabInstance: {fileID: 1294391876}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &41748029
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,7 +896,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0043866336, y: -0.013159439}
@@ -1122,7 +1127,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -262.38983, y: 138.89001}
+  m_AnchoredPosition: {x: -262.3898, y: 138.89001}
   m_SizeDelta: {x: 1699.63, y: 1615.26}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &288344665
@@ -16264,6 +16269,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 241846881}
+    - target: {fileID: 5714734533695841802, guid: 62df138f3b8933044a5c1b3e32b972ab, type: 3}
+      propertyPath: nodeMap
+      value: 
+      objectReference: {fileID: 2292535}
     - target: {fileID: 5714734533695841802, guid: 62df138f3b8933044a5c1b3e32b972ab, type: 3}
       propertyPath: levelMaxX
       value: 11
