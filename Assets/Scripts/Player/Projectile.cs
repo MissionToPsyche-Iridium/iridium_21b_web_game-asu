@@ -98,5 +98,9 @@ public class Projectile : MonoBehaviour
             // Destroy the projectile after hitting the enemy
             Destroy(gameObject);
         }
+        else if (other.CompareTag("wall"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

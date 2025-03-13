@@ -18,6 +18,7 @@ TagManager:
   - node
   - node_map
   - FireRate
+  - wall
   layers:
   - Default
   - TransparentFX

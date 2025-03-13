@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 66222305}
   m_Layer: 0
   m_Name: Central Walls Hitbox #1
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -755,7 +755,7 @@ GameObject:
   - component: {fileID: 206500082}
   m_Layer: 0
   m_Name: Central Walls Hitbox #4
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1067,6 +1067,7 @@ MonoBehaviour:
   animator: {fileID: 241846888}
   gameOverScreen: {fileID: 41748029}
   damageSFX: {fileID: 8300000, guid: 93fba0b1bf5014543918fa775911b6a3, type: 3}
+  invincibilityTime: 1
 --- !u!95 &241846888
 Animator:
   serializedVersion: 5
@@ -1103,6 +1104,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 617441151782884097, guid: c33049a0f6e085548a5e489fc68ca243, type: 3}
   firePoint: {fileID: 281871028}
   fireRate: 3
+  detectionRadius: 10
 --- !u!82 &241846890
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1920,7 +1922,7 @@ GameObject:
   - component: {fileID: 582766066}
   m_Layer: 0
   m_Name: Southeast Boulder #2
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2311,7 +2313,7 @@ GameObject:
   - component: {fileID: 683541518}
   m_Layer: 0
   m_Name: Northwest Boulder #2
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31074,8 +31076,8 @@ Tilemap:
   - first: {x: 2, y: 3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 27
-      m_TileSpriteIndex: 27
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -31084,8 +31086,8 @@ Tilemap:
   - first: {x: 3, y: 3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 25
-      m_TileSpriteIndex: 25
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -31914,8 +31916,8 @@ Tilemap:
   - first: {x: 2, y: 4, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 27
-      m_TileSpriteIndex: 27
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -31924,8 +31926,8 @@ Tilemap:
   - first: {x: 3, y: 4, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 27
-      m_TileSpriteIndex: 27
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -60793,7 +60795,7 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 446
+  - m_RefCount: 450
     m_Data: {fileID: 11400000, guid: 7eb23f8c73ab4944fbcccbac61513d19, type: 2}
   - m_RefCount: 828
     m_Data: {fileID: 11400000, guid: 21faaabfb4344d34cac3c357db72c672, type: 2}
@@ -60843,16 +60845,16 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 578ae322d1099b94fa3057b04ec6ac22, type: 2}
   - m_RefCount: 1035
     m_Data: {fileID: 11400000, guid: 0e2cdce116aa2124a9123b61d74d37c8, type: 2}
-  - m_RefCount: 18
+  - m_RefCount: 17
     m_Data: {fileID: 11400000, guid: 195d30c857e606a419a3839d7b123451, type: 2}
   - m_RefCount: 23
     m_Data: {fileID: 11400000, guid: ae487494cfc5e804ea7b32633dfdf184, type: 2}
-  - m_RefCount: 24
+  - m_RefCount: 21
     m_Data: {fileID: 11400000, guid: ad3777511a2536a4f8de7309b00e66b9, type: 2}
   - m_RefCount: 24
     m_Data: {fileID: 11400000, guid: 097ab38f995d82a4eb67513accf9658c, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 446
+  - m_RefCount: 450
     m_Data: {fileID: -39231253, guid: ea24e9716491a7a4b88c43ec924da993, type: 3}
   - m_RefCount: 828
     m_Data: {fileID: -658079302, guid: ea24e9716491a7a4b88c43ec924da993, type: 3}
@@ -60902,11 +60904,11 @@ Tilemap:
     m_Data: {fileID: -1972163091, guid: ea24e9716491a7a4b88c43ec924da993, type: 3}
   - m_RefCount: 1035
     m_Data: {fileID: -324585045, guid: ea24e9716491a7a4b88c43ec924da993, type: 3}
-  - m_RefCount: 18
+  - m_RefCount: 17
     m_Data: {fileID: 1733753508, guid: ea24e9716491a7a4b88c43ec924da993, type: 3}
   - m_RefCount: 23
     m_Data: {fileID: 1106569954, guid: ea24e9716491a7a4b88c43ec924da993, type: 3}
-  - m_RefCount: 24
+  - m_RefCount: 21
     m_Data: {fileID: 434036850, guid: ea24e9716491a7a4b88c43ec924da993, type: 3}
   - m_RefCount: 24
     m_Data: {fileID: -1030312112, guid: ea24e9716491a7a4b88c43ec924da993, type: 3}
@@ -61239,7 +61241,7 @@ GameObject:
   - component: {fileID: 917284724}
   m_Layer: 0
   m_Name: Northwest Boulder #1
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62603,7 +62605,7 @@ GameObject:
   - component: {fileID: 1263466256}
   m_Layer: 0
   m_Name: Central Boulder
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63174,7 +63176,7 @@ GameObject:
   - component: {fileID: 1575226004}
   m_Layer: 0
   m_Name: Central Walls Hitbox #3
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63567,7 +63569,7 @@ GameObject:
   - component: {fileID: 1760100507}
   m_Layer: 0
   m_Name: Southeast Boulder #1
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64779,7 +64781,7 @@ GameObject:
   - component: {fileID: 2137344086}
   m_Layer: 0
   m_Name: Central Walls Hitbox #2
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64832,8 +64834,8 @@ PolygonCollider2D:
       - {x: 6.7646503, y: -2.6058607}
       - {x: 6.572672, y: 0.2838873}
       - {x: 5.621598, y: 0.36675483}
-      - {x: 5.659616, y: 2.2790973}
-      - {x: 3.9990103, y: 2.240878}
+      - {x: 5.6185274, y: 0.36848938}
+      - {x: 3.9373777, y: 0.3919028}
       - {x: 3.9786048, y: -1.6257727}
       - {x: 4.915586, y: -2.3865838}
       - {x: 4.9677973, y: -4.183087}
