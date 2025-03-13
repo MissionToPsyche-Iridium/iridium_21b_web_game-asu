@@ -45,4 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  Enemy: {fileID: 6899617583450277495, guid: 28416c412767f4c4081c99277c033c6d, type: 3}
+  EnemyType1: {fileID: 6899617583450277495, guid: 28416c412767f4c4081c99277c033c6d, type: 3}
+  EnemyType2: {fileID: 6899617583450277495, guid: ca8f6c7f494b423479cbabe4f8d04a25, type: 3}
+  EnemyType3: {fileID: 6899617583450277495, guid: ac9e64a9be1042746be9988900e40047, type: 3}
+  EnemyType4: {fileID: 6230071017758589109, guid: f596a8cf8bd942d448cf01382679f5a1, type: 3}
+  pushBackPU: {fileID: 6832134630869318019, guid: d459e18af90f19c4186fdccd3fe0700c, type: 3}
+  dashPU: {fileID: 3757655930577396639, guid: 1aaec45051051d642975b41f5184cb18, type: 3}
+  dodgePU: {fileID: 4561308123252426360, guid: 2ae3aa94bfbee3a49918d86c06c48ea3, type: 3}
+  nodeMap: {fileID: 0}

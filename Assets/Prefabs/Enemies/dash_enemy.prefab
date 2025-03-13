@@ -184,6 +184,7 @@ MonoBehaviour:
   maxHealth: 300
   currentHealth: 300
   healthBar: {fileID: 7946444865488378372}
+  collectible: {fileID: 3523325121765631777, guid: 3da9cc574d5494f45be5f89a8c6377ee, type: 3}
 --- !u!58 &3659187388071124661
 CircleCollider2D:
   m_ObjectHideFlags: 0

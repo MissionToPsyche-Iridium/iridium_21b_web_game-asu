@@ -8,6 +8,7 @@ public class body_follow : MonoBehaviour
     public float delay = 0f;
     public float followDistance = .01f; // Distance to maintain between segments
     public Transform target;
+    public GameObject collectible;
     private Queue<Vector3> positionHistory = new Queue<Vector3>(); // Stores past positions
     private bool ready = false;
     private bool hasNewBehavior = false;
@@ -47,6 +48,7 @@ public class body_follow : MonoBehaviour
             healthScript.currentHealth = 1500;
             healthScript.maxHealth = 1500;
             healthScript.healthBar = healthBar.gameObject;
+            healthScript.collectible = collectible;
 
             //Adding colliders for physics and damage
             CircleCollider2D triggerCollider = gameObject.AddComponent<CircleCollider2D>();

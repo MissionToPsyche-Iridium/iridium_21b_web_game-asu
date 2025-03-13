@@ -104,6 +104,7 @@ MonoBehaviour:
   delay: 0
   followDistance: 1
   target: {fileID: 0}
+  collectible: {fileID: 3523325121765631777, guid: 3da9cc574d5494f45be5f89a8c6377ee, type: 3}
 --- !u!50 &-6529679367139478813
 Rigidbody2D:
   serializedVersion: 4

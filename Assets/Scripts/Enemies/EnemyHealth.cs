@@ -7,6 +7,7 @@ public class EnemyHealth : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth = 100;
     public GameObject healthBar;
+    public GameObject collectible;
     private float newXScale;
     private Vector3 healthBar_Scale;
     private Vector3 healthBar_Pos;
@@ -28,6 +29,7 @@ public class EnemyHealth : MonoBehaviour
         } 
         else
         {
+            Instantiate(collectible, transform.position, Quaternion.identity);
             Die();
         }
     }

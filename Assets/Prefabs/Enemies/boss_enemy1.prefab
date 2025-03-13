@@ -155,6 +155,7 @@ MonoBehaviour:
   maxHealth: 1500
   currentHealth: 1500
   healthBar: {fileID: 2249225369205829707}
+  collectible: {fileID: 3523325121765631777, guid: 3da9cc574d5494f45be5f89a8c6377ee, type: 3}
 --- !u!50 &6672126686136294134
 Rigidbody2D:
   serializedVersion: 4

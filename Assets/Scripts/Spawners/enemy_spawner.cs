@@ -10,13 +10,12 @@ public class enemy_spawner : MonoBehaviour
     public GameObject EnemyType2;
     public GameObject EnemyType3;
     public GameObject EnemyType4;
+    public GameObject pushBackPU;
+    public GameObject dashPU;
+    public GameObject dodgePU;
     public GameObject nodeMap;
-    public float levelMaxY; // Edit to change the range in
-    public float levelMinY; // which enemies spawn
-    public float levelMaxX; // --------
-    public float levelMinX; // --------
     public Node[] nodeList = new Node[6];
-    private List<int> validSpawns = new List<int>();
+    private List<int> validSpawns = new List<int> { 0, 1, 2, 3, 4, 5};
     private int currentInvalid = -1;
     private GameObject[] enemies;
     private float randTimer = 0;
@@ -25,20 +24,30 @@ public class enemy_spawner : MonoBehaviour
     private float randY;
     private int numEnemies = 0;
     private int bossEnemies = 0;
-    private int waveNumber = 1; // Start from wave 1
+    private int waveNumber = 2; // Start from wave 1
     private int maxWaveEnemies = 10;
-    private int maxBossWaveEnemies = 1;
-    private bool isBossWave = false;
+    private int maxBossEnemies = 0;
+    private bool waiting = false;
 
     void Start()
     {
+        Player = GameObject.FindGameObjectWithTag("PlayerTag");
+        nodeMap = GameObject.FindGameObjectWithTag("node_map");
         establishNodes();
         Debug.Log("Entering Wave: " + waveNumber);
     }
 
     void Update()
     {
-        randomSpawner();
+        if (waiting)
+        {
+            return;
+        } 
+        else
+        {
+            randomSpawner();
+        }
+        
         findNearestSeenNode();
     }
 
@@ -55,45 +64,35 @@ public class enemy_spawner : MonoBehaviour
         else if (numEnemies < maxWaveEnemies)
         {
             spawnEnemy();
-            randTimer = 0;
-        }
-        
-        // Move on to the next wave
-        if (numEnemies == maxWaveEnemies && enemies.Length == 0)
-        {
-            numEnemies = 0;
-            maxWaveEnemies += 5;
-            waveNumber++;
-            Debug.Log("Entering Wave: " + waveNumber);
-        }
-        /*
-        else
-        {
-            // Boss wave
-            if (!isBossWave)
+            if (waveNumber % 5 == 0 && bossEnemies < maxBossEnemies)
             {
                 spawnBoss();
-                isBossWave = true;
             }
-
-            // Move on to the next wave
-            if (bossEnemies == maxBossWaveEnemies && enemies.Length == 0)
-            {
-                bossEnemies = 0;
-                maxBossWaveEnemies += 1;
-                waveNumber++;
-                isBossWave = false;
-                Debug.Log("Entering Wave: " + waveNumber);
-            }
+            randTimer = 0;
         }
-        */
+
+
+        // Move on to the next wave
+        Debug.Log(numEnemies + " " + maxWaveEnemies + " " + enemies.Length);
+        if (numEnemies == maxWaveEnemies && enemies.Length - bossEnemies == 0)
+        {
+            numEnemies = 0;
+            bossEnemies = 0;
+            maxWaveEnemies += 5;
+            waveNumber++;
+            if (waveNumber % 5 == 0)
+            {
+                maxBossEnemies += 1;
+            }
+            checkForCheckpoint();
+            Debug.Log("Entering Wave: " + waveNumber);
+        }
     }
 
     void spawnEnemy()
     {
         getRandCoord();
-
-        float randomEnemy = UnityEngine.Random.Range(0, 3);
+        float randomEnemy = UnityEngine.Random.Range(0, calcEnemyRange());
         switch (randomEnemy)
         {
             case 0:
@@ -113,23 +112,14 @@ public class enemy_spawner : MonoBehaviour
 
     void spawnBoss()
     {
-        //getRandCoord();
+        getRandCoord();
         Instantiate(EnemyType4, new Vector3(randX, randY, 1), transform.rotation);
         bossEnemies++;
     }
 
     void getRandCoord()
     {
-        /*
-        randXNeg = (float)UnityEngine.Random.Range(levelMinX, Player.transform.position.x);
-        randYNeg = (float)UnityEngine.Random.Range(levelMinY, Player.transform.position.y);
-        randXPos = (float)UnityEngine.Random.Range(Player.transform.position.x, levelMaxX);
-        randYPos = (float)UnityEngine.Random.Range(Player.transform.position.y, levelMaxY);
-        randX = UnityEngine.Random.Range(0, 2) == 1 ? randXNeg : randXPos;
-        randY = UnityEngine.Random.Range(0, 2) == 1 ? randYNeg : randYPos;
-        */
         int index = (int)UnityEngine.Random.Range(0, 5);
-        Debug.Log(index);
         randX = nodeList[validSpawns[index]].x;
         randY = nodeList[validSpawns[index]].y;
     }
@@ -139,7 +129,7 @@ public class enemy_spawner : MonoBehaviour
         int i = 0;
         foreach (Transform node in nodeMap.transform)
         {
-            nodeList[i] = new Node(node, nodeMap.transform.position.x, nodeMap.transform.position.y);
+            nodeList[i] = new Node(node, 0, 0);
             i++;
         }
 
@@ -154,12 +144,6 @@ public class enemy_spawner : MonoBehaviour
                 nodeList[j].next = nodeList[j + 1];
             }
         }
-        validSpawns.Add(0);
-        validSpawns.Add(1);
-        validSpawns.Add(2);
-        validSpawns.Add(3);
-        validSpawns.Add(4);
-        validSpawns.Add(5);
     }
 
     bool hasLineOfSight(Transform target, string tag)
@@ -223,7 +207,46 @@ public class enemy_spawner : MonoBehaviour
         }
         validSpawns.Remove(ret_index);
         currentInvalid = ret_index;
-        Debug.Log(validSpawns[0] + " " + validSpawns[1] + " " + validSpawns[2] + " " + validSpawns[3] + " " + validSpawns[4]);
         return ret_node;
+    }
+
+    void checkForCheckpoint()
+    {
+        switch (waveNumber)
+        {
+            case 3:
+                Instantiate(dodgePU, new Vector3(0, 0, 1), transform.rotation);
+                waiting = true;
+                StartCoroutine(WaitBetweenWaves());
+                break;
+            case 6:
+                Instantiate(dashPU, new Vector3(0, 0, 1), transform.rotation);
+                waiting = true;
+                StartCoroutine(WaitBetweenWaves());
+                break;
+            case 9:
+                Instantiate(pushBackPU, new Vector3(0, 0, 1), transform.rotation);
+                waiting = true;
+                StartCoroutine(WaitBetweenWaves());
+                break;
+        }
+    }
+
+    //calculates which enemies to spawn depending on wave number
+    int calcEnemyRange()
+    {
+        int range_max;
+        range_max = waveNumber / 5;
+        if (range_max > 3)
+        {
+            range_max = 3;
+        }
+        return range_max;
+    }
+
+    IEnumerator WaitBetweenWaves()
+    {
+        yield return new WaitForSeconds(5.0f);
+        waiting = false;
     }
 }
