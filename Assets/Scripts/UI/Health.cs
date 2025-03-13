@@ -15,10 +15,18 @@ public class Health : MonoBehaviour
     public AudioClip damageSFX;
     private AudioSource damageSFXfile;
 
+    // Invincibility variables
+    public float invincibilityTime = 0.5f; // Time player is invincible after taking damage
+    private bool isInvincible = false;
+
+    // Sprite renderer for blinking effect
+    private SpriteRenderer spriteRenderer;
+
     void Start()
     {
         curHealth = maxHealth;
         damageSFXfile = GetComponent<AudioSource>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         // Ensure Game Over screen is hidden at start
         if (gameOverScreen != null)
@@ -27,25 +35,47 @@ public class Health : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-            //DamagePlayer(10);
-        //}
-    }
-
     public void DamagePlayer(int damage)
     {
-        curHealth -= damage;
-        healthBar.SetHealth(curHealth);
-        damageSFXfile.PlayOneShot(damageSFX, .75f); // Play damage audio 
-
-        if (curHealth <= 0)
+        // Only take damage if not invincible
+        if (!isInvincible)
         {
-            animator.SetBool("death", true); // Trigger death animation
-            StartCoroutine(ShowGameOverScreen(2f)); // Wait before showing Game Over
+            curHealth -= damage;
+            healthBar.SetHealth(curHealth);
+            damageSFXfile.PlayOneShot(damageSFX, .75f); // Play damage audio 
+
+            // Start invincibility
+            StartCoroutine(InvincibilityFrames());
+
+            if (curHealth <= 0)
+            {
+                animator.SetBool("death", true); // Trigger death animation
+                StartCoroutine(ShowGameOverScreen(2f)); // Wait before showing Game Over
+            }
         }
+    }
+
+    private IEnumerator InvincibilityFrames()
+    {
+        isInvincible = true;
+        float invincibilityTimer = 0f;
+        Color originalColor = spriteRenderer.color;
+
+        while (invincibilityTimer < invincibilityTime)
+        {
+            // Lerp between original color and red
+            for (float t = 0; t < 1; t += Time.deltaTime * 10f)
+            {
+                spriteRenderer.color = Color.Lerp(originalColor, Color.red, Mathf.PingPong(t, 0.5f));
+                yield return null;
+            }
+
+            invincibilityTimer += 0.5f;
+        }
+
+        // Reset to original color
+        spriteRenderer.color = originalColor;
+        isInvincible = false;
     }
 
     private IEnumerator ShowGameOverScreen(float waitTime)
