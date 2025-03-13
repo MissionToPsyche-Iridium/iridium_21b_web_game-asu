@@ -29,7 +29,6 @@ public class PlayerMovement : MonoBehaviour
     public float dashCooldown = 2f;              // 2-second cooldown for dashing
 
     // --- Push-Back Power-Up Variables ---
-    [Header("Push-Back Power-Up Settings")]
     public float pushBackRadius = 5f;            // Radius within which enemies are pushed
     public float pushBackForce = 500f;           // Force applied to enemies
     public float pushBackCooldown = 2f;          // Cooldown between push-back activations
@@ -235,12 +234,12 @@ public class PlayerMovement : MonoBehaviour
             cm.coinCount++;
             Destroy(other.gameObject);
         }
-        else if (other.gameObject.CompareTag("Gear"))
+        else if (other.gameObject.CompareTag("Rocket"))
         {
             StartCoroutine(BoostAvailability());
             Destroy(other.gameObject);
         }
-        else if (other.gameObject.CompareTag("Rocket"))
+        else if (other.gameObject.CompareTag("Gear"))
         {
             StartCoroutine(DashAvailability());
             Destroy(other.gameObject);

@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     public float speed = 10f; // How fast the projectile travels
     public int damageAmount = 34; // Damage dealt to the enemy
     public float lifetime = 2f; // How long the projectile exists
+    public float detectionRadius = 10f; // Radius around the player to detect enemies
     private Vector3 moveDirection;
 
     // Start is called before the first frame update
@@ -14,32 +15,59 @@ public class Projectile : MonoBehaviour
     {
         // Destroys the projectile after 'lifetime' seconds (safety net)
         Destroy(gameObject, lifetime);
+
+        // Find the player
+        GameObject player = GameObject.FindGameObjectWithTag("PlayerTag");
+        if (player == null)
+        {
+            Debug.LogWarning("No player found in the scene!");
+            moveDirection = Vector3.up;
+            return;
+        }
+
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("basic_enemy");
+
+        // List to store enemies within detection radius
+        List<GameObject> eligibleEnemies = new List<GameObject>();
 
         if (enemies.Length > 0)
         {
-            GameObject nearestEnemy = null;
-            float minDistance = Mathf.Infinity;
-            Vector3 currentPos = transform.position;
-
-            // Loop through enemies and find the closest one
+            // Filter enemies within detection radius of the player
             foreach (GameObject enemy in enemies)
             {
-                float distance = Vector3.Distance(currentPos, enemy.transform.position);
-                if (distance < minDistance)
+                float distanceToPlayer = Vector3.Distance(player.transform.position, enemy.transform.position);
+                if (distanceToPlayer <= detectionRadius)
                 {
-                    minDistance = distance;
-                    nearestEnemy = enemy;
+                    eligibleEnemies.Add(enemy);
                 }
             }
 
-            // If we found an enemy, calculate the normalized direction from our position to the enemy
-            if (nearestEnemy != null)
+            // If we have eligible enemies, find the nearest one
+            if (eligibleEnemies.Count > 0)
             {
-                moveDirection = (nearestEnemy.transform.position - currentPos).normalized;
-                // Rotate the projectile so that its right side (local X-axis) points in the desired direction.
-                float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+                GameObject nearestEnemy = null;
+                float minDistance = Mathf.Infinity;
+                Vector3 currentPos = transform.position;
+
+                // Loop through eligible enemies and find the closest one
+                foreach (GameObject enemy in eligibleEnemies)
+                {
+                    float distance = Vector3.Distance(currentPos, enemy.transform.position);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        nearestEnemy = enemy;
+                    }
+                }
+
+                // If we found an enemy, calculate the normalized direction from our position to the enemy
+                if (nearestEnemy != null)
+                {
+                    moveDirection = (nearestEnemy.transform.position - currentPos).normalized;
+                    // Rotate the projectile so that its right side (local X-axis) points in the desired direction.
+                    float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+                    transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+                }
             }
         }
 
@@ -52,7 +80,6 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         // Move the projectile forward (assuming it's facing right in local space)
-        // Adjust direction if needed
         transform.Translate(moveDirection * speed * Time.deltaTime, Space.World);
     }
 
@@ -69,6 +96,10 @@ public class Projectile : MonoBehaviour
             }
 
             // Destroy the projectile after hitting the enemy
+            Destroy(gameObject);
+        }
+        else if (other.CompareTag("wall"))
+        {
             Destroy(gameObject);
         }
     }
