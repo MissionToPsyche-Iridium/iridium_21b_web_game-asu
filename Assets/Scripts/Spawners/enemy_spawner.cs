@@ -258,7 +258,7 @@ public class enemy_spawner : MonoBehaviour
         waiting = true; // Pause enemy spawning
         Debug.Log("Wave Complete! Clearing all enemies before next wave...");
 
-        ClearAllEnemies(); // Destroy all remaining enemies
+ // Destroy all remaining enemies
 
         yield return new WaitForSeconds(10f); // Increased break time to 10 seconds
 
