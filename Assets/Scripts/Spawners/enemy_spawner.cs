@@ -42,12 +42,12 @@ public class enemy_spawner : MonoBehaviour
         if (waiting)
         {
             return;
-        } 
+        }
         else
         {
             randomSpawner();
         }
-        
+
         findNearestSeenNode();
     }
 

@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,7 +37,7 @@ public class Timer : MonoBehaviour
         {
           timerText.text = textTime;
           timerSlider.value = time;
-          
+
         }
     }
 }
