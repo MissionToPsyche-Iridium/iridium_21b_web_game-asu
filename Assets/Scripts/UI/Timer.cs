@@ -41,12 +41,15 @@ public class Timer : MonoBehaviour
     }
 
     IEnumerator NextWave()
-    {
-        stopTimer = true; // Stops timer updates during wave transition
-        yield return new WaitForSeconds(5f); // Short wave break
+{
+    stopTimer = true; // Stops timer updates during wave transition
+    waveText.text = "Wave Complete! Next wave in 10s..."; // Show break message in UI
 
-        TriggerNextWave(); // Call function to start the next wave
-    }
+    yield return new WaitForSeconds(10f); // Increased break time
+
+    TriggerNextWave(); // Call function to start the next wave
+}
+
 
     public void TriggerNextWave()
     {

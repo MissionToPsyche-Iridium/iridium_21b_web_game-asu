@@ -255,7 +255,37 @@ public class enemy_spawner : MonoBehaviour
 
     IEnumerator WaitBetweenWaves()
     {
-        yield return new WaitForSeconds(5.0f);
-        waiting = false;
+        waiting = true; // Pause enemy spawning
+        Debug.Log("Wave Complete! Clearing all enemies before next wave...");
+
+        ClearAllEnemies(); // Destroy all remaining enemies
+
+        yield return new WaitForSeconds(10f); // Increased break time to 10 seconds
+
+        FindObjectOfType<Timer>().TriggerNextWave(); // Start next wave
     }
+
+// Function to clear all remaining enemies
+void ClearAllEnemies()
+{
+    Debug.Log("Clearing all enemies...");
+
+    // Get all active GameObjects in the scene
+    GameObject[] allObjects = FindObjectsOfType<GameObject>();
+
+    foreach (GameObject obj in allObjects)
+    {
+        // Destroy enemies based on their assigned names
+        if (obj.name.Contains("test_enemy1") ||
+            obj.name.Contains("dash_enemy") ||
+            obj.name.Contains("shoot_enemy") ||
+            obj.name.Contains("boss_enemy1"))
+        {
+            Destroy(obj);
+        }
+    }
+
+    Debug.Log("All enemies cleared!");
+}
+
 }
