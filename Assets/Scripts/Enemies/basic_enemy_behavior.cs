@@ -13,7 +13,7 @@ public class basic_enemy_behavior : MonoBehaviour
     private GameObject[] enemyObjects;
     private float lastSeenX;
     private float lastSeenY;
-    public float speed = 2.0f;
+    public float speed = 3.0f;
     private bool hasTarget = false;
     private bool patrolling = false;
 
@@ -101,6 +101,7 @@ public class basic_enemy_behavior : MonoBehaviour
 
     void moveTowardsPlayer(float step)
     {
+        speed = 3.0f;
         hasTarget = true;
         patrolling = false;
         transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
@@ -108,6 +109,7 @@ public class basic_enemy_behavior : MonoBehaviour
 
     void moveTowardsLast(float step)
     {
+        speed = 4.0f;
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
     }
 
@@ -127,6 +129,7 @@ public class basic_enemy_behavior : MonoBehaviour
 
     void patrol(float step)
     {
+        speed = 7.0f;
         transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
         if (transform.position.x < currentNode.node_obj.position.x + 2 &&
             transform.position.x > currentNode.node_obj.position.x - 2 &&

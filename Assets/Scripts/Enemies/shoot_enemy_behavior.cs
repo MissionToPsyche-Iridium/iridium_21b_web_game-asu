@@ -81,13 +81,13 @@ public class shoot_enemy_behavior : MonoBehaviour
     {
         hasTarget = true;
         patrolling = false;
-        speed = 2.0f;
+        speed = 5.0f;
         transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
     }
 
     void moveTowardsLast(float step)
     {
-        speed = 2.5f;
+        speed = 6.0f;
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
     }
 
@@ -107,6 +107,7 @@ public class shoot_enemy_behavior : MonoBehaviour
 
     void patrol(float step)
     {
+        speed = 7.0f;
         transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
         if (transform.position.x < currentNode.node_obj.position.x + 2 &&
             transform.position.x > currentNode.node_obj.position.x - 2 &&
