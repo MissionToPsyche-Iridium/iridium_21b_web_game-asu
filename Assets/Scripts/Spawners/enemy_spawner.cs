@@ -42,12 +42,12 @@ public class enemy_spawner : MonoBehaviour
         if (waiting)
         {
             return;
-        } 
+        }
         else
         {
             randomSpawner();
         }
-        
+
         findNearestSeenNode();
     }
 
@@ -88,6 +88,15 @@ public class enemy_spawner : MonoBehaviour
             Debug.Log("Entering Wave: " + waveNumber);
         }
     }
+
+    public void StartWave(int waveNum)
+    {
+        waveNumber = waveNum;
+        waiting = false; // Resume spawning
+        Debug.Log("Starting Wave: " + waveNumber);
+    }
+
+
 
     void spawnEnemy()
     {

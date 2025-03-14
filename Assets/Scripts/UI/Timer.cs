@@ -1,42 +1,57 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Timer : MonoBehaviour
 {
     public Slider timerSlider;
     public Text timerText;
-    public float gameTime;
-
+    public Text waveText; // UI Element for displaying the wave number
+    public float waveDuration = 30f; // Default duration per wave
+    private float waveTimer;
     public bool stopTimer;
+    private int waveNumber = 1;
 
     void Start()
     {
         stopTimer = false;
-        timerSlider.maxValue = gameTime;
-        timerSlider.value = gameTime;
+        waveTimer = waveDuration;
+        timerSlider.maxValue = waveDuration;
+        timerSlider.value = waveDuration;
+        waveText.text = "Wave: " + waveNumber; // Initialize UI
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float time = gameTime - Time.time;
-        int minutes  = Mathf.FloorToInt(time/60);
-        int seconds = Mathf.FloorToInt(time - minutes * 60f);
-
-        string textTime  = string.Format("{0:0}:{1:00}", minutes,seconds);
-
-        if(time<=0)
+        if (!stopTimer)
         {
-          stopTimer = true;
-        }
+            waveTimer -= Time.deltaTime;
+            int minutes = Mathf.FloorToInt(waveTimer / 60);
+            int seconds = Mathf.FloorToInt(waveTimer % 60);
 
-        if (stopTimer == false)
-        {
-          timerText.text = textTime;
-          timerSlider.value = time;
-          
+            timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+            timerSlider.value = waveTimer;
+
+            if (waveTimer <= 0)
+            {
+                StartCoroutine(NextWave());
+            }
         }
+    }
+
+    IEnumerator NextWave()
+    {
+        stopTimer = true;
+        yield return new WaitForSeconds(5f); // Short break between waves
+
+        waveNumber++;
+        waveText.text = "Wave: " + waveNumber; // Update wave UI
+
+        // Reset the timer
+        waveTimer = waveDuration;
+        timerSlider.maxValue = waveDuration;
+        timerSlider.value = waveDuration;
+
+        stopTimer = false;
     }
 }
