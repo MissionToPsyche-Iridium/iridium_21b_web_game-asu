@@ -166,9 +166,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   nodeMap: {fileID: 0}
-  speed: 2
+  speed: 4
   dashSpeed: 8
-  waitTimeAfterDash: 3
+  waitTimeAfterDash: 2
 --- !u!114 &7762960953214339670
 MonoBehaviour:
   m_ObjectHideFlags: 0

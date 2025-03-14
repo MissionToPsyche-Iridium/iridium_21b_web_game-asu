@@ -24,7 +24,7 @@ public class enemy_spawner : MonoBehaviour
     private float randY;
     private int numEnemies = 0;
     private int bossEnemies = 0;
-    private int waveNumber = 2; // Start from wave 1
+    private int waveNumber = 1; // Start from wave 1
     private int maxWaveEnemies = 10;
     private int maxBossEnemies = 0;
     private bool waiting = false;
@@ -73,7 +73,7 @@ public class enemy_spawner : MonoBehaviour
 
 
         // Move on to the next wave
-        Debug.Log(numEnemies + " " + maxWaveEnemies + " " + enemies.Length);
+        //Debug.Log(numEnemies + " " + maxWaveEnemies + " " + enemies.Length + " " + bossEnemies);
         if (numEnemies == maxWaveEnemies && enemies.Length - bossEnemies == 0)
         {
             numEnemies = 0;
@@ -92,7 +92,8 @@ public class enemy_spawner : MonoBehaviour
     void spawnEnemy()
     {
         getRandCoord();
-        float randomEnemy = UnityEngine.Random.Range(0, calcEnemyRange());
+        float randomEnemy = UnityEngine.Random.Range(0, calcEnemyRange() + 1);
+        Debug.Log(randomEnemy);
         switch (randomEnemy)
         {
             case 0:
@@ -236,7 +237,7 @@ public class enemy_spawner : MonoBehaviour
     int calcEnemyRange()
     {
         int range_max;
-        range_max = waveNumber / 5;
+        range_max = waveNumber / 3;
         if (range_max > 3)
         {
             range_max = 3;

@@ -9,8 +9,8 @@ public class shoot_enemy_behavior : MonoBehaviour
     public GameObject Projectile;
     public GameObject nodeMap;
     public Node[] nodeList = new Node[6];
+    public float speed = 5.0f;
     private Node currentNode;
-    private float speed = 2.0f;
     private float lastSeenX;
     private float lastSeenY;
     private int[] nodeSeq;
