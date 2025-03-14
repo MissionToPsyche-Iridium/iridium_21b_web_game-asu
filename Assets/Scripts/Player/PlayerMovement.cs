@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
     private AutoShooter autoShooterScript;
 
+    public Projectile projectileScript;
+
     public CoinManager cm;
     public float moveSpeed = 5f;
     public float speedBoostMultiplier = 1.5f;  // Speed boost grants extra velocity
@@ -54,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     {
         health = GetComponent<Health>();
         autoShooterScript = GetComponent<AutoShooter>();
+        projectileScript = FindObjectOfType<Projectile>();
     }
 
     void Update()
@@ -252,6 +255,12 @@ public class PlayerMovement : MonoBehaviour
         else if(other.gameObject.CompareTag("FireRate"))
         {
             StartCoroutine(FireRateAvailability());
+            Destroy(other.gameObject);
+        }
+        else if(other.gameObject.CompareTag("damage"))
+        {
+            Debug.Log("DASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS that good");
+            Projectile.defaultDamageAmount = 75f;
             Destroy(other.gameObject);
         }
     }

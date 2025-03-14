@@ -5,14 +5,17 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float speed = 10f; // How fast the projectile travels
-    public int damageAmount = 34; // Damage dealt to the enemy
+    public static float defaultDamageAmount = 50f; // Damage dealt to the enemy
     public float lifetime = 2f; // How long the projectile exists
     public float detectionRadius = 10f; // Radius around the player to detect enemies
     private Vector3 moveDirection;
 
+    public float damageAmount;
+
     // Start is called before the first frame update
     void Start()
     {
+        damageAmount = defaultDamageAmount;
         // Destroys the projectile after 'lifetime' seconds (safety net)
         Destroy(gameObject, lifetime);
 
