@@ -89,6 +89,15 @@ public class enemy_spawner : MonoBehaviour
         }
     }
 
+    public void StartWave(int waveNum)
+    {
+        waveNumber = waveNum;
+        waiting = false; // Resume spawning
+        Debug.Log("Starting Wave: " + waveNumber);
+    }
+
+
+
     void spawnEnemy()
     {
         getRandCoord();
@@ -246,7 +255,13 @@ public class enemy_spawner : MonoBehaviour
 
     IEnumerator WaitBetweenWaves()
     {
-        yield return new WaitForSeconds(5.0f);
-        waiting = false;
+        waiting = true; // Pause enemy spawning
+        Debug.Log("Wave Complete! Clearing all enemies before next wave...");
+
+        ClearAllEnemies(); // Destroy all remaining enemies
+
+        yield return new WaitForSeconds(10f); // Increased break time to 10 seconds
+
+        FindObjectOfType<Timer>().TriggerNextWave(); // Start next wave
     }
 }
