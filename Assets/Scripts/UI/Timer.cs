@@ -1,24 +1,23 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class Timer : MonoBehaviour
 {
     public Slider timerSlider;
     public Text timerText;
-    public Text waveText; // UI Element for displaying the wave number
-    public float waveDuration = 30f; // Default duration per wave
-    private float waveTimer;
-    public bool stopTimer;
+    public Text waveText; // UI Element for wave number
+    public float waveDuration = 30f; // Wave length in seconds
+    private float waveTimer; // This was missing before
     private int waveNumber = 1;
+    private bool stopTimer = false;
 
     void Start()
     {
-        stopTimer = false;
-        waveTimer = waveDuration;
+        waveTimer = waveDuration; // Initialize wave timer
         timerSlider.maxValue = waveDuration;
         timerSlider.value = waveDuration;
-        waveText.text = "Wave: " + waveNumber; // Initialize UI
+        UpdateWaveUI();
     }
 
     void Update()
@@ -26,32 +25,42 @@ public class Timer : MonoBehaviour
         if (!stopTimer)
         {
             waveTimer -= Time.deltaTime;
-            int minutes = Mathf.FloorToInt(waveTimer / 60);
-            int seconds = Mathf.FloorToInt(waveTimer % 60);
 
-            timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
-            timerSlider.value = waveTimer;
-
-            if (waveTimer <= 0)
+            // Prevents negative timer display
+            if (waveTimer < 0)
             {
+                waveTimer = 0;
                 StartCoroutine(NextWave());
             }
+
+            int minutes = Mathf.FloorToInt(waveTimer / 60);
+            int seconds = Mathf.FloorToInt(waveTimer % 60);
+            timerText.text = $"{minutes:0}:{seconds:00}";
+            timerSlider.value = waveTimer;
         }
     }
 
     IEnumerator NextWave()
     {
-        stopTimer = true;
-        yield return new WaitForSeconds(5f); // Short break between waves
+        stopTimer = true; // Stops timer updates during wave transition
+        yield return new WaitForSeconds(5f); // Short wave break
 
+        TriggerNextWave(); // Call function to start the next wave
+    }
+
+    public void TriggerNextWave()
+    {
         waveNumber++;
-        waveText.text = "Wave: " + waveNumber; // Update wave UI
-
-        // Reset the timer
-        waveTimer = waveDuration;
-        timerSlider.maxValue = waveDuration;
-        timerSlider.value = waveDuration;
-
+        waveTimer = waveDuration; // Reset wave timer
+        timerSlider.value = waveTimer;
         stopTimer = false;
+
+        FindObjectOfType<enemy_spawner>().StartWave(waveNumber); // Notify enemy spawner
+        UpdateWaveUI();
+    }
+
+    void UpdateWaveUI()
+    {
+        waveText.text = "Wave: " + waveNumber; // Updates UI wave text
     }
 }
