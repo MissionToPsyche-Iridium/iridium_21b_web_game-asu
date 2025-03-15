@@ -56,22 +56,22 @@ public class EnemyHealth : MonoBehaviour
         // Here you can add death effects, animations, sounds, etc.
         Destroy(gameObject);
     }
-
+    /*
     void randomDrop()
     {
         float drop = UnityEngine.Random.Range(1, 101);
         switch (true)
         {
-            case (inRange_inclusive(drop, 1, 2)):
+            case (inRange_inclusive(drop, 1f, 2f)):
                 break;
-            case (inRange_inclusive(drop, 3, 4)):
+            case (inRange_inclusive(drop, 3f, 4f)):
                 break;
-            case (inRange_inclusive(drop, 5, 6)):
-                break;
+            //case (inRange_inclusive(drop, 5f, 6f)):
+                //break;
         }
     }
 
-    void inRange_inclusive(float value, float min, float max)
+    bool inRange_inclusive(float value, float min, float max)
     {
         if (min <= value && value <= max)
         {
@@ -79,4 +79,5 @@ public class EnemyHealth : MonoBehaviour
         }
         return false;
     }
+    */
 }
