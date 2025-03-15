@@ -8,6 +8,10 @@ public class EnemyHealth : MonoBehaviour
     public float currentHealth = 460f;
     public GameObject healthBar;
     public GameObject collectible;
+    public GameObject pushBackPU;
+    public GameObject dashPU;
+    public GameObject dodgePU;
+    public GameObject healthPack;
     private float newXScale;
     private Vector3 healthBar_Scale;
     private Vector3 healthBar_Pos;
