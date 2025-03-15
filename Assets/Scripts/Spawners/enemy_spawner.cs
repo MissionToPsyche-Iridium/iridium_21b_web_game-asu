@@ -102,7 +102,6 @@ public class enemy_spawner : MonoBehaviour
     {
         getRandCoord();
         float randomEnemy = UnityEngine.Random.Range(0, calcEnemyRange() + 1);
-        Debug.Log(randomEnemy);
         switch (randomEnemy)
         {
             case 0:
@@ -254,15 +253,16 @@ public class enemy_spawner : MonoBehaviour
         return range_max;
     }
 
+    //temporarily reverting until i figure out how to implement timer
     IEnumerator WaitBetweenWaves()
     {
-        waiting = true; // Pause enemy spawning
-        Debug.Log("Wave Complete! Clearing all enemies before next wave...");
+        //waiting = true; // Pause enemy spawning
+        //Debug.Log("Wave Complete! Clearing all enemies before next wave...");
 
  // Destroy all remaining enemies
 
         yield return new WaitForSeconds(10f); // Increased break time to 10 seconds
-
-        FindObjectOfType<Timer>().TriggerNextWave(); // Start next wave
+        waiting = false;
+        //FindObjectOfType<Timer>().TriggerNextWave(); // Start next wave
     }
 }

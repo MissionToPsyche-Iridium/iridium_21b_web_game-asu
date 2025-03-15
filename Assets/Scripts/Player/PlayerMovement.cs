@@ -21,14 +21,14 @@ public class PlayerMovement : MonoBehaviour
     public CoinManager cm;
     public float moveSpeed = 5f;
     public float speedBoostMultiplier = 1.5f;  // Speed boost grants extra velocity
-    public float boostDuration = 2f;            // Boost lasts for 2 seconds
+    public float boostDuration = 5f;            // Boost lasts for 2 seconds
     public float boostCooldown = 2f;            // Boost cooldown is 2 seconds
     public float boostAvailabilityDuration = 30f; // Duration the boost power-up is available
     public float dashAvailabilityDuration = 30f;
     public float fireRateBoostDuration = 30f;
     public float dashDistance = 2.5f;           // Distance covered during a dash
     public float doublePressThreshold = 0.3f;   // Max time between double presses for dash
-    public float dashCooldown = 2f;              // 2-second cooldown for dashing
+    public float dashCooldown = 1f;              // 1-second cooldown for dashing
 
     // --- Push-Back Power-Up Variables ---
     public float pushBackRadius = 5f;            // Radius within which enemies are pushed
@@ -254,14 +254,20 @@ public class PlayerMovement : MonoBehaviour
         }
         else if(other.gameObject.CompareTag("FireRate"))
         {
-            StartCoroutine(FireRateAvailability());
+            //StartCoroutine(FireRateAvailability());
+            autoShooterScript.fireRate += 2f;
             Destroy(other.gameObject);
         }
         else if(other.gameObject.CompareTag("damage"))
         {
             Debug.Log("DASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS that good");
-            Projectile.defaultDamageAmount = 75f;
+            Projectile.defaultDamageAmount += 25f;
+            Debug.Log("New Damage: " + Projectile.defaultDamageAmount);
             Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("health"))
+        {
+            curHealth = maxHealth;
         }
     }
 

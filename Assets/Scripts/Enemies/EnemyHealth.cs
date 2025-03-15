@@ -26,11 +26,11 @@ public class EnemyHealth : MonoBehaviour
     {
         if (currentHealth <= 0) return; // Prevent multiple death calls
 
-        Debug.Log($"Projectile Damage: {amount}");
-        Debug.Log($"Enemy Current Health Before Damage: {currentHealth}");
+        //Debug.Log($"Projectile Damage: {amount}");
+        //Debug.Log($"Enemy Current Health Before Damage: {currentHealth}");
 
         currentHealth = Mathf.Max(currentHealth - amount, 0f);
-        Debug.Log($"Enemy Current Health After Damage: {currentHealth}");
+        //Debug.Log($"Enemy Current Health After Damage: {currentHealth}");
 
         // Update health bar
         newXScale = currentHealth / maxHealth;
@@ -55,5 +55,28 @@ public class EnemyHealth : MonoBehaviour
     {
         // Here you can add death effects, animations, sounds, etc.
         Destroy(gameObject);
+    }
+
+    void randomDrop()
+    {
+        float drop = UnityEngine.Random.Range(1, 101);
+        switch (true)
+        {
+            case (inRange_inclusive(drop, 1, 2)):
+                break;
+            case (inRange_inclusive(drop, 3, 4)):
+                break;
+            case (inRange_inclusive(drop, 5, 6)):
+                break;
+        }
+    }
+
+    void inRange_inclusive(float value, float min, float max)
+    {
+        if (min <= value && value <= max)
+        {
+            return true;
+        }
+        return false;
     }
 }
