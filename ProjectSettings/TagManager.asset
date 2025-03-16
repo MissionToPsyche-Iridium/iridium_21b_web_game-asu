@@ -19,8 +19,8 @@ TagManager:
   - node_map
   - FireRate
   - wall
-  - damage
   - health
+  - damage
   layers:
   - Default
   - TransparentFX

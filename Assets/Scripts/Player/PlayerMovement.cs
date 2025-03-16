@@ -267,7 +267,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("health"))
         {
-            curHealth = maxHealth;
+            health.healPlayerToFull();
+            Destroy(other.gameObject);
         }
     }
 

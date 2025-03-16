@@ -55,6 +55,12 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void healPlayerToFull() 
+    {
+        curHealth = maxHealth;
+        healthBar.SetHealth(maxHealth);
+    }
+
     private IEnumerator InvincibilityFrames()
     {
         isInvincible = true;

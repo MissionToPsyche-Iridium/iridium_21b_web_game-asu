@@ -40,7 +40,7 @@ public class EnemyHealth : MonoBehaviour
         // Check for death
         if (currentHealth == 0)
         {
-            Instantiate(collectible, transform.position, Quaternion.identity);
+            randomDrop();
             Die();
         }
     }
@@ -56,20 +56,6 @@ public class EnemyHealth : MonoBehaviour
         // Here you can add death effects, animations, sounds, etc.
         Destroy(gameObject);
     }
-    /*
-    void randomDrop()
-    {
-        float drop = UnityEngine.Random.Range(1, 101);
-        switch (true)
-        {
-            case (inRange_inclusive(drop, 1f, 2f)):
-                break;
-            case (inRange_inclusive(drop, 3f, 4f)):
-                break;
-            //case (inRange_inclusive(drop, 5f, 6f)):
-                //break;
-        }
-    }
 
     bool inRange_inclusive(float value, float min, float max)
     {
@@ -79,5 +65,36 @@ public class EnemyHealth : MonoBehaviour
         }
         return false;
     }
-    */
+
+    void randomDrop()
+    {
+        float drop = UnityEngine.Random.Range(1, 101);
+        if (inRange_inclusive(drop, 1f, 2f))
+        {
+            Instantiate(healthPack, transform.position, Quaternion.identity);
+        }
+        else if (inRange_inclusive(drop, 3f, 4f))
+        {
+            Instantiate(pushBackPU, transform.position, Quaternion.identity);
+        }
+        else if (inRange_inclusive(drop, 5f, 6f))
+        {
+            Instantiate(dashPU, transform.position, Quaternion.identity);
+        }
+        else if (inRange_inclusive(drop, 7f, 8f))
+        {
+            Instantiate(dodgePU, transform.position, Quaternion.identity);
+        }
+        else if (inRange_inclusive(drop, 9f, 10f))
+        {
+            //gonna have a change to drop any of the stat increasing items
+        }
+        else
+        {
+            Instantiate(collectible, transform.position, Quaternion.identity);
+        }
+    }
+
+    
+    
 }
