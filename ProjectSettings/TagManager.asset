@@ -21,6 +21,7 @@ TagManager:
   - wall
   - health
   - damage
+  - healthUp
   layers:
   - Default
   - TransparentFX

@@ -256,6 +256,8 @@ public class PlayerMovement : MonoBehaviour
         {
             //StartCoroutine(FireRateAvailability());
             autoShooterScript.fireRate += 2f;
+            Destroy(GameObject.FindGameObjectWithTag("damage"));
+            Destroy(GameObject.FindGameObjectWithTag("healthUp"));
             Destroy(other.gameObject);
         }
         else if(other.gameObject.CompareTag("damage"))
@@ -263,11 +265,22 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("DASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS that good");
             Projectile.defaultDamageAmount += 25f;
             Debug.Log("New Damage: " + Projectile.defaultDamageAmount);
+            Destroy(GameObject.FindGameObjectWithTag("healthUp"));
+            Destroy(GameObject.FindGameObjectWithTag("FireRate"));
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("health"))
         {
             health.healPlayerToFull();
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("healthUp"))
+        {
+            health.maxHealth += 50;
+            health.curHealth += 50;
+            health.invincibilityTime += .25f;
+            Destroy(GameObject.FindGameObjectWithTag("damage"));
+            Destroy(GameObject.FindGameObjectWithTag("FireRate"));
             Destroy(other.gameObject);
         }
     }

@@ -14,6 +14,9 @@ public class enemy_spawner : MonoBehaviour
     public GameObject dashPU;
     public GameObject dodgePU;
     public GameObject nodeMap;
+    public GameObject damagePU;
+    public GameObject fireRatePU;
+    public GameObject healthPU;
     public Node[] nodeList = new Node[6];
     private List<int> validSpawns = new List<int> { 0, 1, 2, 3, 4, 5};
     private int currentInvalid = -1;
@@ -84,7 +87,8 @@ public class enemy_spawner : MonoBehaviour
             {
                 maxBossEnemies += 1;
             }
-            checkForCheckpoint();
+
+            checkpoint();
             Debug.Log("Entering Wave: " + waveNumber);
         }
     }
@@ -219,26 +223,27 @@ public class enemy_spawner : MonoBehaviour
         return ret_node;
     }
 
-    void checkForCheckpoint()
+    void checkpoint()
     {
+        //replace spawns with the parts of the ship once we get there
         switch (waveNumber)
         {
             case 3:
                 Instantiate(dodgePU, new Vector3(0, 0, 1), transform.rotation);
-                waiting = true;
-                StartCoroutine(WaitBetweenWaves());
                 break;
             case 6:
                 Instantiate(dashPU, new Vector3(0, 0, 1), transform.rotation);
-                waiting = true;
-                StartCoroutine(WaitBetweenWaves());
                 break;
             case 9:
                 Instantiate(pushBackPU, new Vector3(0, 0, 1), transform.rotation);
-                waiting = true;
-                StartCoroutine(WaitBetweenWaves());
                 break;
         }
+        //Spawning the powerups
+        Instantiate(healthPU, new Vector3(1, -1, 1), transform.rotation);
+        Instantiate(damagePU, new Vector3(-1, -1, 1), transform.rotation);
+        Instantiate(fireRatePU, new Vector3(0, 1, 1), transform.rotation);
+        waiting = true;
+        StartCoroutine(WaitBetweenWaves());
     }
 
     //calculates which enemies to spawn depending on wave number
