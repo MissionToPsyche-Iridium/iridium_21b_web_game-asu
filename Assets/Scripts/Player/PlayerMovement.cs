@@ -58,6 +58,9 @@ public class PlayerMovement : MonoBehaviour
     public float zoomInSize = 5f;          // Normal size
     public float zoomDuration = 0.5f;
 
+    public float coinAttractionRadius = 3f;  // Radius within which coins are attracted
+    public float coinAttractionSpeed = 3f;
+
     private void Start()
     {
         health = GetComponent<Health>();
@@ -109,6 +112,27 @@ public class PlayerMovement : MonoBehaviour
         {
            Debug.Log("Pushback activated");
            ActivatePushBack();
+        }
+
+        AttractCoins();
+    }
+
+    void AttractCoins()
+    {
+        // Find all coins within the attraction radius
+        Collider2D[] coinColliders = Physics2D.OverlapCircleAll(transform.position, coinAttractionRadius);
+
+        foreach (Collider2D coinCollider in coinColliders)
+        {
+            if (coinCollider.CompareTag("Coin"))
+            {
+                // Gradually move the coin towards the player
+                coinCollider.transform.position = Vector3.MoveTowards(
+                    coinCollider.transform.position,
+                    transform.position,
+                    coinAttractionSpeed * Time.deltaTime
+                );
+            }
         }
     }
 
@@ -338,5 +362,6 @@ public class PlayerMovement : MonoBehaviour
         // Draw Push-Back Radius
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, pushBackRadius);
+        
     }
 }
