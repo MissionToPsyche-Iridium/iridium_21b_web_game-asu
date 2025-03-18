@@ -1140,8 +1140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f56268725080c944bafcbdbd0e5e9ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curHealth: 0
-  maxHealth: 0
+  curHealth: 100
+  maxHealth: 100
   projectileScript: {fileID: 0}
   cm: {fileID: 1846853232}
   moveSpeed: 5
@@ -1159,6 +1159,10 @@ MonoBehaviour:
   pushBackCooldown: 2
   pushBackAvailabilityDuration: 30
   animator: {fileID: 241846888}
+  vcam: {fileID: 959591816}
+  zoomOutSize: 12
+  zoomInSize: 10
+  zoomDuration: 0.3
 --- !u!4 &241846885
 Transform:
   m_ObjectHideFlags: 0
@@ -1274,7 +1278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 617441151782884097, guid: c33049a0f6e085548a5e489fc68ca243, type: 3}
   firePoint: {fileID: 281871028}
-  fireRate: 30
+  fireRate: 3
   detectionRadius: 10
 --- !u!82 &241846890
 AudioSource:
@@ -1437,7 +1441,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -262.3898, y: 138.89001}
+  m_AnchoredPosition: {x: -262.38977, y: 138.89001}
   m_SizeDelta: {x: 1699.63, y: 1615.26}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &288344665
@@ -62546,7 +62550,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1139849439}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -62556,9 +62560,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 141, y: -31}
+  m_AnchoredPosition: {x: 100, y: -75}
   m_SizeDelta: {x: 250, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1139849441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62744,7 +62748,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -20, y: 0}
+  m_AnchoredPosition: {x: -150, y: -50}
   m_SizeDelta: {x: 58.055786, y: 69.49951}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1192885692
@@ -63686,7 +63690,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 1.28, y: 1.28}
     newSize: {x: 0.64, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -65704,7 +65708,7 @@ PrefabInstance:
     - target: {fileID: 81155587864474389, guid: d459e18af90f19c4186fdccd3fe0700c, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c40ab4c92a477b44285fd1ea42ab8b05, type: 3}
+      objectReference: {fileID: 21300000, guid: 081232844ee70f7479f78f894f6aa50a, type: 3}
     - target: {fileID: 81155587864474389, guid: d459e18af90f19c4186fdccd3fe0700c, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -65715,15 +65719,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8993732867361808049, guid: d459e18af90f19c4186fdccd3fe0700c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8993732867361808049, guid: d459e18af90f19c4186fdccd3fe0700c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8993732867361808049, guid: d459e18af90f19c4186fdccd3fe0700c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8993732867361808049, guid: d459e18af90f19c4186fdccd3fe0700c, type: 3}
       propertyPath: m_LocalPosition.x
