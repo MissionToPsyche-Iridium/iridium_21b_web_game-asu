@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 // Created by Robert DeLucia Jr. during Sprint 1
 // Updated to have boost mechanic during Sprint 2
@@ -52,6 +53,11 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 lastNonZeroMovement = Vector3.zero; // Tracks the last non-zero movement for rotation
     public Animator animator;
 
+    public CinemachineVirtualCamera vcam;  // Reference to the Cinemachine virtual camera
+    public float zoomOutSize = 7f;         // Zoomed-out size
+    public float zoomInSize = 5f;          // Normal size
+    public float zoomDuration = 0.5f;
+
     private void Start()
     {
         health = GetComponent<Health>();
@@ -61,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+ 
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
@@ -126,12 +133,31 @@ public class PlayerMovement : MonoBehaviour
         isBoosting = true;
         moveSpeed *= speedBoostMultiplier;
 
+        StartCoroutine(ZoomCamera(zoomOutSize, zoomDuration));
+
         yield return new WaitForSeconds(boostDuration);  // Boost lasts for specified duration
+
+        StartCoroutine(ZoomCamera(zoomInSize, zoomDuration));
 
         moveSpeed /= speedBoostMultiplier;  // Revert to normal speed
         isBoosting = false;
 
         StartCoroutine(SpeedBoostCooldown());  // Start cooldown coroutine for speed boost
+    }
+
+    IEnumerator ZoomCamera(float targetSize, float duration)
+    {
+        float startSize = vcam.m_Lens.OrthographicSize;  // Use Cinemachine lens size
+        float time = 0;
+
+        while (time < duration)
+        {
+            vcam.m_Lens.OrthographicSize = Mathf.Lerp(startSize, targetSize, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        vcam.m_Lens.OrthographicSize = targetSize;
     }
 
     // Speed boost cooldown coroutine
