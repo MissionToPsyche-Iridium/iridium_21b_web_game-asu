@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class body_follow : MonoBehaviour
 {
-    public float speed = 4.0f;
+    public float speed = 7.0f;
     public float delay = 0f;
     public float followDistance = .01f; // Distance to maintain between segments
     public Transform target;
@@ -38,7 +38,7 @@ public class body_follow : MonoBehaviour
                 {
                     // Dynamically adjust speed based on distance
                     float dynamicSpeed = Mathf.Lerp(speed, speed * 2, (distance - followDistance) / followDistance);
-                    transform.position = Vector3.MoveTowards(transform.position, targetPosition - direction * followDistance, dynamicSpeed * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, targetPosition - direction * followDistance, dynamicSpeed * 2 * Time.deltaTime);
                 }
             }
         } else if (target == null && !hasNewBehavior)
