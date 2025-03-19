@@ -119,8 +119,9 @@ public class PlayerMovement : MonoBehaviour
 
     void AttractCoins()
     {
+        int layerMask = LayerMask.GetMask("Ignore Raycast");
         // Find all coins within the attraction radius
-        Collider2D[] coinColliders = Physics2D.OverlapCircleAll(transform.position, coinAttractionRadius);
+        Collider2D[] coinColliders = Physics2D.OverlapCircleAll(transform.position, coinAttractionRadius, layerMask);
 
         foreach (Collider2D coinCollider in coinColliders)
         {
