@@ -330,8 +330,23 @@ public class PlayerMovement : MonoBehaviour
             health.maxHealth += 50;
             health.curHealth += 50;
             health.invincibilityTime += .25f;
+            health.healthBar.SetHealth(health.curHealth);
             Destroy(GameObject.FindGameObjectWithTag("damage"));
             Destroy(GameObject.FindGameObjectWithTag("FireRate"));
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("AllStatsUp"))
+        {
+            //Damage
+            Projectile.defaultDamageAmount += 25f;
+            //Health
+            health.maxHealth += 50;
+            health.curHealth += 50;
+            health.invincibilityTime += .25f;
+            //FireRate
+            autoShooterScript.fireRate += 2f;
+            Debug.Log(Projectile.defaultDamageAmount + " " + health.maxHealth + " " + autoShooterScript.fireRate);
+
             Destroy(other.gameObject);
         }
     }

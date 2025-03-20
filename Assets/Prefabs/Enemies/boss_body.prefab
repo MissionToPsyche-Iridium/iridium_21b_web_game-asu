@@ -109,6 +109,7 @@ MonoBehaviour:
   dashPU: {fileID: 4561308123252426360, guid: 2ae3aa94bfbee3a49918d86c06c48ea3, type: 3}
   dodgePU: {fileID: 3757655930577396639, guid: 1aaec45051051d642975b41f5184cb18, type: 3}
   healthPack: {fileID: 3175921877528465611, guid: e9d63d071b146104591b8d1d9045aa72, type: 3}
+  AllStatIncrease: {fileID: 3175921877528465611, guid: 8c37472e007b8d449932d025b99c7055, type: 3}
 --- !u!50 &-6529679367139478813
 Rigidbody2D:
   serializedVersion: 4

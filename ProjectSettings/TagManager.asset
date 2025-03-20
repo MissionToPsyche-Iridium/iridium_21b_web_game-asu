@@ -22,6 +22,7 @@ TagManager:
   - health
   - damage
   - healthUp
+  - AllStatsUp
   layers:
   - Default
   - TransparentFX

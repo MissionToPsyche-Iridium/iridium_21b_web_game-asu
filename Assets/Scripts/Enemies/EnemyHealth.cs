@@ -12,6 +12,7 @@ public class EnemyHealth : MonoBehaviour
     public GameObject dashPU;
     public GameObject dodgePU;
     public GameObject healthPack;
+    public GameObject AllStatIncrease;
     private float newXScale;
     private Vector3 healthBar_Scale;
     private Vector3 healthBar_Pos;
@@ -24,13 +25,8 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        if (currentHealth <= 0) return; // Prevent multiple death calls
-
-        //Debug.Log($"Projectile Damage: {amount}");
-        //Debug.Log($"Enemy Current Health Before Damage: {currentHealth}");
-
+        //if (currentHealth <= 0) return; // Prevent multiple death calls
         currentHealth = Mathf.Max(currentHealth - amount, 0f);
-        //Debug.Log($"Enemy Current Health After Damage: {currentHealth}");
 
         // Update health bar
         newXScale = currentHealth / maxHealth;
@@ -69,25 +65,25 @@ public class EnemyHealth : MonoBehaviour
     void randomDrop()
     {
         float drop = UnityEngine.Random.Range(1, 101);
-        if (inRange_inclusive(drop, 1f, 2f))
+        if (drop == 1) //healthpack
         {
             Instantiate(healthPack, transform.position, Quaternion.identity);
         }
-        else if (inRange_inclusive(drop, 3f, 4f))
+        else if (drop == 2) //pushback powerup
         {
             Instantiate(pushBackPU, transform.position, Quaternion.identity);
         }
-        else if (inRange_inclusive(drop, 5f, 6f))
+        else if (drop == 3) //rocket powerup
         {
             Instantiate(dashPU, transform.position, Quaternion.identity);
         }
-        else if (inRange_inclusive(drop, 7f, 8f))
+        else if (drop == 4) //dodge powerup
         {
             Instantiate(dodgePU, transform.position, Quaternion.identity);
         }
-        else if (inRange_inclusive(drop, 9f, 10f))
+        else if (drop == 5) //All stat up
         {
-            //gonna have a change to drop any of the stat increasing items
+            Instantiate(AllStatIncrease, transform.position, Quaternion.identity);
         }
         else
         {

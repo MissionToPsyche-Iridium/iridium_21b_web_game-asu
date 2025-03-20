@@ -13,6 +13,7 @@ public class body_follow : MonoBehaviour
     public GameObject dashPU;
     public GameObject dodgePU;
     public GameObject healthPack;
+    public GameObject AllStatIncrease;
     private Queue<Vector3> positionHistory = new Queue<Vector3>(); // Stores past positions
     private bool ready = false;
     private bool hasNewBehavior = false;
@@ -57,7 +58,7 @@ public class body_follow : MonoBehaviour
             healthScript.dashPU = dashPU;
             healthScript.dodgePU = dodgePU;
             healthScript.healthPack = healthPack;
-
+            healthScript.AllStatIncrease = AllStatIncrease;
             //Adding colliders for physics and damage
             CircleCollider2D triggerCollider = gameObject.AddComponent<CircleCollider2D>();
             CircleCollider2D physicsCollider = gameObject.AddComponent<CircleCollider2D>();
