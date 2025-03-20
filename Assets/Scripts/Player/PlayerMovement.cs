@@ -293,7 +293,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(BoostAvailability());
             Destroy(other.gameObject);
         }
-        else if (other.gameObject.CompareTag("Gear"))
+        else if (other.gameObject.CompareTag("Dash"))
         {
             StartCoroutine(DashAvailability());
             Destroy(other.gameObject);
