@@ -167,7 +167,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   nodeMap: {fileID: 0}
   speed: 4
-  dashSpeed: 8
+  dashSpeed: 12
   waitTimeAfterDash: 2
 --- !u!114 &7762960953214339670
 MonoBehaviour:

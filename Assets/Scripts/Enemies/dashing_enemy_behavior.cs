@@ -11,6 +11,7 @@ public class dash_enemy_script : MonoBehaviour
     public float dashSpeed = 8.0f;
     public float waitTimeAfterDash = 3.0f; // Time to wait after dashing
     public Node[] nodeList = new Node[6];
+    public string status = "";
     private Node currentNode;
     private Vector3 dash_location;
     private float lastSeenX;
@@ -33,32 +34,32 @@ public class dash_enemy_script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(status);
         if (isWaiting) return; // Stop movement while waiting
 
         float step = speed * Time.deltaTime;
         float distance = Vector3.Distance(transform.position, Player.transform.position);
-
-        // Check if enemy should dash
-        if (!isDashing && distance <= 4.0f)
+        if (!isDashing && distance <= 8.0f)
         {
-            if (hasLineOfSight(Player.transform, "PlayerTag"))
+            if (hasLineOfSight(Player.transform, "PlayerTag")) // Only dash if there is a line of sight
             {
+                status = "dashing";
                 hasTarget = true;
                 dash_location = Player.transform.position; // Capture the player's position for dashing
+                isDashing = true;
             }
-            else
-            {
-                dash_location = new Vector3(lastSeenX, lastSeenY, 0);
-            }
-
-            isDashing = true;
         }
 
-        // If dashing, move towards the captured location at dash speed
         if (isDashing)
         {
+            if (dash_location == Vector3.zero) // Ensure dash location is valid
+            {
+                isDashing = false;
+                return;
+            }
+
+            status = "dashing2";
             transform.position = Vector3.MoveTowards(transform.position, dash_location, dashSpeed * Time.deltaTime);
-            
 
             // Stop dashing when reaching the target
             if (Vector3.Distance(transform.position, dash_location) < 0.1f)
@@ -66,6 +67,7 @@ public class dash_enemy_script : MonoBehaviour
                 StartCoroutine(WaitAfterDash());
             }
         }
+
         else
         {
             if (hasLineOfSight(Player.transform, "PlayerTag"))
@@ -149,6 +151,7 @@ public class dash_enemy_script : MonoBehaviour
 
     void moveTowardsPlayer(float step)
     {
+        status = "moving towards player";
         hasTarget = true;
         patrolling = false;
         speed = 4.0f;
@@ -157,12 +160,14 @@ public class dash_enemy_script : MonoBehaviour
 
     void moveTowardsLast(float step)
     {
+        status = "moving towards last";
         speed = 5.0f;
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
     }
 
     void moveToRoute(float step)
     {
+        status = "moving to route";
         Node start = findNearestSeenNode();
         transform.position = Vector3.MoveTowards(transform.position, start.node_obj.position, step);
         if (transform.position.x < start.node_obj.position.x + 2 &&
@@ -177,6 +182,7 @@ public class dash_enemy_script : MonoBehaviour
 
     void patrol(float step)
     {
+        status = "patrolling";
         speed = 7.0f;
         transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
         if (transform.position.x < currentNode.node_obj.position.x + 2 &&

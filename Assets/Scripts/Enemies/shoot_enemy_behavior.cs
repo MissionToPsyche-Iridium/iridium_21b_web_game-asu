@@ -14,7 +14,7 @@ public class shoot_enemy_behavior : MonoBehaviour
     private float lastSeenX;
     private float lastSeenY;
     private int[] nodeSeq;
-    private float time_between_shot = 0.8f;
+    private float time_between_shot = 0.4f;
     private bool hasTarget = false;
     private bool patrolling = false;
     private bool shooting = false;
@@ -35,7 +35,7 @@ public class shoot_enemy_behavior : MonoBehaviour
         float dist = Vector3.Distance(transform.position, Player.transform.position);
         float step = speed * Time.deltaTime;
         //If distance from player = 6
-        if (dist > 6)
+        if (dist > 12)
         {
             if (hasLineOfSight(Player.transform, "PlayerTag"))
             {
