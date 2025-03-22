@@ -16,6 +16,7 @@ public class EnemyHealth : MonoBehaviour
     private float newXScale;
     private Vector3 healthBar_Scale;
     private Vector3 healthBar_Pos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +37,7 @@ public class EnemyHealth : MonoBehaviour
         // Check for death
         if (currentHealth == 0)
         {
+            Debug.Log("here");
             randomDrop();
             Die();
         }
@@ -64,7 +66,8 @@ public class EnemyHealth : MonoBehaviour
 
     void randomDrop()
     {
-        float drop = UnityEngine.Random.Range(1, 101);
+        float drop = UnityEngine.Random.Range(1, 151);
+        Debug.Log(drop);
         if (drop == 1) //healthpack
         {
             Instantiate(healthPack, transform.position, Quaternion.identity);

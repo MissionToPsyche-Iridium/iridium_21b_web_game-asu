@@ -18,6 +18,10 @@ public class shoot_enemy_behavior : MonoBehaviour
     private bool hasTarget = false;
     private bool patrolling = false;
     private bool shooting = false;
+    private bool takingDamage = false;
+    private Rigidbody2D rb;
+    private Vector2 lastVelocity;
+    private EnemyHealth healthScript;
     // Start is called before the first frame update
 
     void Start()
@@ -26,12 +30,28 @@ public class shoot_enemy_behavior : MonoBehaviour
         lastSeenY = transform.position.y;
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
         nodeMap = GameObject.FindGameObjectWithTag("node_map");
+        rb = GetComponent<Rigidbody2D>();
+        lastVelocity = rb.velocity;
+        healthScript = GetComponent<EnemyHealth>();
         establishNodes();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Vector2 velocityChange = rb.velocity - lastVelocity;
+
+        //For pushback powerup
+        if (velocityChange.magnitude > 0.01f) // If there is a change in velocity
+        {
+            if (!takingDamage)
+            {
+                Debug.Log("pushed");
+                StartCoroutine(DamageEnemy(healthScript));
+                takingDamage = true;
+            }
+        }
+
         float dist = Vector3.Distance(transform.position, Player.transform.position);
         float step = speed * Time.deltaTime;
         //If distance from player = 6
@@ -201,5 +221,24 @@ public class shoot_enemy_behavior : MonoBehaviour
             }
         }
         return ret_node;
+    }
+
+    IEnumerator DamageEnemy(EnemyHealth script)
+    {
+        float elapsed = 0f;
+        float value = script.currentHealth;
+        float startValue = value;
+        while (elapsed < 20.0f)
+        {
+
+            if (script != null)
+            {
+                script.TakeDamage(15f);
+            }
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        value = 0f; // Ensure it reaches exactly 0
     }
 }

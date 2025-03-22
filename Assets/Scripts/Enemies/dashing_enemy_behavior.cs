@@ -11,7 +11,6 @@ public class dash_enemy_script : MonoBehaviour
     public float dashSpeed = 8.0f;
     public float waitTimeAfterDash = 3.0f; // Time to wait after dashing
     public Node[] nodeList = new Node[6];
-    public string status = "";
     private Node currentNode;
     private Vector3 dash_location;
     private float lastSeenX;
@@ -20,7 +19,11 @@ public class dash_enemy_script : MonoBehaviour
     private bool patrolling = false;
     private bool isDashing = false;
     private bool isWaiting = false;
-    
+    private bool takingDamage = false;
+    private Rigidbody2D rb;
+    private Vector2 lastVelocity;
+    private EnemyHealth healthScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,13 +31,27 @@ public class dash_enemy_script : MonoBehaviour
         lastSeenY = transform.position.y;
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
         nodeMap = GameObject.FindGameObjectWithTag("node_map");
+        rb = GetComponent<Rigidbody2D>();
+        lastVelocity = rb.velocity;
+        healthScript = GetComponent<EnemyHealth>();
         establishNodes();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(status);
+        Vector2 velocityChange = rb.velocity - lastVelocity;
+
+        //For pushback powerup
+        if (velocityChange.magnitude > 0.01f) // If there is a change in velocity
+        {
+            if (!takingDamage)
+            {
+                StartCoroutine(DamageEnemy(healthScript));
+                takingDamage = true;
+}
+        }
+
         if (isWaiting) return; // Stop movement while waiting
 
         float step = speed * Time.deltaTime;
@@ -43,7 +60,6 @@ public class dash_enemy_script : MonoBehaviour
         {
             if (hasLineOfSight(Player.transform, "PlayerTag")) // Only dash if there is a line of sight
             {
-                status = "dashing";
                 hasTarget = true;
                 dash_location = Player.transform.position; // Capture the player's position for dashing
                 isDashing = true;
@@ -58,7 +74,6 @@ public class dash_enemy_script : MonoBehaviour
                 return;
             }
 
-            status = "dashing2";
             transform.position = Vector3.MoveTowards(transform.position, dash_location, dashSpeed * Time.deltaTime);
 
             // Stop dashing when reaching the target
@@ -151,7 +166,6 @@ public class dash_enemy_script : MonoBehaviour
 
     void moveTowardsPlayer(float step)
     {
-        status = "moving towards player";
         hasTarget = true;
         patrolling = false;
         speed = 4.0f;
@@ -160,14 +174,12 @@ public class dash_enemy_script : MonoBehaviour
 
     void moveTowardsLast(float step)
     {
-        status = "moving towards last";
         speed = 5.0f;
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
     }
 
     void moveToRoute(float step)
     {
-        status = "moving to route";
         Node start = findNearestSeenNode();
         transform.position = Vector3.MoveTowards(transform.position, start.node_obj.position, step);
         if (transform.position.x < start.node_obj.position.x + 2 &&
@@ -182,7 +194,6 @@ public class dash_enemy_script : MonoBehaviour
 
     void patrol(float step)
     {
-        status = "patrolling";
         speed = 7.0f;
         transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
         if (transform.position.x < currentNode.node_obj.position.x + 2 &&
@@ -235,5 +246,24 @@ public class dash_enemy_script : MonoBehaviour
             }
         }
         return ret_node;
+    }
+
+    IEnumerator DamageEnemy(EnemyHealth script)
+    {
+        float elapsed = 0f;
+        float value = script.currentHealth;
+        float startValue = value;
+        while (elapsed < 20.0f)
+        {
+
+            if (script != null)
+            {
+                script.TakeDamage(15f);
+            }
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        value = 0f; // Ensure it reaches exactly 0
     }
 }

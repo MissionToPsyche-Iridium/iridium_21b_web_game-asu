@@ -244,14 +244,16 @@ public class PlayerMovement : MonoBehaviour
         autoShooterScript.fireRate = 2.5f;
     }
 
+
     // Function to activate push-back
     void ActivatePushBack()
     {
-        Debug.Log("ActivatePushBack called");
+        //Debug.Log("ActivatePushBack called");
 
         // Find all colliders within the pushBackRadius
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, pushBackRadius);
-        Debug.Log($"Found {hitColliders.Length} colliders within radius");
+        int layerMask = LayerMask.GetMask("Ignore Raycast");
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, pushBackRadius, layerMask);
+        //Debug.Log($"Found {hitColliders.Length} colliders within radius");
 
         foreach (Collider2D collider in hitColliders)
         {
@@ -259,7 +261,6 @@ public class PlayerMovement : MonoBehaviour
                 collider.CompareTag("dash_enemy") ||
                 collider.CompareTag("shoot_enemy"))
             {
-                Debug.Log($"Pushing back enemy: {collider.name}");
                 Rigidbody2D enemyRb = collider.GetComponent<Rigidbody2D>();
                 if (enemyRb != null)
                 {

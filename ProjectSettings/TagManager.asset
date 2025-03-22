@@ -23,6 +23,8 @@ TagManager:
   - damage
   - healthUp
   - AllStatsUp
+  - Undefined
+  - Dash
   layers:
   - Default
   - TransparentFX

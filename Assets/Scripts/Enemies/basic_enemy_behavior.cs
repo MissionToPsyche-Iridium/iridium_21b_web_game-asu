@@ -16,6 +16,10 @@ public class basic_enemy_behavior : MonoBehaviour
     public float speed = 3.0f;
     private bool hasTarget = false;
     private bool patrolling = false;
+    private bool takingDamage = false;
+    private Rigidbody2D rb;
+    private Vector2 lastVelocity;
+    private EnemyHealth healthScript;
 
     void Start()
     {
@@ -23,11 +27,26 @@ public class basic_enemy_behavior : MonoBehaviour
         lastSeenY = transform.position.y;
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
         nodeMap = GameObject.FindGameObjectWithTag("node_map");
+        rb = GetComponent<Rigidbody2D>();
+        lastVelocity = rb.velocity;
+        healthScript = GetComponent<EnemyHealth>();
         establishNodes();
     }
 
     void Update()
     {
+        Vector2 velocityChange = rb.velocity - lastVelocity;
+
+        //For pushback powerup
+        if (velocityChange.magnitude > 0.01f) // If there is a change in velocity
+        {
+            if (!takingDamage)
+            {
+                StartCoroutine(DamageEnemy(healthScript));
+                takingDamage = true;
+            }
+        }
+
         float step = speed * Time.deltaTime;
 
         // Move towards the player if there is line of sight
@@ -181,6 +200,25 @@ public class basic_enemy_behavior : MonoBehaviour
             }
         }
         return ret_node;
+    }
+
+    IEnumerator DamageEnemy(EnemyHealth script)
+    {
+        float elapsed = 0f;
+        float value = script.currentHealth;
+        float startValue = value;
+        while (elapsed < 20.0f)
+        {
+
+            if (script != null)
+            {
+                script.TakeDamage(15f);
+            }
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        value = 0f; // Ensure it reaches exactly 0
     }
 
 }
