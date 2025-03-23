@@ -5,26 +5,48 @@ using UnityEngine;
 
 public class enemy_spawner : MonoBehaviour
 {
+    //Entities
     public GameObject Player;
     public GameObject EnemyType1;
     public GameObject EnemyType2;
     public GameObject EnemyType3;
     public GameObject EnemyType4;
+
+    //Spawnable Powerups
     public GameObject pushBackPU;
     public GameObject dashPU;
     public GameObject dodgePU;
-    public GameObject nodeMap;
     public GameObject damagePU;
     public GameObject fireRatePU;
     public GameObject healthPU;
-    public Node[] nodeList = new Node[6];
-    private List<int> validSpawns = new List<int> { 0, 1, 2, 3, 4, 5};
+
+    //Node Maps
+    public GameObject nodeMap;
+    public GameObject quadrant1;
+    public GameObject quadrant2;
+    public GameObject quadrant3;
+    public GameObject quadrant4;
+    public Node[] nodeList = new Node[6]; //will dynamically set to the nearest nodemap / quadrant
+    private GameObject nearestMap;
+
+    //Spawn Logic
+    private List<int> validSpawns = new List<int> { 0, 1, 2, 3, 4, 5 };
     private int currentInvalid = -1;
     private GameObject[] enemies;
     private float randTimer = 0;
     private float randSpawnrate = .5f;
     private float randX;
     private float randY;
+
+    //Distance
+    private float nodeMapDist;
+    private float quad1Dist;
+    private float quad2Dist;
+    private float quad3Dist;
+    private float quad4Dist;
+    private GameObject[] maps = new GameObject[5];
+
+    //Wave info
     private int numEnemies = 0;
     private int bossEnemies = 0;
     private int waveNumber = 1; // Start from wave 1
@@ -36,12 +58,23 @@ public class enemy_spawner : MonoBehaviour
     {
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
         nodeMap = GameObject.FindGameObjectWithTag("node_map");
-        establishNodes();
+        quadrant1 = GameObject.FindGameObjectWithTag("quad1");
+        quadrant2 = GameObject.FindGameObjectWithTag("quad2");
+        quadrant3 = GameObject.FindGameObjectWithTag("quad3");
+        quadrant4 = GameObject.FindGameObjectWithTag("quad4");
+        maps[0] = nodeMap;
+        maps[1] = quadrant1;
+        maps[2] = quadrant2;
+        maps[3] = quadrant3;
+        maps[4] = quadrant4;
+        establishNodes(nodeMap); //initially setting the spawn points to the central nodemap
         Debug.Log("Entering Wave: " + waveNumber);
     }
 
     void Update()
     {
+        
+
         if (waiting)
         {
             return;
@@ -50,7 +83,13 @@ public class enemy_spawner : MonoBehaviour
         {
             randomSpawner();
         }
-
+        /*
+         -Find nearest map
+         -Set valid spawns to the points on the nearest map
+         -Exclude nearest node
+        */
+        getNearestNodeMap();
+        establishNodes(nearestMap);
         findNearestSeenNode();
     }
 
@@ -137,25 +176,14 @@ public class enemy_spawner : MonoBehaviour
         randY = nodeList[validSpawns[index]].y;
     }
 
-    void establishNodes()
+    void establishNodes(GameObject map)
     {
         int i = 0;
-        foreach (Transform node in nodeMap.transform)
+        nearestMap = map;
+        foreach (Transform node in nearestMap.transform)
         {
             nodeList[i] = new Node(node, 0, 0);
             i++;
-        }
-
-        for (int j = 0; j < 6; j++)
-        {
-            if ((j + 1) == 6)
-            {
-                nodeList[j].next = nodeList[0];
-            }
-            else
-            {
-                nodeList[j].next = nodeList[j + 1];
-            }
         }
     }
 
@@ -221,6 +249,24 @@ public class enemy_spawner : MonoBehaviour
         validSpawns.Remove(ret_index);
         currentInvalid = ret_index;
         return ret_node;
+    }
+
+    void getNearestNodeMap()
+    {
+        nearestMap = maps[0];
+        float currDist;
+        float smallestDist = Vector3.Distance(Player.transform.position, nearestMap.transform.position);
+        for(int i = 0; i < maps.Length; i++)
+        {
+            currDist = Vector3.Distance(Player.transform.position, maps[i].transform.position);
+            if (smallestDist > currDist)
+            {
+                nearestMap = maps[i];
+                smallestDist = Vector3.Distance(Player.transform.position, nearestMap.transform.position);
+            }
+        }
+        Debug.Log(nearestMap.transform.position.x + " " + nearestMap.transform.position.y);
+        
     }
 
     void checkpoint()

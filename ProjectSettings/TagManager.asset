@@ -25,6 +25,10 @@ TagManager:
   - AllStatsUp
   - Undefined
   - Dash
+  - quad1
+  - quad2
+  - quad3
+  - quad4
   layers:
   - Default
   - TransparentFX
