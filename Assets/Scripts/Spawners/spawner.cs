@@ -8,36 +8,57 @@ public class spawner : MonoBehaviour
     public GameObject asteroid;
     public GameObject areaOfEffect;
     public GameObject areaOfEffectRand;
-    public float height = 20;
+    public GameObject nodeMapCenter;
+    public GameObject quadrant1;
+    public GameObject quadrant2;
+    public GameObject quadrant3;
+    public GameObject quadrant4;
+    public GameObject currentArea = null;
+    public float height = 20f;
+    private SpriteRenderer sprite;
     private float timer = 0;
     private float randTimer = 0;
     private float spawnrate = 1;
-    private float randSpawnrate = .7f;
+    private float randSpawnrate = .2f;
+    private float timeBetweenChange = 30f;
     private float randX;
     private float randY;
+    private bool isWaiting = false;
     // Start is called before the first frame update
     void Start()
     { 
-
+        Player = GameObject.FindGameObjectWithTag("PlayerTag");
+        nodeMapCenter = GameObject.FindGameObjectWithTag("node_map");
+        quadrant1 = GameObject.FindGameObjectWithTag("quad1");
+        quadrant2 = GameObject.FindGameObjectWithTag("quad2");
+        quadrant3 = GameObject.FindGameObjectWithTag("quad3");
+        quadrant4 = GameObject.FindGameObjectWithTag("quad4");
+        sprite = GetComponent<SpriteRenderer>();
+        sprite.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + height, Player.transform.position.z);
-        if (timer < spawnrate )
-        {
-            timer = timer + Time.deltaTime;
-        }
-        else
-        {
-            Instantiate(asteroid, transform.position, transform.rotation);
 
-            //Instantiate(asteroid, new Vector3(randX, randY + height, 1), transform.rotation);
-            timer = 0;
-            
+        //Countdown until next area
+        if (!isWaiting)
+        {
+            isWaiting = true;
+            changeLocation();
+            if (currentArea != null)
+            {
+                transform.position = currentArea.transform.position;
+            }
+            StartCoroutine(waitForNewLocation());
         }
-        randomSpawner();
+
+        //If there is an area, spawn meteors
+        if (currentArea != null)
+        {
+            randomSpawner();
+        }
+        
     }
 
     void randomSpawner()
@@ -48,12 +69,63 @@ public class spawner : MonoBehaviour
         }
         else
         {
-            randX = (float)Random.Range(0, 6) + Player.transform.position.x;
-            randY = (float)Random.Range(0, 2) + Player.transform.position.y;
+            randX = (float)Random.Range(-16, 16) + transform.position.x;
+            randY = (float)Random.Range(0, 32) + transform.position.y;
 
-            Instantiate(asteroid, new Vector3(randX, randY + height, 1), transform.rotation);
+            if (asteroid != null)
+            {
+                Instantiate(asteroid, new Vector3(randX, randY, 1), transform.rotation);
+            }
             randTimer = 0;
         }
 
+    }
+
+    void changeLocation()
+    {
+        float location = UnityEngine.Random.Range(1, 11);
+        Debug.Log(location);
+        if (location == 1)
+        {
+            setLocation(nodeMapCenter);
+        }
+        else if (location == 2)
+        {
+            setLocation(quadrant1);
+        }
+        else if (location == 3)
+        {
+            setLocation(quadrant2);
+        }
+        else if (location == 4)
+        {
+            setLocation(quadrant3);
+        }   
+        else if (location == 5)
+        {
+            setLocation(quadrant4);
+        }
+        else
+        {
+            currentArea = null;
+            sprite.enabled = false;
+        }
+    }
+
+    void setLocation(GameObject location)
+    {
+        currentArea = location;
+        sprite.enabled = true;
+    }
+
+    IEnumerator waitForNewLocation()
+    {
+        float elapsed = 0f;
+        while (elapsed < timeBetweenChange)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        isWaiting = false;
     }
 }

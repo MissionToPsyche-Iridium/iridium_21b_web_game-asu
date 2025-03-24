@@ -22,7 +22,7 @@ public class asteroidBehavior : MonoBehaviour
     {
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
         playerHealth = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Health>();
-        destroyY = Player.transform.position.y;
+        destroyY = transform.position.y - 15f;//Player.transform.position.y;
         destroyX = Player.transform.position.x;
     }
 
@@ -77,4 +77,5 @@ public class asteroidBehavior : MonoBehaviour
         Destroy(gameObject);
         isDespawn = false;
     }
+
 }

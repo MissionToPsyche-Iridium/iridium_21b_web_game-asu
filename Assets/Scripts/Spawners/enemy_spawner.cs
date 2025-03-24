@@ -265,8 +265,6 @@ public class enemy_spawner : MonoBehaviour
                 smallestDist = Vector3.Distance(Player.transform.position, nearestMap.transform.position);
             }
         }
-        Debug.Log(nearestMap.transform.position.x + " " + nearestMap.transform.position.y);
-        
     }
 
     void checkpoint()

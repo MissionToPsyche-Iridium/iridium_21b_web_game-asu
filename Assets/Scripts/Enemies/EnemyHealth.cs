@@ -37,7 +37,6 @@ public class EnemyHealth : MonoBehaviour
         // Check for death
         if (currentHealth == 0)
         {
-            Debug.Log("here");
             randomDrop();
             Die();
         }
@@ -67,7 +66,6 @@ public class EnemyHealth : MonoBehaviour
     void randomDrop()
     {
         float drop = UnityEngine.Random.Range(1, 151);
-        Debug.Log(drop);
         if (drop == 1) //healthpack
         {
             Instantiate(healthPack, transform.position, Quaternion.identity);
