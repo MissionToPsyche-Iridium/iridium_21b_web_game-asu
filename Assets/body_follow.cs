@@ -5,6 +5,8 @@ using UnityEngine;
 public class body_follow : MonoBehaviour
 {
     public float speed = 7.0f;
+    public float speedFactor = 1.0f;
+    public float healthScale = 1.0f;
     public float delay = 0f;
     public float followDistance = .01f; // Distance to maintain between segments
     public Transform target;
@@ -38,7 +40,7 @@ public class body_follow : MonoBehaviour
                 if (distance > followDistance)
                 {
                     // Dynamically adjust speed based on distance
-                    float dynamicSpeed = Mathf.Lerp(speed, speed * 2, (distance - followDistance) / followDistance);
+                    float dynamicSpeed = Mathf.Lerp(speed * speedFactor, speed * speedFactor * 2, (distance - followDistance) / followDistance);
                     transform.position = Vector3.MoveTowards(transform.position, targetPosition - direction * followDistance, dynamicSpeed * 2 * Time.deltaTime);
                 }
             }
@@ -59,6 +61,7 @@ public class body_follow : MonoBehaviour
             healthScript.dodgePU = dodgePU;
             healthScript.healthPack = healthPack;
             healthScript.AllStatIncrease = AllStatIncrease;
+
             //Adding colliders for physics and damage
             CircleCollider2D triggerCollider = gameObject.AddComponent<CircleCollider2D>();
             CircleCollider2D physicsCollider = gameObject.AddComponent<CircleCollider2D>();

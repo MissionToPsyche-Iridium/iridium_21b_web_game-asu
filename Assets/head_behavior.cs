@@ -8,7 +8,8 @@ public class head_behavior : MonoBehaviour
     public GameObject nodeMap;
     public GameObject body;
     public Node[] nodeList = new Node[6];
-    public int numSegments;
+    public int numSegments = 5;
+    public float speedFactor = 1.0f;
     private List<GameObject> segments = new List<GameObject>();
     private Node currentNode;
     private GameObject[] enemyObjects;
@@ -23,6 +24,7 @@ public class head_behavior : MonoBehaviour
     {
         lastSeenX = transform.position.x;
         lastSeenY = transform.position.y;
+        speed = speed * speedFactor;
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
         nodeMap = GameObject.FindGameObjectWithTag("node_map");
         establishNodes();
@@ -104,7 +106,7 @@ public class head_behavior : MonoBehaviour
 
     void moveTowardsPlayer(float step)
     {
-        speed = 3.0f;
+        speed = 3.0f * speedFactor;
         hasTarget = true;
         patrolling = false;
         transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
@@ -112,7 +114,7 @@ public class head_behavior : MonoBehaviour
 
     void moveTowardsLast(float step)
     {
-        speed = 4.0f;
+        speed = 4.0f * speedFactor;
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
     }
 
@@ -132,7 +134,7 @@ public class head_behavior : MonoBehaviour
 
     void patrol(float step)
     {
-        speed = 7.0f;
+        speed = 7.0f * speedFactor;
         transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
         if (transform.position.x < currentNode.node_obj.position.x + 2 &&
             transform.position.x > currentNode.node_obj.position.x - 2 &&

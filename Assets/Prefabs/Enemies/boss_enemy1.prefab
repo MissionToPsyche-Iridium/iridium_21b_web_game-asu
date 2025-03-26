@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 6672126686136294134}
   - component: {fileID: 2768961293572403009}
   - component: {fileID: 9129094552535787159}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Head
   m_TagString: basic_enemy
   m_Icon: {fileID: 0}
@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1500
   currentHealth: 1500
+  healthScale: 1
   healthBar: {fileID: 2249225369205829707}
   collectible: {fileID: 3523325121765631777, guid: 3da9cc574d5494f45be5f89a8c6377ee, type: 3}
   pushBackPU: {fileID: 6832134630869318019, guid: d459e18af90f19c4186fdccd3fe0700c, type: 3}
@@ -256,6 +257,7 @@ MonoBehaviour:
   nodeMap: {fileID: 0}
   body: {fileID: 2599762367577219709, guid: 6b24ba7c61a2a994abcb56620111d90d, type: 3}
   numSegments: 5
+  speedFactor: 1
 --- !u!1001 &9036314660727721692
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -326,7 +328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7084631434066656919, guid: 5ee69bf6afc165e4e84811066a33e86a, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

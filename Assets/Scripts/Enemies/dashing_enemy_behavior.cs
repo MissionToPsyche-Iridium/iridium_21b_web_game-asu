@@ -8,6 +8,7 @@ public class dash_enemy_script : MonoBehaviour
     public GameObject Player;
     public GameObject nodeMap;
     public float speed = 2.0f;
+    public float speedFactor = 1.0f;
     public float dashSpeed = 8.0f;
     public float waitTimeAfterDash = 3.0f; // Time to wait after dashing
     public Node[] nodeList = new Node[6];
@@ -29,6 +30,8 @@ public class dash_enemy_script : MonoBehaviour
     {
         lastSeenX = transform.position.x;
         lastSeenY = transform.position.y;
+        speed = speed * speedFactor;
+        dashSpeed = dashSpeed * speedFactor;
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
         nodeMap = GameObject.FindGameObjectWithTag("node_map");
         rb = GetComponent<Rigidbody2D>();
@@ -168,13 +171,13 @@ public class dash_enemy_script : MonoBehaviour
     {
         hasTarget = true;
         patrolling = false;
-        speed = 4.0f;
+        speed = 4.0f * speedFactor;
         transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
     }
 
     void moveTowardsLast(float step)
     {
-        speed = 5.0f;
+        speed = 5.0f * speedFactor;
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
     }
 
@@ -194,7 +197,7 @@ public class dash_enemy_script : MonoBehaviour
 
     void patrol(float step)
     {
-        speed = 7.0f;
+        speed = 7.0f * speedFactor;
         transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
         if (transform.position.x < currentNode.node_obj.position.x + 2 &&
             transform.position.x > currentNode.node_obj.position.x - 2 &&

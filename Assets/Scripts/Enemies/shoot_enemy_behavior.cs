@@ -10,6 +10,7 @@ public class shoot_enemy_behavior : MonoBehaviour
     public GameObject nodeMap;
     public Node[] nodeList = new Node[6];
     public float speed = 5.0f;
+    public float speedFactor = 1.0f;
     private Node currentNode;
     private float lastSeenX;
     private float lastSeenY;
@@ -28,6 +29,7 @@ public class shoot_enemy_behavior : MonoBehaviour
     {
         lastSeenX = transform.position.x;
         lastSeenY = transform.position.y;
+        speed = speed * speedFactor;
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
         nodeMap = GameObject.FindGameObjectWithTag("node_map");
         rb = GetComponent<Rigidbody2D>();
@@ -101,13 +103,13 @@ public class shoot_enemy_behavior : MonoBehaviour
     {
         hasTarget = true;
         patrolling = false;
-        speed = 5.0f;
+        speed = 5.0f * speedFactor;
         transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
     }
 
     void moveTowardsLast(float step)
     {
-        speed = 6.0f;
+        speed = 6.0f * speedFactor;
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
     }
 
@@ -127,7 +129,7 @@ public class shoot_enemy_behavior : MonoBehaviour
 
     void patrol(float step)
     {
-        speed = 7.0f;
+        speed = 7.0f * speedFactor;
         transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
         if (transform.position.x < currentNode.node_obj.position.x + 2 &&
             transform.position.x > currentNode.node_obj.position.x - 2 &&

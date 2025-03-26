@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9108022164823009537}
   - component: {fileID: 7513578354413282432}
   - component: {fileID: 2988359034133007482}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RocketPowerup
   m_TagString: Rocket
   m_Icon: {fileID: 0}

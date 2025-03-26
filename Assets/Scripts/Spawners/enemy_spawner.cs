@@ -53,11 +53,14 @@ public class enemy_spawner : MonoBehaviour
     private int maxWaveEnemies = 10;
     private int maxBossEnemies = 0;
     private bool waiting = false;
+    private bool scaledEnemies = false;
+    private Timer timer;
 
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
         nodeMap = GameObject.FindGameObjectWithTag("node_map");
+        timer = FindObjectOfType<Timer>();
         quadrant1 = GameObject.FindGameObjectWithTag("quad1");
         quadrant2 = GameObject.FindGameObjectWithTag("quad2");
         quadrant3 = GameObject.FindGameObjectWithTag("quad3");
@@ -74,7 +77,7 @@ public class enemy_spawner : MonoBehaviour
     void Update()
     {
         
-
+        //Check for end of wave
         if (waiting)
         {
             return;
@@ -82,6 +85,20 @@ public class enemy_spawner : MonoBehaviour
         else
         {
             randomSpawner();
+        }
+
+        //Check for new enemy scaling
+        if (timer.getWaveTime() == 0 && !scaledEnemies)
+        {
+            Debug.Log("Scaling enemies");
+            Player.GetComponent<PlayerMovement>().damageFactor += 1;
+            EnemyHealth.healthScale += .1f;
+            basic_enemy_behavior.speedFactor += .1f;
+            EnemyType2.GetComponent<dash_enemy_script>().speedFactor += .1f;
+            EnemyType3.GetComponent<shoot_enemy_behavior>().speedFactor += .1f;
+            EnemyType4.GetComponentInChildren<head_behavior>().speedFactor += .1f;
+            EnemyType4.GetComponentInChildren<head_behavior>().body.GetComponent<body_follow>().speedFactor += .1f;
+            scaledEnemies = true;
         }
         /*
          -Find nearest map
@@ -125,20 +142,13 @@ public class enemy_spawner : MonoBehaviour
             if (waveNumber % 5 == 0)
             {
                 maxBossEnemies += 1;
+                EnemyType4.GetComponentInChildren<head_behavior>().numSegments += 1;
             }
 
             checkpoint();
             Debug.Log("Entering Wave: " + waveNumber);
         }
     }
-
-    public void StartWave(int waveNum)
-    {
-        waveNumber = waveNum;
-        waiting = false; // Resume spawning
-        Debug.Log("Starting Wave: " + waveNumber);
-    }
-
 
 
     void spawnEnemy()
@@ -302,15 +312,17 @@ public class enemy_spawner : MonoBehaviour
         return range_max;
     }
 
+    public void ResetScaling()
+    {
+        scaledEnemies = false;
+    }
+
     //temporarily reverting until i figure out how to implement timer
     IEnumerator WaitBetweenWaves()
     {
-        //waiting = true; // Pause enemy spawning
-        //Debug.Log("Wave Complete! Clearing all enemies before next wave...");
-
-        // Destroy all remaining enemies
-
+        timer.stopTimer = true;
         yield return new WaitForSeconds(10f); // Increased break time to 10 seconds
+        timer.stopTimer = false;
         waiting = false;
         //FindObjectOfType<Timer>().TriggerNextWave(); // Start next wave
     }

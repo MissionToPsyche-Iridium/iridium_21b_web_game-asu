@@ -1,5 +1,6 @@
-
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,10 +9,10 @@ public class Timer : MonoBehaviour
     public Slider timerSlider;
     public Text timerText;
     public Text waveText; // UI Element for wave number
+    public bool stopTimer = false;
     public float waveDuration = 30f; // Wave length in seconds
     private float waveTimer; // This was missing before
     private int waveNumber = 1;
-    private bool stopTimer = false;
 
     void Start()
     {
@@ -31,7 +32,8 @@ public class Timer : MonoBehaviour
             if (waveTimer < 0)
             {
                 waveTimer = 0;
-                StartCoroutine(NextWave());
+                //StartCoroutine(NextWave());
+                RestartTimer();
             }
 
             int minutes = Mathf.FloorToInt(waveTimer / 60);
@@ -48,19 +50,22 @@ public class Timer : MonoBehaviour
 
     yield return new WaitForSeconds(10f); // Increased break time
 
-    TriggerNextWave(); // Call function to start the next wave
+    RestartTimer(); // Call function to start the next wave
 }
 
 
-    public void TriggerNextWave()
+    public void RestartTimer()
     {
-        waveNumber++;
         waveTimer = waveDuration; // Reset wave timer
         timerSlider.value = waveTimer;
         stopTimer = false;
-
-        FindObjectOfType<enemy_spawner>().StartWave(waveNumber); // Notify enemy spawner
         UpdateWaveUI();
+        FindObjectOfType<enemy_spawner>().ResetScaling();
+    }
+
+    public int getWaveTime()
+    {
+        return Mathf.FloorToInt(waveTimer);
     }
 
     void UpdateWaveUI()

@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public float dashDistance = 2.5f;           // Distance covered during a dash
     public float doublePressThreshold = 0.3f;   // Max time between double presses for dash
     public float dashCooldown = 1f;              // 1-second cooldown for dashing
+    public int damageFactor = 1;
 
     // --- Push-Back Power-Up Variables ---
     public float pushBackRadius = 5f;            // Radius within which enemies are pushed
@@ -282,7 +283,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("basic_enemy") || other.gameObject.CompareTag("enemy_projectile"))
         {
-            health.DamagePlayer(10);
+            health.DamagePlayer(10 + damageFactor);
         }
         else if (other.gameObject.CompareTag("Coin"))
         {

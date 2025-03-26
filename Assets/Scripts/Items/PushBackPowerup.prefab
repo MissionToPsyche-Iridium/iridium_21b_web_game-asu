@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4602028179885924323}
   - component: {fileID: 4559725525097464146}
   - component: {fileID: 3943263982064424832}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PushBackPowerup
   m_TagString: PushBack
   m_Icon: {fileID: 0}

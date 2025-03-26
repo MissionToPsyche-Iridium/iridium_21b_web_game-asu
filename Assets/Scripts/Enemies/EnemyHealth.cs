@@ -6,6 +6,7 @@ public class EnemyHealth : MonoBehaviour
 {
     public float maxHealth = 460f;
     public float currentHealth = 460f;
+    public static float healthScale = 1.0f;
     public GameObject healthBar;
     public GameObject collectible;
     public GameObject pushBackPU;
@@ -20,6 +21,8 @@ public class EnemyHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        maxHealth = maxHealth * healthScale;
+        currentHealth = currentHealth * healthScale;
         healthBar_Scale = healthBar.transform.localScale;
         healthBar_Pos = healthBar.transform.localPosition;
     }
@@ -91,7 +94,5 @@ public class EnemyHealth : MonoBehaviour
             Instantiate(collectible, transform.position, Quaternion.identity);
         }
     }
-
-    
     
 }
