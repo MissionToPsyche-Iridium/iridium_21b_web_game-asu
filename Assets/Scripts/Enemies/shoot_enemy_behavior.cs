@@ -23,10 +23,13 @@ public class shoot_enemy_behavior : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 lastVelocity;
     private EnemyHealth healthScript;
+    public Animator animator;
+    private Vector3 lastPosition;
     // Start is called before the first frame update
 
     void Start()
     {
+        
         lastSeenX = transform.position.x;
         lastSeenY = transform.position.y;
         speed = speed * speedFactor;
@@ -97,6 +100,13 @@ public class shoot_enemy_behavior : MonoBehaviour
             Instantiate(Projectile, transform.position, Quaternion.identity);
             StartCoroutine(WaitAfterShot());
         }
+        Vector3 move = (transform.position - lastPosition).normalized;
+
+        // Pass the movement to directionAnim() to update animation
+        directionAnim(move);
+
+        // Update last position for the next frame
+        lastPosition = transform.position;
     }
 
     void moveTowardsPlayer(float step)
@@ -242,5 +252,11 @@ public class shoot_enemy_behavior : MonoBehaviour
         }
 
         value = 0f; // Ensure it reaches exactly 0
+    }
+    void directionAnim(Vector3 move) {
+        if (move.sqrMagnitude > 0) {
+            animator.SetFloat("x", move.x);
+            animator.SetFloat("y", move.y);
+        }
     }
 }

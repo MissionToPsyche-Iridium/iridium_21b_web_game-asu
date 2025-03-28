@@ -17,10 +17,12 @@ public class EnemyHealth : MonoBehaviour
     private float newXScale;
     private Vector3 healthBar_Scale;
     private Vector3 healthBar_Pos;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        
         maxHealth = maxHealth * healthScale;
         currentHealth = currentHealth * healthScale;
         healthBar_Scale = healthBar.transform.localScale;
@@ -40,8 +42,9 @@ public class EnemyHealth : MonoBehaviour
         // Check for death
         if (currentHealth == 0)
         {
+            animator.SetBool("death", true);
             randomDrop();
-            Die();
+            StartCoroutine(Die(.36f));
         }
     }
 
@@ -51,8 +54,9 @@ public class EnemyHealth : MonoBehaviour
         
     }
 
-    void Die()
+    private IEnumerator Die(float waitTime)
     {
+        yield return new WaitForSeconds(waitTime);
         // Here you can add death effects, animations, sounds, etc.
         Destroy(gameObject);
     }
@@ -94,5 +98,6 @@ public class EnemyHealth : MonoBehaviour
             Instantiate(collectible, transform.position, Quaternion.identity);
         }
     }
+
     
 }
