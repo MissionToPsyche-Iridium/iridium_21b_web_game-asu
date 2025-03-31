@@ -1182,8 +1182,8 @@ MonoBehaviour:
   pushBackAvailabilityDuration: 30
   animator: {fileID: 241846888}
   vcam: {fileID: 959591816}
-  zoomOutSize: 7
-  zoomInSize: 5
+  zoomOutSize: 14
+  zoomInSize: 10
   zoomDuration: 0.5
   coinAttractionRadius: 3
   coinAttractionSpeed: 3
