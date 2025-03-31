@@ -21,8 +21,6 @@ public class basic_enemy_behavior : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 lastVelocity;
     private EnemyHealth healthScript;
-    public Animator animator;
-    private Vector3 lastPosition;
 
     void Start()
     {
@@ -84,15 +82,6 @@ public class basic_enemy_behavior : MonoBehaviour
         {
             patrol(step);
         }
-        Vector3 move = (transform.position - lastPosition).normalized;
-
-        // Pass the movement to directionAnim() to update animation
-        directionAnim(move);
-
-        // Update last position for the next frame
-        lastPosition = transform.position;
-
-        
     }
 
     bool hasLineOfSight(Transform target, string tag)
@@ -134,49 +123,42 @@ public class basic_enemy_behavior : MonoBehaviour
 
     void moveTowardsPlayer(float step)
     {
-        if(!animator.GetBool("death")) {
-            speed = 3.0f * speedFactor;
-            hasTarget = true;
-            patrolling = false;
-            transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
-        }
-        
+        speed = 3.0f * speedFactor;
+        hasTarget = true;
+        patrolling = false;
+        transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
     }
 
     void moveTowardsLast(float step)
     {
-        if (!animator.GetBool("death")) {
-            speed = 4.0f * speedFactor;
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
-        }
+        speed = 4.0f * speedFactor;
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
     }
 
     void moveToRoute(float step)
     {
-        if (!animator.GetBool("death")) {
-            Node start = findNearestSeenNode();
-            transform.position = Vector3.MoveTowards(transform.position, start.node_obj.position, step);
-            if (transform.position.x < start.node_obj.position.x + 2 &&
-                transform.position.x > start.node_obj.position.x - 2 &&
-                transform.position.y < start.node_obj.position.y + 2 &&
-                transform.position.y > start.node_obj.position.y - 2) {
-                currentNode = start;
-                patrolling = true;
-            }
+        Node start = findNearestSeenNode();
+        transform.position = Vector3.MoveTowards(transform.position, start.node_obj.position, step);
+        if (transform.position.x < start.node_obj.position.x + 2 &&
+            transform.position.x > start.node_obj.position.x - 2 &&
+            transform.position.y < start.node_obj.position.y + 2 &&
+            transform.position.y > start.node_obj.position.y - 2)
+        {
+            currentNode = start;
+            patrolling = true;
         }
     }
 
     void patrol(float step)
     {
-        if (!animator.GetBool("death")) {
-            speed = 7.0f * speedFactor;
-            transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
-            if (transform.position.x < currentNode.node_obj.position.x + 2 &&
-                transform.position.x > currentNode.node_obj.position.x - 2 &&
-                transform.position.y < currentNode.node_obj.position.y + 2 &&
-                transform.position.y > currentNode.node_obj.position.y - 2) {
-                currentNode = currentNode.next;
-            }
+        speed = 7.0f * speedFactor;
+        transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
+        if (transform.position.x < currentNode.node_obj.position.x + 2 &&
+            transform.position.x > currentNode.node_obj.position.x - 2 &&
+            transform.position.y < currentNode.node_obj.position.y + 2 &&
+            transform.position.y > currentNode.node_obj.position.y - 2)
+        {
+            currentNode = currentNode.next;
         }
     }
 
@@ -238,17 +220,8 @@ public class basic_enemy_behavior : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-        
-        value = 0f; // Ensure it reaches exactly 0
-        
-        
-    }
 
-    void directionAnim(Vector3 move) {
-        if (move.sqrMagnitude > 0) {
-            animator.SetFloat("x", move.x);
-            animator.SetFloat("y", move.y);
-        }
+        value = 0f; // Ensure it reaches exactly 0
     }
 
 }

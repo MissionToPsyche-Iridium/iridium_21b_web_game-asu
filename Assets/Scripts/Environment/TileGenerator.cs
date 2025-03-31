@@ -17,7 +17,7 @@ public class TileGenerator : MonoBehaviour
     // How many cells ahead of the player should the tiles be generated.
     public int tilesAhead = 5;
 
-    // The directionAnim to generate from player.
+    // The direction to generate from player.
     // Assuming the player is moving horizontally to the right.
     // If your player uses a different axis, adjust accordingly.
     public Vector3Int placementDirection = new Vector3Int(1, 0, 0);
