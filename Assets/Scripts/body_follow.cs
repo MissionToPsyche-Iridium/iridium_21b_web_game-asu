@@ -10,7 +10,11 @@ public class body_follow : MonoBehaviour
     public float delay = 0f;
     public float followDistance = .01f; // Distance to maintain between segments
     public Transform target;
-    public GameObject collectible;
+    public GameObject goldDrop;
+    public GameObject cobaltDrop;
+    public GameObject iridiumDrop;
+    public GameObject ironDrop;
+    public GameObject nickelDrop;
     public GameObject pushBackPU;
     public GameObject dashPU;
     public GameObject dodgePU;
@@ -52,15 +56,7 @@ public class body_follow : MonoBehaviour
             //Allowing player damage
             EnemyHealth healthScript = gameObject.AddComponent<EnemyHealth>();
             Transform healthBar = transform.GetChild(0);
-            healthScript.currentHealth = 1500;
-            healthScript.maxHealth = 1500;
-            healthScript.healthBar = healthBar.gameObject;
-            healthScript.collectible = collectible;
-            healthScript.pushBackPU = pushBackPU;
-            healthScript.dashPU = dashPU;
-            healthScript.dodgePU = dodgePU;
-            healthScript.healthPack = healthPack;
-            healthScript.AllStatIncrease = AllStatIncrease;
+            InitializeScript(healthScript, healthBar);
 
             //Adding colliders for physics and damage
             CircleCollider2D triggerCollider = gameObject.AddComponent<CircleCollider2D>();
@@ -78,5 +74,22 @@ public class body_follow : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime); // Ensure proper delay before movement starts
         ready = true;
+    }
+
+    void InitializeScript(EnemyHealth healthScript, Transform healthBar)
+    {
+        healthScript.currentHealth = 1500;
+        healthScript.maxHealth = 1500;
+        healthScript.healthBar = healthBar.gameObject;
+        healthScript.goldDrop = goldDrop;
+        healthScript.cobaltDrop = cobaltDrop;
+        healthScript.iridiumDrop = iridiumDrop;
+        healthScript.ironDrop = ironDrop;
+        healthScript.nickelDrop = nickelDrop;
+        healthScript.pushBackPU = pushBackPU;
+        healthScript.dashPU = dashPU;
+        healthScript.dodgePU = dodgePU;
+        healthScript.healthPack = healthPack;
+        healthScript.AllStatIncrease = AllStatIncrease;
     }
 }

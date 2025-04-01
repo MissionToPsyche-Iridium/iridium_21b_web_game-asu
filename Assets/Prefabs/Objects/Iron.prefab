@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 865620931962863925}
   - component: {fileID: 1008113592288288255}
   m_Layer: 2
-  m_Name: Coin
+  m_Name: Iron
   m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: 2826dc51e84f1ce4c85790122ec44ec0, type: 3}
-  m_Color: {r: 0, g: 0.1661272, b: 1, a: 1}
+  m_Color: {r: 0.3283019, g: 0.23449701, b: 0.18768957, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
