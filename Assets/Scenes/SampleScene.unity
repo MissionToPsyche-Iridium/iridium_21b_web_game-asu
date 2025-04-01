@@ -1398,7 +1398,7 @@ MonoBehaviour:
   zoomInSize: 10
   zoomDuration: 0.5
   coinAttractionRadius: 3
-  coinAttractionSpeed: 3
+  coinAttractionSpeed: 6
   iridiumPopupOverlay: {fileID: 528045724}
   iridiumInfoImage: {fileID: 21300000, guid: 87faa68d4f8e9594fbed36aaf63fbe36, type: 3}
 --- !u!4 &241846885
@@ -2326,7 +2326,7 @@ GameObject:
   - component: {fileID: 528045724}
   - component: {fileID: 528045727}
   m_Layer: 5
-  m_Name: PopupPanel
+  m_Name: IridiumPopupPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65967,15 +65967,14 @@ MonoBehaviour:
     urna lectus at eros. Nullam semper hendrerit erat, quis tristique sem commodo
     eu. Sed eu volutpat arcu.
 
-    
 
-    In sagittis lectus sit amet consequat
-    porttitor. Praesent mattis ac nisi et pretium. Praesent dui turpis, finibus vel
-    pulvinar vel, cursus non ipsum. Vivamus euismod, leo mollis tincidunt hendrerit,
-    sapien risus congue urna, fermentum condimentum lacus massa vel tellus. Sed a
-    lorem maximus, condimentum massa id, dictum elit. Morbi id luctus lectus. Fusce
-    sem tortor, sodales et metus sed, posuere posuere quam. In hac habitasse platea
-    dictumst.'
+
+    In sagittis lectus sit amet consequat porttitor.
+    Praesent mattis ac nisi et pretium. Praesent dui turpis, finibus vel pulvinar
+    vel, cursus non ipsum. Vivamus euismod, leo mollis tincidunt hendrerit, sapien
+    risus congue urna, fermentum condimentum lacus massa vel tellus. Sed a lorem
+    maximus, condimentum massa id, dictum elit. Morbi id luctus lectus. Fusce sem
+    tortor, sodales et metus sed, posuere posuere quam. In hac habitasse platea dictumst.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
