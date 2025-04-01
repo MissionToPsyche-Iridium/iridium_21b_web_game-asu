@@ -182,7 +182,11 @@ MonoBehaviour:
   maxHealth: 460
   currentHealth: 460
   healthBar: {fileID: 2271978068842922310}
-  collectible: {fileID: 3523325121765631777, guid: 3da9cc574d5494f45be5f89a8c6377ee, type: 3}
+  goldDrop: {fileID: 3523325121765631777, guid: 3da9cc574d5494f45be5f89a8c6377ee, type: 3}
+  cobaltDrop: {fileID: 3523325121765631777, guid: 37068cccec8521a46ad4b2e9dfb5cff3, type: 3}
+  iridiumDrop: {fileID: 3523325121765631777, guid: 0851a1d4153f9074b9e524adf8c58787, type: 3}
+  ironDrop: {fileID: 3523325121765631777, guid: 396c097c6d857464bb0d8705c797ce0f, type: 3}
+  nickelDrop: {fileID: 3523325121765631777, guid: 8b6f0f887e1c77b488d54a8773571eb4, type: 3}
   pushBackPU: {fileID: 6832134630869318019, guid: d459e18af90f19c4186fdccd3fe0700c, type: 3}
   dashPU: {fileID: 4561308123252426360, guid: 2ae3aa94bfbee3a49918d86c06c48ea3, type: 3}
   dodgePU: {fileID: 3757655930577396639, guid: 1aaec45051051d642975b41f5184cb18, type: 3}

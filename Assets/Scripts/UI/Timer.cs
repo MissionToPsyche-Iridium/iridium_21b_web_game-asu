@@ -59,7 +59,7 @@ public class Timer : MonoBehaviour
         waveTimer = waveDuration; // Reset wave timer
         timerSlider.value = waveTimer;
         stopTimer = false;
-        UpdateWaveUI();
+        //UpdateWaveUI();
         FindObjectOfType<enemy_spawner>().ResetScaling();
     }
 
@@ -68,8 +68,9 @@ public class Timer : MonoBehaviour
         return Mathf.FloorToInt(waveTimer);
     }
 
-    void UpdateWaveUI()
+    public void UpdateWaveUI()
     {
         waveText.text = "Wave: " + waveNumber; // Updates UI wave text
+        waveNumber++;
     }
 }

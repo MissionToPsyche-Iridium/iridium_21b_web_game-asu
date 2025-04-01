@@ -1679,7 +1679,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -262.38965, y: 138.89001}
+  m_AnchoredPosition: {x: -262.3896, y: 138.89001}
   m_SizeDelta: {x: 1699.63, y: 1615.26}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &288344665
@@ -1728,6 +1728,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5714734533695841802, guid: 62df138f3b8933044a5c1b3e32b972ab, type: 3}
+      propertyPath: gammaSpec
+      value: 
+      objectReference: {fileID: 3175921877528465611, guid: 4bf7657d1da831a4694abc223bc819f1, type: 3}
+    - target: {fileID: 5714734533695841802, guid: 62df138f3b8933044a5c1b3e32b972ab, type: 3}
+      propertyPath: multispec
+      value: 
+      objectReference: {fileID: 3175921877528465611, guid: d4fa3a374fe9f9047844fc936e9bde10, type: 3}
+    - target: {fileID: 5714734533695841802, guid: 62df138f3b8933044a5c1b3e32b972ab, type: 3}
+      propertyPath: neutronSpec
+      value: 
+      objectReference: {fileID: 3175921877528465611, guid: 13daa72dbb4e3cb48afbfef260eaa4ca, type: 3}
+    - target: {fileID: 5714734533695841802, guid: 62df138f3b8933044a5c1b3e32b972ab, type: 3}
+      propertyPath: hallThruster
+      value: 
+      objectReference: {fileID: 3175921877528465611, guid: 956f61ea201317e4e9aee260e28cd2ad, type: 3}
+    - target: {fileID: 5714734533695841802, guid: 62df138f3b8933044a5c1b3e32b972ab, type: 3}
+      propertyPath: magnetometer
+      value: 
+      objectReference: {fileID: 3175921877528465611, guid: e50cbc4f9aa6a354ba3bd5378ac196bc, type: 3}
     - target: {fileID: 7408083700682426458, guid: 62df138f3b8933044a5c1b3e32b972ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.230181

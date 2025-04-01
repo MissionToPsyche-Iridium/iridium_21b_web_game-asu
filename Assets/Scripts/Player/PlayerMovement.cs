@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     private Health health;
+    private int partsCollected = 0;
     public int curHealth;
     public int maxHealth;
 
@@ -362,8 +363,12 @@ public class PlayerMovement : MonoBehaviour
             health.invincibilityTime += .25f;
             //FireRate
             autoShooterScript.fireRate += 2f;
-            Debug.Log(Projectile.defaultDamageAmount + " " + health.maxHealth + " " + autoShooterScript.fireRate);
 
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("spacecraft_part"))
+        {
+            partsCollected++;
             Destroy(other.gameObject);
         }
     }

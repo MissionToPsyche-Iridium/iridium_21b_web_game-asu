@@ -8,8 +8,8 @@ public class dash_enemy_script : MonoBehaviour
     public GameObject Player;
     public GameObject nodeMap;
     public float speed = 2.0f;
-    public float speedFactor = 1.0f;
-    public float dashSpeed = 8.0f;
+    public static float speedFactor = 1.0f;
+    public float dashSpeed = 12.0f;
     public float waitTimeAfterDash = 3.0f; // Time to wait after dashing
     public Node[] nodeList = new Node[6];
     private Node currentNode;

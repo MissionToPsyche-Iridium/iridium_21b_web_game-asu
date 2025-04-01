@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,12 +9,17 @@ public class EnemyHealth : MonoBehaviour
     public float currentHealth = 460f;
     public static float healthScale = 1.0f;
     public GameObject healthBar;
-    public GameObject collectible;
+    public GameObject goldDrop;
+    public GameObject cobaltDrop;
+    public GameObject iridiumDrop;
+    public GameObject ironDrop;
+    public GameObject nickelDrop;
     public GameObject pushBackPU;
     public GameObject dashPU;
     public GameObject dodgePU;
     public GameObject healthPack;
     public GameObject AllStatIncrease;
+    private GameObject[] metals;
     private float newXScale;
     private Vector3 healthBar_Scale;
     private Vector3 healthBar_Pos;
@@ -25,6 +31,7 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = currentHealth * healthScale;
         healthBar_Scale = healthBar.transform.localScale;
         healthBar_Pos = healthBar.transform.localPosition;
+        metals = new GameObject[] { goldDrop, cobaltDrop, iridiumDrop, ironDrop, nickelDrop};
     }
 
     public void TakeDamage(float amount)
@@ -91,8 +98,13 @@ public class EnemyHealth : MonoBehaviour
         }
         else
         {
-            Instantiate(collectible, transform.position, Quaternion.identity);
+            randomMetalDrop();
         }
     }
-    
+
+    void randomMetalDrop()
+    {
+        float drop = UnityEngine.Random.Range(0, 5);
+        Instantiate(metals[Convert.ToInt32(drop)], transform.position, Quaternion.identity);
+    }
 }
