@@ -26,7 +26,6 @@ public class basic_enemy_behavior : MonoBehaviour
     {
         lastSeenX = transform.position.x;
         lastSeenY = transform.position.y;
-        Debug.Log(speedFactor);
         speed = speed * speedFactor;
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
         nodeMap = GameObject.FindGameObjectWithTag("node_map");

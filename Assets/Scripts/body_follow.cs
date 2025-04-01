@@ -5,7 +5,7 @@ using UnityEngine;
 public class body_follow : MonoBehaviour
 {
     public float speed = 7.0f;
-    public float speedFactor = 1.0f;
+    public static float speedFactor = 1.0f;
     public float healthScale = 1.0f;
     public float delay = 0f;
     public float followDistance = .01f; // Distance to maintain between segments

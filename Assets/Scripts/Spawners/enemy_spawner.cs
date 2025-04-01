@@ -13,9 +13,14 @@ public class enemy_spawner : MonoBehaviour
     public GameObject EnemyType4;
 
     //Spawnable Powerups
-    public GameObject pushBackPU;
-    public GameObject dashPU;
-    public GameObject dodgePU;
+    //public GameObject pushBackPU;
+    public GameObject multispec;
+    //public GameObject dashPU;
+    public GameObject gammaSpec;
+    //public GameObject dodgePU;
+    public GameObject magnetometer;
+    public GameObject neutronSpec;
+    public GameObject hallThruster;
     public GameObject damagePU;
     public GameObject fireRatePU;
     public GameObject healthPU;
@@ -90,14 +95,13 @@ public class enemy_spawner : MonoBehaviour
         //Check for new enemy scaling
         if (timer.getWaveTime() == 0 && !scaledEnemies)
         {
-            Debug.Log("Scaling enemies");
             Player.GetComponent<PlayerMovement>().damageFactor += 1;
             EnemyHealth.healthScale += .1f;
             basic_enemy_behavior.speedFactor += .1f;
-            EnemyType2.GetComponent<dash_enemy_script>().speedFactor += .1f;
-            EnemyType3.GetComponent<shoot_enemy_behavior>().speedFactor += .1f;
-            EnemyType4.GetComponentInChildren<head_behavior>().speedFactor += .1f;
-            EnemyType4.GetComponentInChildren<head_behavior>().body.GetComponent<body_follow>().speedFactor += .1f;
+            dash_enemy_script.speedFactor += .1f;
+            shoot_enemy_behavior.speedFactor += .1f;
+            head_behavior.speedFactor += .1f;
+            body_follow.speedFactor += .1f;
             scaledEnemies = true;
         }
         /*
@@ -108,6 +112,7 @@ public class enemy_spawner : MonoBehaviour
         getNearestNodeMap();
         establishNodes(nearestMap);
         findNearestSeenNode();
+        Debug.Log(numEnemies + " " + bossEnemies + " " + maxWaveEnemies);
     }
 
     void randomSpawner()
@@ -283,16 +288,23 @@ public class enemy_spawner : MonoBehaviour
         switch (waveNumber)
         {
             case 3:
-                Instantiate(dodgePU, new Vector3(0, 0, 1), transform.rotation);
+                Instantiate(gammaSpec, new Vector3(0, 0, 1), transform.rotation);
                 break;
             case 6:
-                Instantiate(dashPU, new Vector3(0, 0, 1), transform.rotation);
+                Instantiate(neutronSpec, new Vector3(0, 0, 1), transform.rotation);
                 break;
             case 9:
-                Instantiate(pushBackPU, new Vector3(0, 0, 1), transform.rotation);
+                Instantiate(magnetometer, new Vector3(0, 0, 1), transform.rotation);
+                break;
+            case 12:
+                Instantiate(multispec, new Vector3(0, 0, 1), transform.rotation);
+                break;
+            case 15:
+                Instantiate(hallThruster, new Vector3(0, 0, 1), transform.rotation);
                 break;
         }
-        //Spawning the powerups
+
+        //Spawning the permanent powerups
         Instantiate(healthPU, new Vector3(1, -1, 1), transform.rotation);
         Instantiate(damagePU, new Vector3(-1, -1, 1), transform.rotation);
         Instantiate(fireRatePU, new Vector3(0, 1, 1), transform.rotation);
@@ -323,6 +335,7 @@ public class enemy_spawner : MonoBehaviour
         timer.stopTimer = true;
         yield return new WaitForSeconds(10f); // Increased break time to 10 seconds
         timer.stopTimer = false;
+        timer.UpdateWaveUI();
         waiting = false;
         //FindObjectOfType<Timer>().TriggerNextWave(); // Start next wave
     }

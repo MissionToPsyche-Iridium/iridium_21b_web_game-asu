@@ -29,6 +29,7 @@ TagManager:
   - quad2
   - quad3
   - quad4
+  - spacecraft_part
   layers:
   - Default
   - TransparentFX
