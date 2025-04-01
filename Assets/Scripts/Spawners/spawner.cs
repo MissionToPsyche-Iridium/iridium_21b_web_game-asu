@@ -84,7 +84,6 @@ public class spawner : MonoBehaviour
     void changeLocation()
     {
         float location = UnityEngine.Random.Range(1, 11);
-        Debug.Log(location);
         if (location == 1)
         {
             setLocation(nodeMapCenter);

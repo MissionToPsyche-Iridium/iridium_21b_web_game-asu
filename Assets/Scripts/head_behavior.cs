@@ -9,7 +9,7 @@ public class head_behavior : MonoBehaviour
     public GameObject body;
     public Node[] nodeList = new Node[6];
     public int numSegments = 5;
-    public float speedFactor = 1.0f;
+    public static float speedFactor = 1.0f;
     private List<GameObject> segments = new List<GameObject>();
     private Node currentNode;
     private GameObject[] enemyObjects;
