@@ -62,6 +62,10 @@ public class PlayerMovement : MonoBehaviour
     public float coinAttractionRadius = 3f;  // Radius within which coins are attracted
     public float coinAttractionSpeed = 3f;
 
+    public PopupOverlay iridiumPopupOverlay; 
+    public Sprite iridiumInfoImage; 
+    private bool firstIridiumCollected = false;
+
     private void Start()
     {
         health = GetComponent<Health>();
@@ -284,6 +288,17 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("basic_enemy") || other.gameObject.CompareTag("enemy_projectile"))
         {
             health.DamagePlayer(10 + damageFactor);
+        }
+        else if (other.gameObject.CompareTag("Coin") && !firstIridiumCollected)
+        {
+            firstIridiumCollected = true;
+            cm.coinCount++;
+
+            iridiumPopupOverlay.ShowPopup(
+                iridiumInfoImage,
+                "Iridium is le epic sauce!");
+
+            Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Coin"))
         {
