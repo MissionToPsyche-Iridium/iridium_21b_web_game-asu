@@ -60,7 +60,11 @@ public class Timer : MonoBehaviour
         timerSlider.value = waveTimer;
         stopTimer = false;
         //UpdateWaveUI();
-        FindObjectOfType<enemy_spawner>().ResetScaling();
+        try
+        {
+            FindObjectOfType<enemy_spawner>().ResetScaling();
+        }
+        catch (Exception e) {}
     }
 
     public int getWaveTime()
