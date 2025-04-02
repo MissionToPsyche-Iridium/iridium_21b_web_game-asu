@@ -63,6 +63,10 @@ public class PlayerMovement : MonoBehaviour
     public float coinAttractionRadius = 3f;  // Radius within which coins are attracted
     public float coinAttractionSpeed = 3f;
 
+    public PopupOverlay iridiumPopupOverlay; 
+    public Sprite iridiumInfoImage; 
+    private bool firstIridiumCollected = false;
+
     private void Start()
     {
         health = GetComponent<Health>();
@@ -285,6 +289,17 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("basic_enemy") || other.gameObject.CompareTag("enemy_projectile"))
         {
             health.DamagePlayer(10 + damageFactor);
+        }
+        else if (other.gameObject.CompareTag("Coin") && !firstIridiumCollected)
+        {
+            firstIridiumCollected = true;
+            cm.coinCount++;
+
+            iridiumPopupOverlay.ShowPopup(
+                iridiumInfoImage,
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis libero neque, porta id lacinia eget, scelerisque eget est. Integer nec nunc a augue efficitur ultrices. Nulla vel volutpat tortor, eget venenatis tellus. Donec eu libero in nunc pellentesque placerat sit amet et eros. Phasellus iaculis, elit et tempor aliquam, eros metus gravida sapien, nec pretium nulla neque ac augue. Curabitur condimentum, nisl a convallis maximus, massa dui fermentum turpis, vitae fringilla urna lectus at eros. Nullam semper hendrerit erat, quis tristique sem commodo eu. Sed eu volutpat arcu.\r\n\r\nIn sagittis lectus sit amet consequat porttitor. Praesent mattis ac nisi et pretium. Praesent dui turpis, finibus vel pulvinar vel, cursus non ipsum. Vivamus euismod, leo mollis tincidunt hendrerit, sapien risus congue urna, fermentum condimentum lacus massa vel tellus. Sed a lorem maximus, condimentum massa id, dictum elit. Morbi id luctus lectus. Fusce sem tortor, sodales et metus sed, posuere posuere quam. In hac habitasse platea dictumst.");
+
+            Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Coin"))
         {
