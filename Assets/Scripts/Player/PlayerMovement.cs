@@ -102,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
             }
             lastPressTimeX = Time.time;
         }
-
+        
         // Handle Y-axis Dash
         if (Input.GetButtonDown("Vertical") && canUseDash && !isDashOnCooldown)
         {
@@ -292,7 +292,7 @@ public class PlayerMovement : MonoBehaviour
         {
             health.DamagePlayer(10 + damageFactor);
         }
-        else if (other.gameObject.CompareTag("Coin") && !firstIridiumCollected)
+        else if (other.gameObject.CompareTag("Iridium") && !firstIridiumCollected)
         {
             firstIridiumCollected = true;
             cm.coinCount++;
@@ -303,7 +303,22 @@ public class PlayerMovement : MonoBehaviour
 
             Destroy(other.gameObject);
         }
-        else if (other.gameObject.CompareTag("Coin"))
+        else if (other.gameObject.CompareTag("Gold"))
+        {
+            cm.coinCount++;
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Cobalt"))
+        {
+            cm.coinCount++;
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Iron"))
+        {
+            cm.coinCount++;
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Nickel"))
         {
             cm.coinCount++;
             Destroy(other.gameObject);
