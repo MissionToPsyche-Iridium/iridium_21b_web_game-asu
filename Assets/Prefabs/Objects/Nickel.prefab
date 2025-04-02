@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1008113592288288255}
   m_Layer: 2
   m_Name: Nickel
-  m_TagString: Coin
+  m_TagString: Nickel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
