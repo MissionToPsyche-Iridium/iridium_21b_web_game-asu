@@ -20,7 +20,9 @@ public class body_follow : MonoBehaviour
     public GameObject dodgePU;
     public GameObject healthPack;
     public GameObject AllStatIncrease;
+    public Animator animator;
     private Queue<Vector3> positionHistory = new Queue<Vector3>(); // Stores past positions
+    private string lastFacingDirection = "";
     private bool ready = false;
     private bool hasNewBehavior = false;
     void Start()
@@ -40,6 +42,7 @@ public class body_follow : MonoBehaviour
             {
                 Vector3 targetPosition = positionHistory.Dequeue();
                 Vector3 direction = (targetPosition - transform.position).normalized;
+                determineAnimationState(direction);
                 float distance = Vector3.Distance(transform.position, targetPosition);
                 if (distance > followDistance)
                 {
@@ -74,6 +77,37 @@ public class body_follow : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime); // Ensure proper delay before movement starts
         ready = true;
+    }
+
+    void determineAnimationState(Vector3 direction)
+    {
+
+        string newDirection = "";
+
+        if (direction.x >= 0.923f)  // Right
+            newDirection = "facingRight";
+        else if (direction.x <= -0.923f)  // Left
+            newDirection = "facingLeft";
+        else if (direction.y >= 0.923f)  // Up
+            newDirection = "facingUp";
+        else if (direction.y <= -0.923f)  // Down
+            newDirection = "facingDown";
+        else if (direction.x > 0.382f && direction.y > 0.382f)  // Up-Right
+            newDirection = "facingUpRight";
+        else if (direction.x < -0.382f && direction.y > 0.382f)  // Up-Left
+            newDirection = "facingUpLeft";
+        else if (direction.x < -0.382f && direction.y < -0.382f)  // Down-Left
+            newDirection = "facingDownLeft";
+        else if (direction.x > 0.382f && direction.y < -0.382f)  // Down-Right
+            newDirection = "facingDownRight";
+
+        // Prevent re-triggering the same animation
+        if (newDirection != lastFacingDirection)
+        {
+            animator.ResetTrigger(lastFacingDirection); // Clear previous trigger
+            animator.SetTrigger(newDirection);
+            lastFacingDirection = newDirection; // Update last known direction
+        }
     }
 
     void InitializeScript(EnemyHealth healthScript, Transform healthBar)

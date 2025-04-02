@@ -127,7 +127,9 @@ public class PlayerMovement : MonoBehaviour
 
         foreach (Collider2D coinCollider in coinColliders)
         {
-            if (coinCollider.CompareTag("Coin"))
+            if (coinCollider.CompareTag("Coin") || coinCollider.CompareTag("Iron") ||
+                coinCollider.CompareTag("Iridium") || coinCollider.CompareTag("Gold") || 
+                coinCollider.CompareTag("Cobalt") || coinCollider.CompareTag("Nickel"))
             {
                 // Gradually move the coin towards the player
                 coinCollider.transform.position = Vector3.MoveTowards(
