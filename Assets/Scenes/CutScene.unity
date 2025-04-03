@@ -1025,7 +1025,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Year 2343 - You're mission to explore Psyche...
+  m_Text: Year 2343 - Your mission to explore Psyche...
 --- !u!222 &1633314233
 CanvasRenderer:
   m_ObjectHideFlags: 0
