@@ -314,6 +314,8 @@ PlayableDirector:
     value: {fileID: 54701244}
   - key: {fileID: 718557485888349016, guid: 4069241819daf456fa3c21f05d9dfd2f, type: 2}
     value: {fileID: 1413607832}
+  - key: {fileID: 3125496493509750729, guid: 4069241819daf456fa3c21f05d9dfd2f, type: 2}
+    value: {fileID: 1161107460}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &531644346
@@ -700,13 +702,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1161107461}
+  - component: {fileID: 1161107462}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1161107461
 Transform:
   m_ObjectHideFlags: 0
@@ -722,6 +725,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1161107462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161107460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33864b613aee946f49c4241a4433f47c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1309207349
 GameObject:
   m_ObjectHideFlags: 0
