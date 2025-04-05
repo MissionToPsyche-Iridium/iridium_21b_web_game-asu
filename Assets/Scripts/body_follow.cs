@@ -10,6 +10,9 @@ public class body_follow : MonoBehaviour
     public float delay = 0f;
     public float followDistance = .01f; // Distance to maintain between segments
     public Transform target;
+    public RuntimeAnimatorController headController;
+    public Sprite up, down, left, right, upLeft, upRight, downLeft, downRight; //For smoother transition when target dies
+    public Sprite currentSprite;
     public GameObject goldDrop;
     public GameObject cobaltDrop;
     public GameObject iridiumDrop;
@@ -21,12 +24,17 @@ public class body_follow : MonoBehaviour
     public GameObject healthPack;
     public GameObject AllStatIncrease;
     public Animator animator;
+    private bool waitingBeforeRedirect = false;
+    private SpriteRenderer spriteRend;
+    private basic_enemy_behavior movScript;
+    private Vector3 direction;
     private Queue<Vector3> positionHistory = new Queue<Vector3>(); // Stores past positions
     private string lastFacingDirection = "";
     private bool ready = false;
     private bool hasNewBehavior = false;
     void Start()
     {
+        spriteRend = GetComponent<SpriteRenderer>();
         StartCoroutine(Wait(delay));
     }
 
@@ -41,7 +49,7 @@ public class body_follow : MonoBehaviour
             if (positionHistory.Count > Mathf.CeilToInt(delay / Time.fixedDeltaTime))
             {
                 Vector3 targetPosition = positionHistory.Dequeue();
-                Vector3 direction = (targetPosition - transform.position).normalized;
+                direction = (targetPosition - transform.position).normalized;
                 determineAnimationState(direction);
                 float distance = Vector3.Distance(transform.position, targetPosition);
                 if (distance > followDistance)
@@ -51,25 +59,26 @@ public class body_follow : MonoBehaviour
                     transform.position = Vector3.MoveTowards(transform.position, targetPosition - direction * followDistance, dynamicSpeed * 2 * Time.deltaTime);
                 }
             }
-        } else if (target == null && !hasNewBehavior)
+        } 
+        
+        else if (target == null && !hasNewBehavior)
         {
-            //Giving basic behavior
-            basic_enemy_behavior movScript = gameObject.AddComponent<basic_enemy_behavior>();
-
-            //Allowing player damage
-            EnemyHealth healthScript = gameObject.AddComponent<EnemyHealth>();
-            Transform healthBar = transform.GetChild(0);
-            InitializeScript(healthScript, healthBar);
-
-            //Adding colliders for physics and damage
-            CircleCollider2D triggerCollider = gameObject.AddComponent<CircleCollider2D>();
-            CircleCollider2D physicsCollider = gameObject.AddComponent<CircleCollider2D>();
-            triggerCollider.isTrigger = true;
-
-            //Assigning as official enemy
-            gameObject.tag = "basic_enemy";
-            hasNewBehavior = true;
-            movScript.speed = 4.0f;
+            ApplyNewBehavior();
+            ChangeSprite();
+            waitingBeforeRedirect = true;
+        }
+        
+        if (hasNewBehavior)
+        {
+            if (waitingBeforeRedirect)
+            {
+                StartCoroutine(ResumeNextFrame());
+            } else
+            {
+                direction = direction = (movScript.target - transform.position).normalized;
+                determineAnimationState(direction);
+            }
+            
         }
     }
 
@@ -84,22 +93,46 @@ public class body_follow : MonoBehaviour
 
         string newDirection = "";
 
-        if (direction.x >= 0.923f)  // Right
+        if (direction.x >= 0.923f)
+        { // Right
             newDirection = "facingRight";
-        else if (direction.x <= -0.923f)  // Left
+            currentSprite = right;
+        }
+        else if (direction.x <= -0.923f)
+        { // Left
             newDirection = "facingLeft";
+            currentSprite = left;
+        }
         else if (direction.y >= 0.923f)  // Up
+        {
             newDirection = "facingUp";
+            currentSprite = up;
+        }
         else if (direction.y <= -0.923f)  // Down
+        {
             newDirection = "facingDown";
+            currentSprite = down;
+        }
         else if (direction.x > 0.382f && direction.y > 0.382f)  // Up-Right
+        {
             newDirection = "facingUpRight";
+            currentSprite = upRight;
+        }
         else if (direction.x < -0.382f && direction.y > 0.382f)  // Up-Left
+        {
             newDirection = "facingUpLeft";
+            currentSprite = upLeft;
+        }
         else if (direction.x < -0.382f && direction.y < -0.382f)  // Down-Left
+        {
             newDirection = "facingDownLeft";
+            currentSprite = downLeft;
+        }
         else if (direction.x > 0.382f && direction.y < -0.382f)  // Down-Right
+        {
             newDirection = "facingDownRight";
+            currentSprite = downRight;
+        }
 
         // Prevent re-triggering the same animation
         if (newDirection != lastFacingDirection)
@@ -125,5 +158,50 @@ public class body_follow : MonoBehaviour
         healthScript.dodgePU = dodgePU;
         healthScript.healthPack = healthPack;
         healthScript.AllStatIncrease = AllStatIncrease;
+    }
+
+    void ChangeSprite()
+    {
+        animator.runtimeAnimatorController = headController;
+        if (currentSprite != null)
+        {
+            spriteRend.sprite = currentSprite;
+        }
+        else
+        {
+            spriteRend.sprite = up;
+            Debug.Log("HEEEREEEEEE");
+        }
+        animator.runtimeAnimatorController = headController;
+
+    }
+
+    void ApplyNewBehavior()
+    {
+        
+        //Giving basic behavior
+        movScript = gameObject.AddComponent<basic_enemy_behavior>();
+
+        //Allowing player damage
+        EnemyHealth healthScript = gameObject.AddComponent<EnemyHealth>();
+        Transform healthBar = transform.GetChild(0);
+        InitializeScript(healthScript, healthBar);
+
+        //Adding colliders for physics and damage
+        CircleCollider2D triggerCollider = gameObject.AddComponent<CircleCollider2D>();
+        CircleCollider2D physicsCollider = gameObject.AddComponent<CircleCollider2D>();
+        triggerCollider.isTrigger = true;
+
+        //Assigning as official enemy
+        gameObject.tag = "basic_enemy";
+        hasNewBehavior = true;
+        movScript.speed = 4.0f;
+    }
+
+    IEnumerator ResumeNextFrame()
+    {
+        yield return null; // Wait one frame
+        animator.SetTrigger(lastFacingDirection);
+        waitingBeforeRedirect = false;
     }
 }
