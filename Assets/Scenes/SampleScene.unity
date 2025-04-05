@@ -1794,7 +1794,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8579828825321046470, guid: 62df138f3b8933044a5c1b3e32b972ab, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3735,7 +3735,7 @@ GameObject:
   - component: {fileID: 778854598}
   - component: {fileID: 778854600}
   - component: {fileID: 778854599}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BG_Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

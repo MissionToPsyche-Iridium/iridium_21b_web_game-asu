@@ -106,6 +106,15 @@ MonoBehaviour:
   delay: 0
   followDistance: 1
   target: {fileID: 0}
+  headController: {fileID: 9100000, guid: 8caeb7eac1162b24bafa631b82cab9c0, type: 2}
+  up: {fileID: -312490714, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
+  down: {fileID: 2032902924, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
+  left: {fileID: 1620707657, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
+  right: {fileID: -2137977561, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
+  upLeft: {fileID: -1437752812, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
+  upRight: {fileID: -441085903, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
+  downLeft: {fileID: -1983521990, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
+  downRight: {fileID: -2106358350, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
   goldDrop: {fileID: 3523325121765631777, guid: 3da9cc574d5494f45be5f89a8c6377ee, type: 3}
   cobaltDrop: {fileID: 3523325121765631777, guid: 37068cccec8521a46ad4b2e9dfb5cff3, type: 3}
   iridiumDrop: {fileID: 3523325121765631777, guid: 0851a1d4153f9074b9e524adf8c58787, type: 3}

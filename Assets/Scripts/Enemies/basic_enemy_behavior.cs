@@ -13,6 +13,7 @@ public class basic_enemy_behavior : MonoBehaviour
     private GameObject[] enemyObjects;
     private float lastSeenX;
     private float lastSeenY;
+    public Vector3 target;
     public float speed = 3.0f;
     public static float speedFactor = 1.0f;
     private bool hasTarget = false;
@@ -37,6 +38,7 @@ public class basic_enemy_behavior : MonoBehaviour
 
     void Update()
     {
+        Vector3 direction = (target - transform.position).normalized;
         Vector2 velocityChange = rb.velocity - lastVelocity;
 
         //For pushback powerup
@@ -125,18 +127,21 @@ public class basic_enemy_behavior : MonoBehaviour
         speed = 3.0f * speedFactor;
         hasTarget = true;
         patrolling = false;
+        target = Player.transform.position;
         transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
     }
 
     void moveTowardsLast(float step)
     {
         speed = 4.0f * speedFactor;
+        target = new Vector3(lastSeenX, lastSeenY, 0);
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
     }
 
     void moveToRoute(float step)
     {
         Node start = findNearestSeenNode();
+        target = start.node_obj.position;
         transform.position = Vector3.MoveTowards(transform.position, start.node_obj.position, step);
         if (transform.position.x < start.node_obj.position.x + 2 &&
             transform.position.x > start.node_obj.position.x - 2 &&
@@ -151,6 +156,7 @@ public class basic_enemy_behavior : MonoBehaviour
     void patrol(float step)
     {
         speed = 7.0f * speedFactor;
+        target = currentNode.node_obj.position;
         transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
         if (transform.position.x < currentNode.node_obj.position.x + 2 &&
             transform.position.x > currentNode.node_obj.position.x - 2 &&

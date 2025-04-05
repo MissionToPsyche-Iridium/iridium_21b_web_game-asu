@@ -10,6 +10,9 @@ public class head_behavior : MonoBehaviour
     public Node[] nodeList = new Node[6];
     public int numSegments = 5;
     public static float speedFactor = 1.0f;
+    public Vector3 target;
+    public Animator animator;
+    private string lastFacingDirection = "";
     private List<GameObject> segments = new List<GameObject>();
     private Node currentNode;
     private GameObject[] enemyObjects;
@@ -33,6 +36,8 @@ public class head_behavior : MonoBehaviour
 
     void Update()
     {
+        Vector3 direction = (target - transform.position).normalized;
+        determineAnimationState(direction);
         float step = speed * Time.deltaTime;
 
         // Move towards the player if there is line of sight
@@ -109,18 +114,21 @@ public class head_behavior : MonoBehaviour
         speed = 3.0f * speedFactor;
         hasTarget = true;
         patrolling = false;
+        target = Player.transform.position;
         transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
     }
 
     void moveTowardsLast(float step)
     {
         speed = 4.0f * speedFactor;
+        target = new Vector3(lastSeenX, lastSeenY, 0);
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
     }
 
     void moveToRoute(float step)
     {
         Node start = findNearestSeenNode();
+        target = start.node_obj.position;
         transform.position = Vector3.MoveTowards(transform.position, start.node_obj.position, step);
         if (transform.position.x < start.node_obj.position.x + 2 &&
             transform.position.x > start.node_obj.position.x - 2 &&
@@ -135,6 +143,7 @@ public class head_behavior : MonoBehaviour
     void patrol(float step)
     {
         speed = 7.0f * speedFactor;
+        target = currentNode.node_obj.position;
         transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
         if (transform.position.x < currentNode.node_obj.position.x + 2 &&
             transform.position.x > currentNode.node_obj.position.x - 2 &&
@@ -205,6 +214,37 @@ public class head_behavior : MonoBehaviour
             }
             
             segmentScript.delay = segmentScript.delay * i;
+        }
+    }
+
+    void determineAnimationState(Vector3 direction)
+    {
+
+        string newDirection = "";
+
+        if (direction.x >= 0.923f)  // Right
+            newDirection = "facingRight";
+        else if (direction.x <= -0.923f)  // Left
+            newDirection = "facingLeft";
+        else if (direction.y >= 0.923f)  // Up
+            newDirection = "facingUp";
+        else if (direction.y <= -0.923f)  // Down
+            newDirection = "facingDown";
+        else if (direction.x > 0.382f && direction.y > 0.382f)  // Up-Right
+            newDirection = "facingUpRight";
+        else if (direction.x < -0.382f && direction.y > 0.382f)  // Up-Left
+            newDirection = "facingUpLeft";
+        else if (direction.x < -0.382f && direction.y < -0.382f)  // Down-Left
+            newDirection = "facingDownLeft";
+        else if (direction.x > 0.382f && direction.y < -0.382f)  // Down-Right
+            newDirection = "facingDownRight";
+
+        // Prevent re-triggering the same animation
+        if (newDirection != lastFacingDirection)
+        {
+            animator.ResetTrigger(lastFacingDirection); // Clear previous trigger
+            animator.SetTrigger(newDirection);
+            lastFacingDirection = newDirection; // Update last known direction
         }
     }
 }
