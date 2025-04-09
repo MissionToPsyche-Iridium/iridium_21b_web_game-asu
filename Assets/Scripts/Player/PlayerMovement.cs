@@ -291,7 +291,7 @@ public class PlayerMovement : MonoBehaviour
 
     void ShowMyPopup()
     {
-        popupManager.ShowPopup("Hello I'm the popup manager", null);
+        popupManager.ShowPopup("Iridium, a rare platinum-group metal with atomic number 77, has fascinating connections to the Psyche asteroid (16 Psyche). This dense, highly corrosion-resistant element is one of the rarest in Earth's crust, but scientists believe it may be abundant in metallic asteroids like Psyche. The asteroid, located in the main asteroid belt between Mars and Jupiter, is thought to be the exposed metallic core of a protoplanet that lost its outer layers through violent collisions during the early solar system.\n\r\n NASA's upcoming Psyche mission aims to study this unique asteroid, which could contain significant amounts of iron and nickel along with precious metals like iridium. ", null);
     }
 
     // Handle collisions between trigger objects and player object

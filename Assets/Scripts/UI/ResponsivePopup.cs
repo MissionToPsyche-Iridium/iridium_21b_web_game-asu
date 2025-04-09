@@ -3,9 +3,9 @@ using UnityEngine;
 public class ResponsivePopup : MonoBehaviour
 {
     private RectTransform rectTransform;
-    [SerializeField] private float maxWidth = 800f;
+    [SerializeField] private float maxWidth = 1000f;
     [SerializeField] private float maxHeight = 500f;
-    [SerializeField] private float minWidth = 400f;
+    [SerializeField] private float minWidth = 600f;
     [SerializeField] private float minHeight = 300f;
 
     private void Awake()

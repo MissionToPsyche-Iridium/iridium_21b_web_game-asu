@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class PopupManager : MonoBehaviour
 {
     [SerializeField] private GameObject popupPanel;
-    [SerializeField] private Image leftImage;
+    [SerializeField] public Image leftImage;
     [SerializeField] private Text textArea;
     [SerializeField] private Button closeButton;
 
