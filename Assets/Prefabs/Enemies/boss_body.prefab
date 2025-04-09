@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -4536180767438490000}
   - component: {fileID: -6529679367139478813}
   - component: {fileID: -6294782854241026659}
+  - component: {fileID: -7089290912653141753}
   m_Layer: 2
   m_Name: boss_body
   m_TagString: basic_enemy
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 2747690628134850419, guid: 25f3b67a734e6474da0b81ffa75abbae, type: 3}
+  m_Sprite: {fileID: -1358746654, guid: 58a504c320c196142bf16d02a790ff7c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -125,7 +126,7 @@ MonoBehaviour:
   dodgePU: {fileID: 3757655930577396639, guid: 1aaec45051051d642975b41f5184cb18, type: 3}
   healthPack: {fileID: 3175921877528465611, guid: e9d63d071b146104591b8d1d9045aa72, type: 3}
   AllStatIncrease: {fileID: 3175921877528465611, guid: 8c37472e007b8d449932d025b99c7055, type: 3}
-  animator: {fileID: 0}
+  animator: {fileID: -7089290912653141753}
 --- !u!50 &-6529679367139478813
 Rigidbody2D:
   serializedVersion: 4
@@ -188,6 +189,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &-7089290912653141753
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2599762367577219709}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e9ff10ec9e551c545a7f955f91e5d6c9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &5884919988699175585
 PrefabInstance:
   m_ObjectHideFlags: 0

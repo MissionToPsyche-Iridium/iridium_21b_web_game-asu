@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     private Health health;
+    private int partsCollected = 0;
     public int curHealth;
     public int maxHealth;
 
@@ -62,6 +63,10 @@ public class PlayerMovement : MonoBehaviour
     public float coinAttractionRadius = 3f;  // Radius within which coins are attracted
     public float coinAttractionSpeed = 3f;
 
+    public PopupOverlay iridiumPopupOverlay;
+    public Sprite iridiumInfoImage;
+    private bool firstIridiumCollected = false;
+
     private void Start()
     {
         health = GetComponent<Health>();
@@ -71,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
- 
+
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
@@ -79,15 +84,13 @@ public class PlayerMovement : MonoBehaviour
         if (!animator.GetBool("death"))
         {
             transform.position += moveSpeed * Time.deltaTime * movement;
-            directionAnim(movement);
+            direction(movement);
         }
 
         // Handle Speed Boost Activation
         if (Input.GetKeyDown(KeyCode.Space) && canUseBoost && !isBoosting && !isOnCooldown)
         {
-            
             StartCoroutine(SpeedBoost());
-            
         }
 
         // Handle X-axis Dash
@@ -96,10 +99,8 @@ public class PlayerMovement : MonoBehaviour
             if (Time.time - lastPressTimeX < doublePressThreshold) // Checks for rapid double press
             {
                 Dash(Vector3.right * Mathf.Sign(Input.GetAxisRaw("Horizontal")));
-                //animator.SetTrigger("isDashing");
             }
             lastPressTimeX = Time.time;
-            
         }
 
         // Handle Y-axis Dash
@@ -108,17 +109,15 @@ public class PlayerMovement : MonoBehaviour
             if (Time.time - lastPressTimeY < doublePressThreshold)
             {
                 Dash(Vector3.up * Mathf.Sign(Input.GetAxisRaw("Vertical")));
-               // animator.SetTrigger("isDashing");
             }
             lastPressTimeY = Time.time;
-            
         }
 
         // --- Push-Back Activation ---
         if (Input.GetKeyDown(KeyCode.P) && canUsePushBack && !isPushBackOnCooldown)
         {
-           Debug.Log("Pushback activated");
-           ActivatePushBack();
+            Debug.Log("Pushback activated");
+            ActivatePushBack();
         }
 
         AttractCoins();
@@ -132,7 +131,9 @@ public class PlayerMovement : MonoBehaviour
 
         foreach (Collider2D coinCollider in coinColliders)
         {
-            if (coinCollider.CompareTag("Coin"))
+            if (coinCollider.CompareTag("Coin") || coinCollider.CompareTag("Iron") ||
+                coinCollider.CompareTag("Iridium") || coinCollider.CompareTag("Gold") ||
+                coinCollider.CompareTag("Cobalt") || coinCollider.CompareTag("Nickel"))
             {
                 // Gradually move the coin towards the player
                 coinCollider.transform.position = Vector3.MoveTowards(
@@ -147,14 +148,7 @@ public class PlayerMovement : MonoBehaviour
     // Function to dash the player forward
     void Dash(Vector3 direction)
     {
-        directionAnim(direction);
-        
-
-        animator.SetTrigger("isDashing");
-        
         transform.position += direction * dashDistance;
-        
-        
         StartCoroutine(DashCooldown());  // Start dash cooldown after each dash
     }
 
@@ -162,7 +156,6 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator DashCooldown()
     {
         isDashOnCooldown = true;                // Set dash on cooldown
-        
         yield return new WaitForSeconds(dashCooldown);  // Wait for the cooldown duration
         isDashOnCooldown = false;               // Dash is no longer on cooldown
     }
@@ -171,7 +164,6 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator SpeedBoost()
     {
         isBoosting = true;
-        animator.SetBool("isSpeedBoosting", true);
         moveSpeed *= speedBoostMultiplier;
 
         StartCoroutine(ZoomCamera(zoomOutSize, zoomDuration));
@@ -182,8 +174,6 @@ public class PlayerMovement : MonoBehaviour
 
         moveSpeed /= speedBoostMultiplier;  // Revert to normal speed
         isBoosting = false;
-        animator.SetBool("isSpeedBoosting", false);
-
 
         StartCoroutine(SpeedBoostCooldown());  // Start cooldown coroutine for speed boost
     }
@@ -302,7 +292,33 @@ public class PlayerMovement : MonoBehaviour
         {
             health.DamagePlayer(10 + damageFactor);
         }
-        else if (other.gameObject.CompareTag("Coin"))
+        else if (other.gameObject.CompareTag("Iridium") && !firstIridiumCollected)
+        {
+            firstIridiumCollected = true;
+            cm.coinCount++;
+
+            iridiumPopupOverlay.ShowPopup(
+                iridiumInfoImage,
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis libero neque, porta id lacinia eget, scelerisque eget est. Integer nec nunc a augue efficitur ultrices. Nulla vel volutpat tortor, eget venenatis tellus. Donec eu libero in nunc pellentesque placerat sit amet et eros. Phasellus iaculis, elit et tempor aliquam, eros metus gravida sapien, nec pretium nulla neque ac augue. Curabitur condimentum, nisl a convallis maximus, massa dui fermentum turpis, vitae fringilla urna lectus at eros. Nullam semper hendrerit erat, quis tristique sem commodo eu. Sed eu volutpat arcu.\r\n\r\nIn sagittis lectus sit amet consequat porttitor. Praesent mattis ac nisi et pretium. Praesent dui turpis, finibus vel pulvinar vel, cursus non ipsum. Vivamus euismod, leo mollis tincidunt hendrerit, sapien risus congue urna, fermentum condimentum lacus massa vel tellus. Sed a lorem maximus, condimentum massa id, dictum elit. Morbi id luctus lectus. Fusce sem tortor, sodales et metus sed, posuere posuere quam. In hac habitasse platea dictumst.");
+
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Gold"))
+        {
+            cm.coinCount++;
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Cobalt"))
+        {
+            cm.coinCount++;
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Iron"))
+        {
+            cm.coinCount++;
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Nickel"))
         {
             cm.coinCount++;
             Destroy(other.gameObject);
@@ -322,7 +338,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(PushBackAvailability());
             Destroy(other.gameObject);
         }
-        else if(other.gameObject.CompareTag("FireRate"))
+        else if (other.gameObject.CompareTag("FireRate"))
         {
             //StartCoroutine(FireRateAvailability());
             autoShooterScript.fireRate += 2f;
@@ -330,7 +346,7 @@ public class PlayerMovement : MonoBehaviour
             Destroy(GameObject.FindGameObjectWithTag("healthUp"));
             Destroy(other.gameObject);
         }
-        else if(other.gameObject.CompareTag("damage"))
+        else if (other.gameObject.CompareTag("damage"))
         {
             Debug.Log("DASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS that good");
             Projectile.defaultDamageAmount += 25f;
@@ -364,13 +380,17 @@ public class PlayerMovement : MonoBehaviour
             health.invincibilityTime += .25f;
             //FireRate
             autoShooterScript.fireRate += 2f;
-            Debug.Log(Projectile.defaultDamageAmount + " " + health.maxHealth + " " + autoShooterScript.fireRate);
 
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("spacecraft_part"))
+        {
+            partsCollected++;
             Destroy(other.gameObject);
         }
     }
 
-    void directionAnim(Vector3 move)
+    void direction(Vector3 move)
     {
         if (move.sqrMagnitude > 0)
         {
@@ -397,6 +417,6 @@ public class PlayerMovement : MonoBehaviour
         // Draw Push-Back Radius
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, pushBackRadius);
-        
+
     }
 }

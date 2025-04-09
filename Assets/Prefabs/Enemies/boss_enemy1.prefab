@@ -46,7 +46,8 @@ GameObject:
   - component: {fileID: 5723032136722157800}
   - component: {fileID: 6672126686136294134}
   - component: {fileID: 2768961293572403009}
-  - component: {fileID: 9129094552535787159}
+  - component: {fileID: 8336364041261986329}
+  - component: {fileID: 4163414445360042092}
   m_Layer: 2
   m_Name: Head
   m_TagString: basic_enemy
@@ -233,7 +234,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 2747690628134850419, guid: 25f3b67a734e6474da0b81ffa75abbae, type: 3}
+  m_Sprite: {fileID: -312490714, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -244,7 +245,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9129094552535787159
+--- !u!114 &8336364041261986329
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,7 +254,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6559010708199407045}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d0da60fa0a800b4194c7a502321628e, type: 3}
+  m_Script: {fileID: 11500000, guid: bb1a1b8e9c0ca4c4cbaf6cb7fc2e023a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
@@ -261,7 +262,28 @@ MonoBehaviour:
   body: {fileID: 2599762367577219709, guid: 6b24ba7c61a2a994abcb56620111d90d, type: 3}
   numSegments: 5
   target: {x: 0, y: 0, z: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 4163414445360042092}
+--- !u!95 &4163414445360042092
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6559010708199407045}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8caeb7eac1162b24bafa631b82cab9c0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &9036314660727721692
 PrefabInstance:
   m_ObjectHideFlags: 0

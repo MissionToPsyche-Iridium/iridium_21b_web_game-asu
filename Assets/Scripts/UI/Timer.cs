@@ -44,14 +44,14 @@ public class Timer : MonoBehaviour
     }
 
     IEnumerator NextWave()
-{
-    stopTimer = true; // Stops timer updates during wave transition
-    waveText.text = "Wave Complete! Next wave in 10s..."; // Show break message in UI
+    {
+        stopTimer = true; // Stops timer updates during wave transition
+        waveText.text = "Wave Complete! Next wave in 10s..."; // Show break message in UI
 
-    yield return new WaitForSeconds(10f); // Increased break time
+        yield return new WaitForSeconds(10f); // Increased break time
 
-    RestartTimer(); // Call function to start the next wave
-}
+        RestartTimer(); // Call function to start the next wave
+    }
 
 
     public void RestartTimer()
@@ -59,8 +59,12 @@ public class Timer : MonoBehaviour
         waveTimer = waveDuration; // Reset wave timer
         timerSlider.value = waveTimer;
         stopTimer = false;
-        UpdateWaveUI();
-        FindObjectOfType<enemy_spawner>().ResetScaling();
+        //UpdateWaveUI();
+        try
+        {
+            FindObjectOfType<enemy_spawner>().ResetScaling();
+        }
+        catch (Exception e) { }
     }
 
     public int getWaveTime()
@@ -68,8 +72,9 @@ public class Timer : MonoBehaviour
         return Mathf.FloorToInt(waveTimer);
     }
 
-    void UpdateWaveUI()
+    public void UpdateWaveUI()
     {
         waveText.text = "Wave: " + waveNumber; // Updates UI wave text
+        waveNumber++;
     }
 }
