@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
         autoShooterScript = GetComponent<AutoShooter>();
         projectileScript = FindObjectOfType<Projectile>();
         iridiumPopupManager = FindObjectOfType<IridiumPopupManager>();
-        Debug.Log("PopupManager found: " + (iridiumPopupManager != null));
+        Debug.Log("IridiumPopupManager found: " + (iridiumPopupManager != null));
     }
 
     void Update()
