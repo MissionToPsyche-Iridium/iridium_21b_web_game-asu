@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: -1165623456903181340}
   - component: {fileID: 8815284805590740518}
   - component: {fileID: 5305748641073265508}
-  - component: {fileID: 2178811911738697503}
   m_Layer: 2
   m_Name: shoot_enemy
   m_TagString: basic_enemy
@@ -80,8 +79,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -1545876235, guid: 17546a3beb1030a4a943e91664210f0c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: 2826dc51e84f1ce4c85790122ec44ec0, type: 3}
+  m_Color: {r: 0.5483421, g: 0.9924528, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -169,7 +168,7 @@ MonoBehaviour:
   Projectile: {fileID: 4770445908274976074, guid: 54d432263c63829418d1ac98f3b4f7bc, type: 3}
   nodeMap: {fileID: 4317903792429269812, guid: bc5edef9079d36f42a74824ba69ae001, type: 3}
   speed: 5
-  speedFactor: 1.2
+  speedFactor: 1
 --- !u!114 &8815284805590740518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,13 +184,16 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   healthBar: {fileID: 3945409782440782652}
-  collectible: {fileID: 3523325121765631777, guid: 3da9cc574d5494f45be5f89a8c6377ee, type: 3}
+  goldDrop: {fileID: 3523325121765631777, guid: 3da9cc574d5494f45be5f89a8c6377ee, type: 3}
+  cobaltDrop: {fileID: 3523325121765631777, guid: 37068cccec8521a46ad4b2e9dfb5cff3, type: 3}
+  iridiumDrop: {fileID: 3523325121765631777, guid: 0851a1d4153f9074b9e524adf8c58787, type: 3}
+  ironDrop: {fileID: 3523325121765631777, guid: 396c097c6d857464bb0d8705c797ce0f, type: 3}
+  nickelDrop: {fileID: 3523325121765631777, guid: 8b6f0f887e1c77b488d54a8773571eb4, type: 3}
   pushBackPU: {fileID: 6832134630869318019, guid: d459e18af90f19c4186fdccd3fe0700c, type: 3}
   dashPU: {fileID: 4561308123252426360, guid: 2ae3aa94bfbee3a49918d86c06c48ea3, type: 3}
   dodgePU: {fileID: 3757655930577396639, guid: 1aaec45051051d642975b41f5184cb18, type: 3}
   healthPack: {fileID: 3175921877528465611, guid: e9d63d071b146104591b8d1d9045aa72, type: 3}
   AllStatIncrease: {fileID: 3175921877528465611, guid: 8c37472e007b8d449932d025b99c7055, type: 3}
-  animator: {fileID: 0}
 --- !u!58 &5305748641073265508
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -227,27 +229,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!95 &2178811911738697503
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6899617583450277495}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5b5a8ae04b4bce842830ed00f4737606, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &6093726038437664171
 PrefabInstance:
   m_ObjectHideFlags: 0

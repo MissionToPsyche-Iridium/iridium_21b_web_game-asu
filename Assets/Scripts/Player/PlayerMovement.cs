@@ -84,15 +84,13 @@ public class PlayerMovement : MonoBehaviour
         if (!animator.GetBool("death"))
         {
             transform.position += moveSpeed * Time.deltaTime * movement;
-            directionAnim(movement);
+            direction(movement);
         }
 
         // Handle Speed Boost Activation
         if (Input.GetKeyDown(KeyCode.Space) && canUseBoost && !isBoosting && !isOnCooldown)
         {
-            
             StartCoroutine(SpeedBoost());
-            
         }
 
         // Handle X-axis Dash
@@ -101,10 +99,8 @@ public class PlayerMovement : MonoBehaviour
             if (Time.time - lastPressTimeX < doublePressThreshold) // Checks for rapid double press
             {
                 Dash(Vector3.right * Mathf.Sign(Input.GetAxisRaw("Horizontal")));
-                //animator.SetTrigger("isDashing");
             }
             lastPressTimeX = Time.time;
-            
         }
         
         // Handle Y-axis Dash
@@ -113,10 +109,8 @@ public class PlayerMovement : MonoBehaviour
             if (Time.time - lastPressTimeY < doublePressThreshold)
             {
                 Dash(Vector3.up * Mathf.Sign(Input.GetAxisRaw("Vertical")));
-               // animator.SetTrigger("isDashing");
             }
             lastPressTimeY = Time.time;
-            
         }
 
         // --- Push-Back Activation ---
@@ -154,14 +148,7 @@ public class PlayerMovement : MonoBehaviour
     // Function to dash the player forward
     void Dash(Vector3 direction)
     {
-        directionAnim(direction);
-        
-
-        animator.SetTrigger("isDashing");
-        
         transform.position += direction * dashDistance;
-        
-        
         StartCoroutine(DashCooldown());  // Start dash cooldown after each dash
     }
 
@@ -169,7 +156,6 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator DashCooldown()
     {
         isDashOnCooldown = true;                // Set dash on cooldown
-        
         yield return new WaitForSeconds(dashCooldown);  // Wait for the cooldown duration
         isDashOnCooldown = false;               // Dash is no longer on cooldown
     }
@@ -178,7 +164,6 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator SpeedBoost()
     {
         isBoosting = true;
-        animator.SetBool("isSpeedBoosting", true);
         moveSpeed *= speedBoostMultiplier;
 
         StartCoroutine(ZoomCamera(zoomOutSize, zoomDuration));
@@ -189,8 +174,6 @@ public class PlayerMovement : MonoBehaviour
 
         moveSpeed /= speedBoostMultiplier;  // Revert to normal speed
         isBoosting = false;
-        animator.SetBool("isSpeedBoosting", false);
-
 
         StartCoroutine(SpeedBoostCooldown());  // Start cooldown coroutine for speed boost
     }
@@ -407,7 +390,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void directionAnim(Vector3 move)
+    void direction(Vector3 move)
     {
         if (move.sqrMagnitude > 0)
         {

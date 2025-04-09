@@ -63,11 +63,11 @@ public class Projectile : MonoBehaviour
                     }
                 }
 
-                // If we found an enemy, calculate the normalized directionAnim from our position to the enemy
+                // If we found an enemy, calculate the normalized direction from our position to the enemy
                 if (nearestEnemy != null)
                 {
                     moveDirection = (nearestEnemy.transform.position - currentPos).normalized;
-                    // Rotate the projectile so that its right side (local X-axis) points in the desired directionAnim.
+                    // Rotate the projectile so that its right side (local X-axis) points in the desired direction.
                     float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
                     transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
                 }
