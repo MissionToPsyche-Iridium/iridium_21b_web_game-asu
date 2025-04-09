@@ -101,15 +101,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  healthScale: 1
   delay: 0
   followDistance: 1
   target: {fileID: 0}
-  collectible: {fileID: 3523325121765631777, guid: 3da9cc574d5494f45be5f89a8c6377ee, type: 3}
+  headController: {fileID: 9100000, guid: 8caeb7eac1162b24bafa631b82cab9c0, type: 2}
+  up: {fileID: -312490714, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
+  down: {fileID: 2032902924, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
+  left: {fileID: 1620707657, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
+  right: {fileID: -2137977561, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
+  upLeft: {fileID: -1437752812, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
+  upRight: {fileID: -441085903, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
+  downLeft: {fileID: -1983521990, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
+  downRight: {fileID: -2106358350, guid: 598c3ff6f4f19934c87bcafdd4659bec, type: 3}
+  currentSprite: {fileID: 0}
+  goldDrop: {fileID: 3523325121765631777, guid: 3da9cc574d5494f45be5f89a8c6377ee, type: 3}
+  cobaltDrop: {fileID: 3523325121765631777, guid: 37068cccec8521a46ad4b2e9dfb5cff3, type: 3}
+  iridiumDrop: {fileID: 3523325121765631777, guid: 0851a1d4153f9074b9e524adf8c58787, type: 3}
+  ironDrop: {fileID: 3523325121765631777, guid: 396c097c6d857464bb0d8705c797ce0f, type: 3}
+  nickelDrop: {fileID: 3523325121765631777, guid: 8b6f0f887e1c77b488d54a8773571eb4, type: 3}
   pushBackPU: {fileID: 6832134630869318019, guid: d459e18af90f19c4186fdccd3fe0700c, type: 3}
   dashPU: {fileID: 4561308123252426360, guid: 2ae3aa94bfbee3a49918d86c06c48ea3, type: 3}
   dodgePU: {fileID: 3757655930577396639, guid: 1aaec45051051d642975b41f5184cb18, type: 3}
   healthPack: {fileID: 3175921877528465611, guid: e9d63d071b146104591b8d1d9045aa72, type: 3}
   AllStatIncrease: {fileID: 3175921877528465611, guid: 8c37472e007b8d449932d025b99c7055, type: 3}
+  animator: {fileID: 0}
 --- !u!50 &-6529679367139478813
 Rigidbody2D:
   serializedVersion: 4
