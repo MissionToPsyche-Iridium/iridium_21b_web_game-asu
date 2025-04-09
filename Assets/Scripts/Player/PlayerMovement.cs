@@ -63,19 +63,17 @@ public class PlayerMovement : MonoBehaviour
     public float coinAttractionRadius = 3f;  // Radius within which coins are attracted
     public float coinAttractionSpeed = 3f;
 
-    //public PopupOverlay iridiumPopupOverlay; 
-    //public Sprite iridiumInfoImage; 
     private bool firstIridiumCollected = false;
 
-    private PopupManager popupManager;
+    private IridiumPopupManager iridiumPopupManager;
 
     private void Start()
     {
         health = GetComponent<Health>();
         autoShooterScript = GetComponent<AutoShooter>();
         projectileScript = FindObjectOfType<Projectile>();
-        popupManager = FindObjectOfType<PopupManager>();
-        Debug.Log("PopupManager found: " + (popupManager != null));
+        iridiumPopupManager = FindObjectOfType<IridiumPopupManager>();
+        Debug.Log("PopupManager found: " + (iridiumPopupManager != null));
     }
 
     void Update()
@@ -289,9 +287,9 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(PushBackCooldown());
     }
 
-    void ShowMyPopup()
+    void ShowIridiumPopup()
     {
-        popupManager.ShowPopup("Iridium, a rare platinum-group metal with atomic number 77, has fascinating connections to the Psyche asteroid (16 Psyche). This dense, highly corrosion-resistant element is one of the rarest in Earth's crust, but scientists believe it may be abundant in metallic asteroids like Psyche. The asteroid, located in the main asteroid belt between Mars and Jupiter, is thought to be the exposed metallic core of a protoplanet that lost its outer layers through violent collisions during the early solar system.\n\r\n NASA's upcoming Psyche mission aims to study this unique asteroid, which could contain significant amounts of iron and nickel along with precious metals like iridium. ", null);
+        iridiumPopupManager.ShowPopup("Iridium, a rare platinum-group metal with atomic number 77, has fascinating connections to the Psyche asteroid (16 Psyche). This dense, highly corrosion-resistant element is one of the rarest in Earth's crust, but scientists believe it may be abundant in metallic asteroids like Psyche. The asteroid, located in the main asteroid belt between Mars and Jupiter, is thought to be the exposed metallic core of a protoplanet that lost its outer layers through violent collisions during the early solar system.\n\r\n NASA's upcoming Psyche mission aims to study this unique asteroid, which could contain significant amounts of iron and nickel along with precious metals like iridium. ", null);
     }
 
     // Handle collisions between trigger objects and player object
@@ -306,11 +304,7 @@ public class PlayerMovement : MonoBehaviour
             firstIridiumCollected = true;
             cm.coinCount++;
 
-            //iridiumPopupOverlay.ShowPopup(
-            //    iridiumInfoImage,
-            //"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis libero neque, porta id lacinia eget, scelerisque eget est. Integer nec nunc a augue efficitur ultrices. Nulla vel volutpat tortor, eget venenatis tellus. Donec eu libero in nunc pellentesque placerat sit amet et eros. Phasellus iaculis, elit et tempor aliquam, eros metus gravida sapien, nec pretium nulla neque ac augue. Curabitur condimentum, nisl a convallis maximus, massa dui fermentum turpis, vitae fringilla urna lectus at eros. Nullam semper hendrerit erat, quis tristique sem commodo eu. Sed eu volutpat arcu.\r\n\r\nIn sagittis lectus sit amet consequat porttitor. Praesent mattis ac nisi et pretium. Praesent dui turpis, finibus vel pulvinar vel, cursus non ipsum. Vivamus euismod, leo mollis tincidunt hendrerit, sapien risus congue urna, fermentum condimentum lacus massa vel tellus. Sed a lorem maximus, condimentum massa id, dictum elit. Morbi id luctus lectus. Fusce sem tortor, sodales et metus sed, posuere posuere quam. In hac habitasse platea dictumst.");
-
-            ShowMyPopup();
+            ShowIridiumPopup();
 
             Destroy(other.gameObject);
         }

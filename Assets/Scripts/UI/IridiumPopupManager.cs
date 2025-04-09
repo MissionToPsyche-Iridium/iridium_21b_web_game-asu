@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PopupManager : MonoBehaviour
+public class IridiumPopupManager : MonoBehaviour
 {
     [SerializeField] private GameObject popupPanel;
     [SerializeField] public Image leftImage;
