@@ -212,7 +212,7 @@ public class head_behavior : MonoBehaviour
             {
                 segmentScript.target = segments[i - 1].transform;
             }
-            
+
             segmentScript.delay = segmentScript.delay * i;
         }
     }

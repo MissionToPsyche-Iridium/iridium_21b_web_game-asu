@@ -29,6 +29,12 @@ TagManager:
   - quad2
   - quad3
   - quad4
+  - Gold
+  - Cobalt
+  - Iridium
+  - Iron
+  - Nickel
+  - spacecraft_part
   layers:
   - Default
   - TransparentFX
