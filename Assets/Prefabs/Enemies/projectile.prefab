@@ -44,11 +44,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4770445908274976074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3319d56ad192a814c8ad3ee2d53f30c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b496e918bb553c42ac59cf016cc38f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 4435638922977522445}
 --- !u!212 &4716430136200899311
 SpriteRenderer:
   m_ObjectHideFlags: 0
