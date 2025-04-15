@@ -112,7 +112,6 @@ public class enemy_spawner : MonoBehaviour
         getNearestNodeMap();
         establishNodes(nearestMap);
         findNearestSeenNode();
-        Debug.Log(numEnemies + " " + bossEnemies + " " + maxWaveEnemies);
     }
 
     void randomSpawner()

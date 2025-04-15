@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Cinemachine;
 
 // Created by Robert DeLucia Jr. during Sprint 1
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     public float doublePressThreshold = 0.3f;   // Max time between double presses for dash
     public float dashCooldown = 1f;              // 1-second cooldown for dashing
     public int damageFactor = 1;
+    public Text metalText;
 
     // --- Push-Back Power-Up Variables ---
     public float pushBackRadius = 5f;            // Radius within which enemies are pushed
@@ -68,6 +70,11 @@ public class PlayerMovement : MonoBehaviour
     private bool firstNickelCollected = false;
     private bool firstIronCollected = false;
     private bool firstColbaltCollected = false;
+    private int numIridium = 0;
+    private int numGold = 0;
+    private int numNickel = 0;
+    private int numCobalt = 0;
+    private int numIron = 0;
 
     [SerializeField] private Sprite iridiumSprite;
     [SerializeField] private Sprite goldSprite;
@@ -329,56 +336,114 @@ public class PlayerMovement : MonoBehaviour
         {
             health.DamagePlayer(10 + damageFactor);
         }
-        else if (other.gameObject.CompareTag("Iridium") && !firstIridiumCollected)
-        {
-            firstIridiumCollected = true;
-
-            ShowIridiumPopup();
-
-            Destroy(other.gameObject);
-        }
         else if (other.gameObject.CompareTag("Iridium"))
         {
-            Destroy(other.gameObject);
-        }
-        else if (other.gameObject.CompareTag("Gold") && !firstGoldCollected)
-        {
-            firstGoldCollected = true;
-            ShowGoldPopup();
+            metalCollected pickup = other.GetComponent<metalCollected>();
+            if (pickup == null || pickup.isCollected)
+                return;
+
+            pickup.isCollected = true;
+
+            CircleCollider2D collider = GetComponent<CircleCollider2D>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+            if (!firstIridiumCollected)
+            {
+                firstIridiumCollected = true;
+                ShowIridiumPopup();
+            }
+            numIridium++;
+            updateMetals();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Gold"))
         {
-            Destroy(other.gameObject);
-        }
-        else if (other.gameObject.CompareTag("Nickel") && !firstNickelCollected)
-        {
-            firstNickelCollected = true;
-            ShowNickelPopup();
+            metalCollected pickup = other.GetComponent<metalCollected>();
+            if (pickup == null || pickup.isCollected)
+                return;
+
+            pickup.isCollected = true;
+
+            CircleCollider2D collider = GetComponent<CircleCollider2D>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+            if (!firstGoldCollected)
+            {
+                firstGoldCollected = true;
+                ShowGoldPopup();
+            }
+            numGold++;
+            updateMetals();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Nickel"))
         {
-            Destroy(other.gameObject);
-        }
-        else if (other.gameObject.CompareTag("Iron") && !firstIronCollected)
-        {
-            firstIronCollected = true;
-            ShowIronPopup();
+            metalCollected pickup = other.GetComponent<metalCollected>();
+            if (pickup == null || pickup.isCollected)
+                return;
+
+            pickup.isCollected = true;
+
+            CircleCollider2D collider = GetComponent<CircleCollider2D>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+            if (!firstNickelCollected)
+            {
+                firstNickelCollected = true;
+                ShowNickelPopup();
+            }
+            numNickel++;
+            updateMetals();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Iron"))
         {
-            Destroy(other.gameObject);
-        }
-        else if (other.gameObject.CompareTag("Cobalt") && !firstColbaltCollected)
-        {
-            firstColbaltCollected = true;
-            ShowCobaltPopup();
+            metalCollected pickup = other.GetComponent<metalCollected>();
+            if (pickup == null || pickup.isCollected)
+                return;
+
+            pickup.isCollected = true;
+
+            CircleCollider2D collider = GetComponent<CircleCollider2D>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+            if (!firstIronCollected)
+            {
+                firstIronCollected = true;
+                ShowIronPopup();
+            }
+            numIron++;
+            updateMetals();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Cobalt"))
         {
+            metalCollected pickup = other.GetComponent<metalCollected>();
+            if (pickup == null || pickup.isCollected)
+                return;
+
+            pickup.isCollected = true;
+
+            CircleCollider2D collider = GetComponent<CircleCollider2D>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+            if (!firstColbaltCollected)
+            {
+                firstColbaltCollected = true;
+                ShowCobaltPopup();
+            }
+            numCobalt++;
+            updateMetals();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Rocket"))
@@ -476,5 +541,23 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, pushBackRadius);
         
+    }
+
+    private void updateMetals()
+    {
+        metalText.text = "Iridium: " + numIridium + "\n" +
+            "Gold: " + numGold + "\n" +
+            "Cobalt: " + numCobalt + "\n" +
+            "Iron: " + numIron + "\n" +
+            "Nickel: " + numNickel;
+    }
+
+    private void printMetals()
+    {
+        Debug.Log("Iridium: " + numIridium + "\n" +
+            "Gold: " + numGold + "\n" +
+            "Cobalt: " + numCobalt + "\n" +
+            "Iron: " + numIron + "\n" +
+            "Nickel: " + numNickel);
     }
 }
