@@ -95,8 +95,8 @@ public class enemy_spawner : MonoBehaviour
         //Check for new enemy scaling
         if (timer.getWaveTime() == 0 && !scaledEnemies)
         {
-            Player.GetComponent<PlayerMovement>().damageFactor += 1;
-            EnemyHealth.healthScale += .1f;
+            Player.GetComponent<PlayerMovement>().damageFactor += 2;
+            EnemyHealth.healthScale += .4f;
             basic_enemy_behavior.speedFactor += .1f;
             dash_enemy_script.speedFactor += .1f;
             shoot_enemy_behavior.speedFactor += .1f;
