@@ -287,19 +287,19 @@ public class enemy_spawner : MonoBehaviour
         //replace spawns with the parts of the ship once we get there
         switch (waveNumber)
         {
-            case 3:
+            case 4:
                 Instantiate(gammaSpec, new Vector3(0, 0, 1), transform.rotation);
                 break;
-            case 6:
+            case 7:
                 Instantiate(neutronSpec, new Vector3(0, 0, 1), transform.rotation);
                 break;
-            case 9:
+            case 10:
                 Instantiate(magnetometer, new Vector3(0, 0, 1), transform.rotation);
                 break;
-            case 12:
+            case 13:
                 Instantiate(multispec, new Vector3(0, 0, 1), transform.rotation);
                 break;
-            case 15:
+            case 16:
                 Instantiate(hallThruster, new Vector3(0, 0, 1), transform.rotation);
                 break;
         }
