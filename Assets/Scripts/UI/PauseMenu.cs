@@ -27,6 +27,8 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload current scene
     }
 
+    
+
     public void BackToMainMenu()
     {
         SceneManager.LoadSceneAsync("Main Menu"); // Loads the Main Menu scene
