@@ -95,8 +95,8 @@ public class enemy_spawner : MonoBehaviour
         //Check for new enemy scaling
         if (timer.getWaveTime() == 0 && !scaledEnemies)
         {
-            Player.GetComponent<PlayerMovement>().damageFactor += 1;
-            EnemyHealth.healthScale += .1f;
+            Player.GetComponent<PlayerMovement>().damageFactor += 2;
+            EnemyHealth.healthScale += .4f;
             basic_enemy_behavior.speedFactor += .1f;
             dash_enemy_script.speedFactor += .1f;
             shoot_enemy_behavior.speedFactor += .1f;
@@ -112,7 +112,6 @@ public class enemy_spawner : MonoBehaviour
         getNearestNodeMap();
         establishNodes(nearestMap);
         findNearestSeenNode();
-        Debug.Log(numEnemies + " " + bossEnemies + " " + maxWaveEnemies);
     }
 
     void randomSpawner()
@@ -287,19 +286,19 @@ public class enemy_spawner : MonoBehaviour
         //replace spawns with the parts of the ship once we get there
         switch (waveNumber)
         {
-            case 3:
+            case 4:
                 Instantiate(gammaSpec, new Vector3(0, 0, 1), transform.rotation);
                 break;
-            case 6:
+            case 7:
                 Instantiate(neutronSpec, new Vector3(0, 0, 1), transform.rotation);
                 break;
-            case 9:
+            case 10:
                 Instantiate(magnetometer, new Vector3(0, 0, 1), transform.rotation);
                 break;
-            case 12:
+            case 13:
                 Instantiate(multispec, new Vector3(0, 0, 1), transform.rotation);
                 break;
-            case 15:
+            case 16:
                 Instantiate(hallThruster, new Vector3(0, 0, 1), transform.rotation);
                 break;
         }

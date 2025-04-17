@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Cinemachine;
 
 // Created by Robert DeLucia Jr. during Sprint 1
@@ -22,21 +23,22 @@ public class PlayerMovement : MonoBehaviour
 
     public CoinManager cm;
     public float moveSpeed = 5f;
-    public float speedBoostMultiplier = 1.5f;  // Speed boost grants extra velocity
-    public float boostDuration = 5f;            // Boost lasts for 2 seconds
-    public float boostCooldown = 2f;            // Boost cooldown is 2 seconds
-    public float boostAvailabilityDuration = 30f; // Duration the boost power-up is available
+    public float speedBoostMultiplier = 1.5f;  
+    public float boostDuration = 5f;            
+    public float boostCooldown = 2f;           
+    public float boostAvailabilityDuration = 30f; 
     public float dashAvailabilityDuration = 30f;
     public float fireRateBoostDuration = 30f;
-    public float dashDistance = 2.5f;           // Distance covered during a dash
-    public float doublePressThreshold = 0.3f;   // Max time between double presses for dash
-    public float dashCooldown = 1f;              // 1-second cooldown for dashing
+    public float dashDistance = 4f;           
+    public float doublePressThreshold = 0.3f;   
+    public float dashCooldown = 2f;              
     public int damageFactor = 1;
+    public Text metalText;
 
     // --- Push-Back Power-Up Variables ---
     public float pushBackRadius = 5f;            // Radius within which enemies are pushed
     public float pushBackForce = 500f;           // Force applied to enemies
-    public float pushBackCooldown = 2f;          // Cooldown between push-back activations
+    public float pushBackCooldown = 3f;          // Cooldown between push-back activations
     public float pushBackAvailabilityDuration = 30f; // Duration the push-back ability is available
 
     private bool isBoosting = false;
@@ -63,15 +65,52 @@ public class PlayerMovement : MonoBehaviour
     public float coinAttractionRadius = 3f;  // Radius within which coins are attracted
     public float coinAttractionSpeed = 3f;
 
-    public PopupOverlay iridiumPopupOverlay; 
-    public Sprite iridiumInfoImage; 
     private bool firstIridiumCollected = false;
+    private bool firstGoldCollected = false;
+    private bool firstNickelCollected = false;
+    private bool firstIronCollected = false;
+    private bool firstColbaltCollected = false;
+    private int numIridium = 0;
+    private int numGold = 0;
+    private int numNickel = 0;
+    private int numCobalt = 0;
+    private int numIron = 0;
+
+    private bool firstCobaltCollected = false;
+    private bool firstAllStatUpCollected = false;
+    private bool firstDamageCollected = false;
+    private bool firstDashCollected = false;
+    private bool firstFullHealthCollected = false;
+    private bool firstFireRateCollected = false;
+    private bool firstHealthUpCollected = false;
+    private bool firstPushbackCollected = false;
+    private bool firstRocketCollected = false;
+
+    [SerializeField] private Sprite iridiumSprite;
+    [SerializeField] private Sprite goldSprite;
+    [SerializeField] private Sprite ironSprite;
+    [SerializeField] private Sprite nickelSprite;
+    [SerializeField] private Sprite cobaltSprite;
+
+    [SerializeField] private Sprite allStatUpSprite;
+    [SerializeField] private Sprite damageSprite;
+    [SerializeField] private Sprite dashSprite;
+    [SerializeField] private Sprite fullHealthSprite;
+    [SerializeField] private Sprite fireRateSprite;
+    [SerializeField] private Sprite healthUpSprite;
+    [SerializeField] private Sprite PushbackSprite;
+    [SerializeField] private Sprite RocketSprite; 
+
+
+    private IridiumPopupManager popupManager;
 
     private void Start()
     {
         health = GetComponent<Health>();
         autoShooterScript = GetComponent<AutoShooter>();
         projectileScript = FindObjectOfType<Projectile>();
+
+        popupManager = FindObjectOfType<IridiumPopupManager>();
     }
 
     void Update()
@@ -285,6 +324,71 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(PushBackCooldown());
     }
 
+    void ShowIridiumPopup()
+    {
+        popupManager.ShowPopup("Iridium, a rare platinum-group metal with atomic number 77, has fascinating connections to the Psyche asteroid (16 Psyche). This dense, highly corrosion-resistant element is one of the rarest in Earth's crust, but scientists believe it may be abundant in metallic asteroids like Psyche. The asteroid, located in the main asteroid belt between Mars and Jupiter, is thought to be the exposed metallic core of a protoplanet that lost its outer layers through violent collisions during the early solar system.\n\r\nNASA's upcoming Psyche mission aims to study this unique asteroid, which could contain significant amounts of iron and nickel along with precious metals like iridium. ", iridiumSprite);
+    }
+
+    void ShowGoldPopup()
+    {
+        popupManager.ShowPopup("Gold, atomic number 79, shares an intriguing potential connection with the Psyche asteroid (16 Psyche). As one of humanity's most valued precious metals, gold on Earth is relatively rare, having been concentrated in the planet's core during its formation. The Psyche asteroid, believed to be the exposed core of a protoplanet, presents a unique opportunity to study how gold and other precious metals are distributed in planetary cores.\n\r\nScientists estimate that if Psyche is similar in composition to Earth's core, it could contain substantial amounts of gold along with its primary components of iron and nickel. This connection between gold and Psyche highlights the fascinating intersection of planetary science, metallurgy, and the early history of our solar system.", goldSprite);
+    }
+
+    void ShowNickelPopup()
+    {
+        popupManager.ShowPopup("Nickel, atomic number 28, plays a crucial role in our understanding of the Psyche asteroid (16 Psyche). This silvery-white metal is one of the most abundant elements in metallic meteorites and is expected to be a major component of Psyche's composition. Scientists believe that like Earth's core, Psyche contains significant amounts of nickel combined with iron, forming an iron-nickel alloy similar to what we find in meteorites.\n\r\nThe NASA Psyche mission's study of this asteroid could reveal how nickel and other metals were distributed during planetary formation, potentially providing insights into the composition of Earth's own core.", nickelSprite);
+    }
+
+    void ShowIronPopup()
+    {
+        popupManager.ShowPopup("Iron, atomic number 26, is believed to be the primary component of the Psyche asteroid (16 Psyche), making it particularly significant for scientific study. As the most abundant element by mass in the Earth's core, iron's presence in Psyche could provide crucial insights into planetary core formation. Scientists estimate that Psyche might contain enough iron to fill several million cubic kilometers, potentially making it the exposed iron core of an early planetesimal.\n\r\nThe NASA Psyche mission's investigation of this iron-rich body could help us understand how planetary cores form and evolve, offering a unique window into processes we cannot directly observe on Earth.", ironSprite);
+    }
+
+    void ShowCobaltPopup()
+    {
+        popupManager.ShowPopup("Cobalt, atomic number 27, represents an important element in the study of the Psyche asteroid (16 Psyche). This magnetic metal often occurs naturally alongside iron and nickel in meteorites, and scientists believe it could be present in significant quantities within Psyche's composition. As a transition metal commonly found in planetary cores, cobalt's presence and distribution within Psyche could provide valuable clues about the formation of planetary bodies.\n\r\nThe NASA Psyche mission's investigation of this metallic asteroid could reveal new insights about how cobalt and other metals were distributed during the early solar system's formation, potentially improving our understanding of planetary core composition.", cobaltSprite);
+    }
+
+    void ShowAllStatUpPopup()
+    {
+        popupManager.ShowPopup("All Stats Up! Your abilities have been boosted across the board. Just like a supernova injecting energy into the cosmos, you're now a force to be reckoned with.", allStatUpSprite);
+    }
+
+    void ShowDamagePopup()
+    {
+        popupManager.ShowPopup("Increased Damage! Tap into the destructive power of cosmic rays--your attacks now hit harder than ever.", damageSprite);
+    }
+
+    void ShowDashPopup()
+    {
+        popupManager.ShowPopup("Evade Unlocked! Double-tap a direction and you will do a quick evade in that direction. Useful for getting out of sticky situations. 2 second cooldown in-between uses.", dashSprite);
+    }
+
+    void ShowFullHealthPopup()
+    {
+        popupManager.ShowPopup("Full Health Restored! Like a star reborn in a nebula, you're back at full strength. Use it wisely.", fullHealthSprite);
+    }
+
+    void ShowFireRatePopup()
+    {
+        popupManager.ShowPopup("Fire Rate Boosted! Your weapon hums with rapid-fire energy, channeling the pulse of a quasar with every shot.", fireRateSprite);
+    }
+
+    void ShowHealthUpPopup()
+    {
+        popupManager.ShowPopup("Health Up! Your endurance is now bolstered, echoing the resilience of dense asteroid cores under pressure.", healthUpSprite);
+    }
+
+    void ShowPushbackPopup()
+    {
+        popupManager.ShowPopup("Pushback Acquired! For the next 30 seconds, by pressing P, enemies around you will be pushed back. Use it if you are in a pickle! 3 second cooldown in-between uses.", PushbackSprite);
+    }
+
+    void ShowRocketPopup()
+    {
+        popupManager.ShowPopup("Rocket Equipped! For the next 30 seconds, if you press the spacebar while moving in a direction it will boost your speed. 2 second cooldown in-between uses.", RocketSprite);
+    }
+
     // Handle collisions between trigger objects and player object
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -292,76 +396,188 @@ public class PlayerMovement : MonoBehaviour
         {
             health.DamagePlayer(10 + damageFactor);
         }
-        else if (other.gameObject.CompareTag("Iridium") && !firstIridiumCollected)
+        else if (other.gameObject.CompareTag("Iridium"))
         {
-            firstIridiumCollected = true;
-            cm.coinCount++;
+            metalCollected pickup = other.GetComponent<metalCollected>();
+            if (pickup == null || pickup.isCollected)
+                return;
 
-            iridiumPopupOverlay.ShowPopup(
-                iridiumInfoImage,
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis libero neque, porta id lacinia eget, scelerisque eget est. Integer nec nunc a augue efficitur ultrices. Nulla vel volutpat tortor, eget venenatis tellus. Donec eu libero in nunc pellentesque placerat sit amet et eros. Phasellus iaculis, elit et tempor aliquam, eros metus gravida sapien, nec pretium nulla neque ac augue. Curabitur condimentum, nisl a convallis maximus, massa dui fermentum turpis, vitae fringilla urna lectus at eros. Nullam semper hendrerit erat, quis tristique sem commodo eu. Sed eu volutpat arcu.\r\n\r\nIn sagittis lectus sit amet consequat porttitor. Praesent mattis ac nisi et pretium. Praesent dui turpis, finibus vel pulvinar vel, cursus non ipsum. Vivamus euismod, leo mollis tincidunt hendrerit, sapien risus congue urna, fermentum condimentum lacus massa vel tellus. Sed a lorem maximus, condimentum massa id, dictum elit. Morbi id luctus lectus. Fusce sem tortor, sodales et metus sed, posuere posuere quam. In hac habitasse platea dictumst.");
+            pickup.isCollected = true;
 
+            CircleCollider2D collider = GetComponent<CircleCollider2D>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+            if (!firstIridiumCollected)
+            {
+                firstIridiumCollected = true;
+                ShowIridiumPopup();
+            }
+            numIridium++;
+            updateMetals();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Gold"))
         {
-            cm.coinCount++;
-            Destroy(other.gameObject);
-        }
-        else if (other.gameObject.CompareTag("Cobalt"))
-        {
-            cm.coinCount++;
-            Destroy(other.gameObject);
-        }
-        else if (other.gameObject.CompareTag("Iron"))
-        {
-            cm.coinCount++;
+            metalCollected pickup = other.GetComponent<metalCollected>();
+            if (pickup == null || pickup.isCollected)
+                return;
+
+            pickup.isCollected = true;
+
+            CircleCollider2D collider = GetComponent<CircleCollider2D>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+            if (!firstGoldCollected)
+            {
+                firstGoldCollected = true;
+                ShowGoldPopup();
+            }
+            numGold++;
+            updateMetals();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Nickel"))
         {
-            cm.coinCount++;
+            metalCollected pickup = other.GetComponent<metalCollected>();
+            if (pickup == null || pickup.isCollected)
+                return;
+
+            pickup.isCollected = true;
+
+            CircleCollider2D collider = GetComponent<CircleCollider2D>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+            if (!firstNickelCollected)
+            {
+                firstNickelCollected = true;
+                ShowNickelPopup();
+            }
+            numNickel++;
+            updateMetals();
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Iron"))
+        {
+            metalCollected pickup = other.GetComponent<metalCollected>();
+            if (pickup == null || pickup.isCollected)
+                return;
+
+            pickup.isCollected = true;
+
+            CircleCollider2D collider = GetComponent<CircleCollider2D>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+            if (!firstIronCollected)
+            {
+                firstIronCollected = true;
+                ShowIronPopup();
+            }
+            numIron++;
+            updateMetals();
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Cobalt"))
+        {
+            metalCollected pickup = other.GetComponent<metalCollected>();
+            if (pickup == null || pickup.isCollected)
+                return;
+
+            pickup.isCollected = true;
+
+            CircleCollider2D collider = GetComponent<CircleCollider2D>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+            if (!firstColbaltCollected)
+            {
+                firstColbaltCollected = true;
+                ShowCobaltPopup();
+            }
+            numCobalt++;
+            updateMetals();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Rocket"))
         {
+            if (!firstRocketCollected)
+            {
+                ShowRocketPopup();
+                firstRocketCollected = true;
+            }
             StartCoroutine(BoostAvailability());
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Dash"))
         {
+            if (!firstDashCollected)
+            {
+                ShowDashPopup();
+                firstDashCollected = true;
+            }
             StartCoroutine(DashAvailability());
             Destroy(other.gameObject);
         }
-        else if (other.gameObject.CompareTag("PushBack")) // --- Handle Push-Back Power-Up ---
+        else if (other.gameObject.CompareTag("PushBack"))
         {
+            if (!firstPushbackCollected)
+            {
+                ShowPushbackPopup();
+                firstPushbackCollected = true;
+            }
             StartCoroutine(PushBackAvailability());
             Destroy(other.gameObject);
         }
-        else if(other.gameObject.CompareTag("FireRate"))
+        else if (other.gameObject.CompareTag("FireRate"))
         {
-            //StartCoroutine(FireRateAvailability());
+
+            if (!firstFireRateCollected)
+            {
+                ShowFireRatePopup();
+                firstFireRateCollected = true;
+            }
             autoShooterScript.fireRate += 2f;
             Destroy(GameObject.FindGameObjectWithTag("damage"));
             Destroy(GameObject.FindGameObjectWithTag("healthUp"));
             Destroy(other.gameObject);
         }
-        else if(other.gameObject.CompareTag("damage"))
+        else if (other.gameObject.CompareTag("damage"))
         {
-            Debug.Log("DASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS that good");
+            if (!firstDamageCollected)
+            {
+                ShowDamagePopup();
+                firstDamageCollected = true;
+            }
             Projectile.defaultDamageAmount += 25f;
-            Debug.Log("New Damage: " + Projectile.defaultDamageAmount);
             Destroy(GameObject.FindGameObjectWithTag("healthUp"));
             Destroy(GameObject.FindGameObjectWithTag("FireRate"));
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("health"))
         {
+            if (!firstFullHealthCollected)
+            {
+                ShowFullHealthPopup();
+                firstFullHealthCollected = true;
+            }
             health.healPlayerToFull();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("healthUp"))
         {
+            if (!firstHealthUpCollected)
+            {
+                ShowHealthUpPopup();
+                firstHealthUpCollected = true;
+            }
             health.maxHealth += 50;
             health.curHealth += 50;
             health.invincibilityTime += .25f;
@@ -372,6 +588,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("AllStatsUp"))
         {
+            if (!firstAllStatUpCollected)
+            {
+                ShowAllStatUpPopup();
+                firstAllStatUpCollected = true;
+            }
             //Damage
             Projectile.defaultDamageAmount += 25f;
             //Health
@@ -418,5 +639,23 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, pushBackRadius);
         
+    }
+
+    private void updateMetals()
+    {
+        metalText.text = "Iridium: " + numIridium + "\n" +
+            "Gold: " + numGold + "\n" +
+            "Cobalt: " + numCobalt + "\n" +
+            "Iron: " + numIron + "\n" +
+            "Nickel: " + numNickel;
+    }
+
+    private void printMetals()
+    {
+        Debug.Log("Iridium: " + numIridium + "\n" +
+            "Gold: " + numGold + "\n" +
+            "Cobalt: " + numCobalt + "\n" +
+            "Iron: " + numIron + "\n" +
+            "Nickel: " + numNickel);
     }
 }
