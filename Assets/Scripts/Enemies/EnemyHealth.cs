@@ -41,7 +41,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        //if (currentHealth <= 0) return; // Prevent multiple death calls
+        if (currentHealth <= 0) return; // Prevent multiple death calls
         currentHealth = Mathf.Max(currentHealth - amount, 0f);
 
         // Update health bar
