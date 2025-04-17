@@ -35,6 +35,7 @@ TagManager:
   - Iron
   - Nickel
   - spacecraft_part
+  - Slow
   layers:
   - Default
   - TransparentFX

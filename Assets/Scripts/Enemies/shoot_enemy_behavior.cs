@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class shoot_enemy_behavior : MonoBehaviour
+public class shoot_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
 {
     public GameObject Player;
     public GameObject Projectile;
@@ -23,8 +23,15 @@ public class shoot_enemy_behavior : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 lastVelocity;
     private EnemyHealth healthScript;
+    public Animator animator;
+    private Vector3 lastPosition;
     // Start is called before the first frame update
 
+
+    void Awake() {
+        animator = GetComponent<Animator>();  // finds animator on wake
+
+    }
     void Start()
     {
         lastSeenX = transform.position.x;
@@ -97,6 +104,11 @@ public class shoot_enemy_behavior : MonoBehaviour
             Instantiate(Projectile, transform.position, Quaternion.identity);
             StartCoroutine(WaitAfterShot());
         }
+        Vector3 move = (transform.position - lastPosition).normalized;
+
+        // Pass the movement to directionAnim() to update animation
+        AnimDirection(move);
+        lastPosition = transform.position;
     }
 
     void moveTowardsPlayer(float step)
@@ -243,5 +255,15 @@ public class shoot_enemy_behavior : MonoBehaviour
         }
 
         value = 0f; // Ensure it reaches exactly 0
+    }
+    private void AnimDirection(Vector3 move) {
+        if (move.sqrMagnitude > 0) {
+            animator.SetFloat("x", move.x);
+            animator.SetFloat("y", move.y);
+        }
+    }
+    public void OnDeath() {
+        speed = 0f;
+        animator.SetBool("death", true);
     }
 }

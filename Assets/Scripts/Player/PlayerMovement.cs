@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     public CoinManager cm;
     public float moveSpeed = 5f;
+    private float originalMoveSpeed;
     public float speedBoostMultiplier = 1.5f;  // Speed boost grants extra velocity
     public float boostDuration = 5f;            // Boost lasts for 2 seconds
     public float boostCooldown = 2f;            // Boost cooldown is 2 seconds
@@ -48,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     // --- Push-Back State Flags ---
     private bool canUsePushBack = false;
     private bool isPushBackOnCooldown = false;
+    public GameObject abilityEffectPrefab;        // object to spawn for pushback animation
 
     private float lastPressTimeX = -1f;           // Track last press time for X-axis
     private float lastPressTimeY = -1f;           // Track last press time for Y-axis
@@ -72,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
         health = GetComponent<Health>();
         autoShooterScript = GetComponent<AutoShooter>();
         projectileScript = FindObjectOfType<Projectile>();
+        originalMoveSpeed = moveSpeed;
     }
 
     void Update()
@@ -84,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         if (!animator.GetBool("death"))
         {
             transform.position += moveSpeed * Time.deltaTime * movement;
-            direction(movement);
+            AnimDirection(movement);
         }
 
         // Handle Speed Boost Activation
@@ -148,6 +151,8 @@ public class PlayerMovement : MonoBehaviour
     // Function to dash the player forward
     void Dash(Vector3 direction)
     {
+        AnimDirection(direction);
+        animator.SetTrigger("isDashing");
         transform.position += direction * dashDistance;
         StartCoroutine(DashCooldown());  // Start dash cooldown after each dash
     }
@@ -164,6 +169,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator SpeedBoost()
     {
         isBoosting = true;
+        animator.SetBool("isSpeedBoosting", true);
         moveSpeed *= speedBoostMultiplier;
 
         StartCoroutine(ZoomCamera(zoomOutSize, zoomDuration));
@@ -174,6 +180,7 @@ public class PlayerMovement : MonoBehaviour
 
         moveSpeed /= speedBoostMultiplier;  // Revert to normal speed
         isBoosting = false;
+        animator.SetBool("isSpeedBoosting", false);
 
         StartCoroutine(SpeedBoostCooldown());  // Start cooldown coroutine for speed boost
     }
@@ -388,9 +395,20 @@ public class PlayerMovement : MonoBehaviour
             partsCollected++;
             Destroy(other.gameObject);
         }
-    }
+        else if (other.gameObject.CompareTag("Slow")) {
 
-    void direction(Vector3 move)
+            moveSpeed = moveSpeed * (.50f);
+        }
+    }
+    void OnTriggerExit2D(Collider2D other) {
+        if (other.gameObject.CompareTag("Slow")) {
+            moveSpeed = originalMoveSpeed;
+        }
+    }
+        /**
+         * Need this function for animation
+         */
+        void AnimDirection(Vector3 move)
     {
         if (move.sqrMagnitude > 0)
         {

@@ -48,7 +48,7 @@ public class AutoShooter : MonoBehaviour {
             Vector3 movement = new Vector3(moveX, moveY, 0).normalized;
             directionAnim(movement);
 
-            animator.SetTrigger("isAttacking");
+           // animator.SetTrigger("isAttacking");
 
             Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
         }
