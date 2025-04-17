@@ -59,26 +59,27 @@ public class body_follow : MonoBehaviour
                     transform.position = Vector3.MoveTowards(transform.position, targetPosition - direction * followDistance, dynamicSpeed * 2 * Time.deltaTime);
                 }
             }
-        } 
-        
+        }
+
         else if (target == null && !hasNewBehavior)
         {
             ApplyNewBehavior();
             ChangeSprite();
             waitingBeforeRedirect = true;
         }
-        
+
         if (hasNewBehavior)
         {
             if (waitingBeforeRedirect)
             {
                 StartCoroutine(ResumeNextFrame());
-            } else
+            }
+            else
             {
                 direction = direction = (movScript.target - transform.position).normalized;
                 determineAnimationState(direction);
             }
-            
+
         }
     }
 
@@ -178,7 +179,7 @@ public class body_follow : MonoBehaviour
 
     void ApplyNewBehavior()
     {
-        
+
         //Giving basic behavior
         movScript = gameObject.AddComponent<basic_enemy_behavior>();
 

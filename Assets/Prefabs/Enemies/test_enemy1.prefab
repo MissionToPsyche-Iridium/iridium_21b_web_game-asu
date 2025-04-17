@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4333148301124759205}
   - component: {fileID: 3474776129184654195}
   - component: {fileID: 2908680493611904104}
+  - component: {fileID: 6926458356702954250}
   m_Layer: 2
   m_Name: test_enemy1
   m_TagString: basic_enemy
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: -620043319, guid: d68c4eaebb7f2e34db3ebfb01b6e5a0b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,7 +105,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   nodeMap: {fileID: 0}
+  target: {x: 0, y: 0, z: 0}
   speed: 3
+  animator: {fileID: 6926458356702954250}
 --- !u!58 &8652868582898079585
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -227,6 +230,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.21133333}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &6926458356702954250
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6899617583450277495}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2457a45705b94c74aac9656c7ba049a3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &9067464333080379345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -237,7 +261,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1407847904036318525, guid: 5ee69bf6afc165e4e84811066a33e86a, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3186371043218765517, guid: 5ee69bf6afc165e4e84811066a33e86a, type: 3}
       propertyPath: m_LocalPosition.x

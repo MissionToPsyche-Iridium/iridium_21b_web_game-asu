@@ -23,7 +23,12 @@ public class EnemyHealth : MonoBehaviour
     private float newXScale;
     private Vector3 healthBar_Scale;
     private Vector3 healthBar_Pos;
+    private IEnemyDeathHandler deathHandler;
 
+
+    private void Awake() {
+        deathHandler = GetComponent<IEnemyDeathHandler>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +36,7 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = currentHealth * healthScale;
         healthBar_Scale = healthBar.transform.localScale;
         healthBar_Pos = healthBar.transform.localPosition;
-        metals = new GameObject[] { goldDrop, cobaltDrop, iridiumDrop, ironDrop, nickelDrop};
+        metals = new GameObject[] { goldDrop, cobaltDrop, iridiumDrop, ironDrop, nickelDrop };
     }
 
     public void TakeDamage(float amount)
@@ -48,18 +53,20 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth == 0)
         {
             randomDrop();
-            Die();
+            deathHandler?.OnDeath();
+            StartCoroutine(Die(.36f));
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    void Die()
+    private IEnumerator Die(float waitTime)
     {
+        yield return new WaitForSeconds(waitTime);
         // Here you can add death effects, animations, sounds, etc.
         Destroy(gameObject);
     }
