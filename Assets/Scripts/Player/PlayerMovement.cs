@@ -67,8 +67,6 @@ public class PlayerMovement : MonoBehaviour
     public float coinAttractionRadius = 3f;  // Radius within which coins are attracted
     public float coinAttractionSpeed = 3f;
 
-    public PopupOverlay iridiumPopupOverlay;
-    public Sprite iridiumInfoImage;
     private bool firstIridiumCollected = false;
     private bool firstGoldCollected = false;
     private bool firstNickelCollected = false;
