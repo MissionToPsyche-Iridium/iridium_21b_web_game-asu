@@ -81,7 +81,7 @@ public class enemy_spawner : MonoBehaviour
 
     void Update()
     {
-        
+
         //Check for end of wave
         if (waiting)
         {
@@ -270,7 +270,7 @@ public class enemy_spawner : MonoBehaviour
         nearestMap = maps[0];
         float currDist;
         float smallestDist = Vector3.Distance(Player.transform.position, nearestMap.transform.position);
-        for(int i = 0; i < maps.Length; i++)
+        for (int i = 0; i < maps.Length; i++)
         {
             currDist = Vector3.Distance(Player.transform.position, maps[i].transform.position);
             if (smallestDist > currDist)

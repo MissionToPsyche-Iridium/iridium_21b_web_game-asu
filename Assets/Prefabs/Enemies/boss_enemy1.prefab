@@ -46,8 +46,8 @@ GameObject:
   - component: {fileID: 5723032136722157800}
   - component: {fileID: 6672126686136294134}
   - component: {fileID: 2768961293572403009}
-  - component: {fileID: 9129094552535787159}
-  - component: {fileID: 4671506858919991550}
+  - component: {fileID: 8336364041261986329}
+  - component: {fileID: 4163414445360042092}
   m_Layer: 2
   m_Name: Head
   m_TagString: basic_enemy
@@ -245,7 +245,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9129094552535787159
+--- !u!114 &8336364041261986329
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -254,15 +254,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6559010708199407045}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d0da60fa0a800b4194c7a502321628e, type: 3}
+  m_Script: {fileID: 11500000, guid: bb1a1b8e9c0ca4c4cbaf6cb7fc2e023a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   nodeMap: {fileID: 0}
   body: {fileID: 2599762367577219709, guid: 6b24ba7c61a2a994abcb56620111d90d, type: 3}
   numSegments: 5
-  animator: {fileID: 4671506858919991550}
---- !u!95 &4671506858919991550
+  target: {x: 0, y: 0, z: 0}
+  animator: {fileID: 4163414445360042092}
+--- !u!95 &4163414445360042092
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -293,7 +294,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1407847904036318525, guid: 5ee69bf6afc165e4e84811066a33e86a, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3186371043218765517, guid: 5ee69bf6afc165e4e84811066a33e86a, type: 3}
       propertyPath: m_LocalScale.x
