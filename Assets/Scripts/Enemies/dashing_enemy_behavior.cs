@@ -11,7 +11,7 @@ public class dash_enemy_script : MonoBehaviour, IEnemyDeathHandler
     public static float speedFactor = 1.0f;
     public float dashSpeed = 12.0f;
     public float waitTimeAfterDash = 3.0f; // Time to wait after dashing
-    public Node[] nodeList = new Node[6];
+    public Node[] nodeList = new Node[24];
     private Node currentNode;
     private Vector3 dash_location;
     private float lastSeenX;
@@ -232,9 +232,9 @@ public class dash_enemy_script : MonoBehaviour, IEnemyDeathHandler
             i++;
         }
 
-        for (int j = 0; j < 6; j++)
+        for (int j = 0; j < nodeList.Length; j++)
         {
-            if ((j + 1) == 6)
+            if ((j + 1) == nodeList.Length)
             {
                 nodeList[j].next = nodeList[0];
             }
