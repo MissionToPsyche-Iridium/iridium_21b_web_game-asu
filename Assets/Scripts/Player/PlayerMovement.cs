@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     private AutoShooter autoShooterScript;
 
-    public Projectile projectileScript;
+    private Projectile projectileScript;
 
     public CoinManager cm;
     public float moveSpeed = 5f;

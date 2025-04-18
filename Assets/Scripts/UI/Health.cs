@@ -100,4 +100,17 @@ public class Health : MonoBehaviour
         Time.timeScale = 1f; // Resume time before restarting
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload the scene
     }
+    public void OnDeathAnimationEnd() {
+        GetComponent<SpriteRenderer>().enabled = false;
+
+        // Or disable all child renderers if your visuals are nested
+        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>()) {
+            sr.enabled = false;
+        }
+
+        // Disable hitboxes
+        foreach (Collider2D col in GetComponentsInChildren<Collider2D>()) {
+            col.enabled = false;
+        }
+    }
 }
