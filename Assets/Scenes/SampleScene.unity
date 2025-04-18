@@ -2076,7 +2076,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -262.38965, y: 138.89001}
+  m_AnchoredPosition: {x: -262.38968, y: 138.89001}
   m_SizeDelta: {x: 1699.63, y: 1615.26}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &288344665
@@ -69099,6 +69099,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1569643648 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1838779260235082253, guid: 452628f621a924f44ae2085adbee5e6a, type: 3}
+  m_PrefabInstance: {fileID: 1847621941}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1574634609
 GameObject:
   m_ObjectHideFlags: 0
@@ -73108,6 +73119,62 @@ PrefabInstance:
       propertyPath: vcam
       value: 
       objectReference: {fileID: 959591816}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: metalText
+      value: 
+      objectReference: {fileID: 1569643648}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: dashSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 893ecba2f7bbaa04389075ee69f92f2c, type: 3}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: goldSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f49c7f03a86f2e841aae0cfa3ea47e0b, type: 3}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: ironSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1d18bd728741b70438e1342f17f6a72f, type: 3}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: RocketSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e61b0f824a4e46a47bcf66f767fc86a1, type: 3}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: cobaltSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d785e049b88f821409da9155a8b5b254, type: 3}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: damageSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 41e0b43a842add845a9692e35ecd0093, type: 3}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: nickelSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c837bad3711b3564eb5504eef49f80b8, type: 3}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: iridiumSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 87faa68d4f8e9594fbed36aaf63fbe36, type: 3}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: PushbackSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c40ab4c92a477b44285fd1ea42ab8b05, type: 3}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: fireRateSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 89dd393f8a31db84b8fb9932b8987788, type: 3}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: healthUpSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0ad13b8e972149b47ba0a0f72e6df301, type: 3}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: allStatUpSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 05d664578a9aa9a4ba3a68db1f706188, type: 3}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: fullHealthSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 179d1b171503d2d42919f55836aa162d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
