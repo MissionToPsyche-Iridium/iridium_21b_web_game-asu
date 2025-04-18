@@ -101,14 +101,15 @@ public class Health : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload the scene
     }
     public void OnDeathAnimationEnd() {
+        // disable renderers on death
         GetComponent<SpriteRenderer>().enabled = false;
 
-        // Or disable all child renderers if your visuals are nested
+        // disable all child renderers
         foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>()) {
             sr.enabled = false;
         }
 
-        // Disable hitboxes
+        // Disable hitboxes on death
         foreach (Collider2D col in GetComponentsInChildren<Collider2D>()) {
             col.enabled = false;
         }
