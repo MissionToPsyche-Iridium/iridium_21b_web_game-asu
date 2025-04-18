@@ -72596,6 +72596,70 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
+      value: -0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
+      value: -0.375
+      objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
+      value: 0.375
+      objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].y
+      value: -0.3125
+      objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[5].x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[5].y
+      value: 0.4375
+      objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[6].x
+      value: 0.4375
+      objectReference: {fileID: 0}
+    - target: {fileID: -7163705911415978400, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[6].y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2489193997833692968, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -72732,7 +72796,8 @@ PrefabInstance:
       propertyPath: coinAttractionRadius
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1365535933419021969, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
