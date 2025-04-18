@@ -114,6 +114,14 @@ public class PlayerMovement : MonoBehaviour
 
         popupManager = FindObjectOfType<IridiumPopupManager>();
         originalMoveSpeed = moveSpeed;
+        if (popupManager == null)
+        {
+            Debug.LogError("PopupManager not found in the scene!");
+        }
+        else
+        {
+            Debug.Log("PopupManager found successfully.");
+        }
     }
 
     void Update()
