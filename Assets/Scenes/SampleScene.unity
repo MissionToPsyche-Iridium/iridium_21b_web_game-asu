@@ -72669,6 +72669,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 1d18bd728741b70438e1342f17f6a72f, type: 3}
     - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: zoomInSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: zoomOutSize
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
       propertyPath: RocketSprite
       value: 
       objectReference: {fileID: 21300000, guid: e61b0f824a4e46a47bcf66f767fc86a1, type: 3}
