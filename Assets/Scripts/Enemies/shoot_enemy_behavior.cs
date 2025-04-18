@@ -8,7 +8,7 @@ public class shoot_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
     public GameObject Player;
     public GameObject Projectile;
     public GameObject nodeMap;
-    public Node[] nodeList = new Node[6];
+    public Node[] nodeList = new Node[24];
     public float speed = 5.0f;
     public static float speedFactor = 1.0f;
     private Node currentNode;
@@ -204,9 +204,9 @@ public class shoot_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
             i++;
         }
 
-        for (int j = 0; j < 6; j++)
+        for (int j = 0; j < nodeList.Length; j++)
         {
-            if ((j + 1) == 6)
+            if ((j + 1) == nodeList.Length)
             {
                 nodeList[j].next = nodeList[0];
             }

@@ -36,6 +36,7 @@ TagManager:
   - Nickel
   - spacecraft_part
   - Slow
+  - centerMap
   layers:
   - Default
   - TransparentFX
