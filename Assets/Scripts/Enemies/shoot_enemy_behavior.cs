@@ -263,7 +263,7 @@ public class shoot_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
         }
     }
     public void OnDeath() {
-        speed = 0f;
+        this.enabled = false;
         animator.SetBool("death", true);
     }
 }

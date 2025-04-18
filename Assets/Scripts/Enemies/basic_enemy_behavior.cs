@@ -86,6 +86,7 @@ public class basic_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
         {
             patrol(step);
         }
+        // dont know if necessary but need for animation direction
         Vector3 move = (transform.position - lastPosition).normalized;
 
         // Pass the movement to directionAnim() to update animation
@@ -243,7 +244,7 @@ public class basic_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
         }
     }
     public void OnDeath() {
-        speed = 0f;
+        this.enabled = false;
         animator.SetBool("death", true);
     }
 
