@@ -67,8 +67,6 @@ public class PlayerMovement : MonoBehaviour
     public float coinAttractionRadius = 3f;  // Radius within which coins are attracted
     public float coinAttractionSpeed = 3f;
 
-    public PopupOverlay iridiumPopupOverlay;
-    public Sprite iridiumInfoImage;
     private bool firstIridiumCollected = false;
     private bool firstGoldCollected = false;
     private bool firstNickelCollected = false;
@@ -116,6 +114,14 @@ public class PlayerMovement : MonoBehaviour
 
         popupManager = FindObjectOfType<IridiumPopupManager>();
         originalMoveSpeed = moveSpeed;
+        if (popupManager == null)
+        {
+            Debug.LogError("PopupManager not found in the scene!");
+        }
+        else
+        {
+            Debug.Log("PopupManager found successfully.");
+        }
     }
 
     void Update()
