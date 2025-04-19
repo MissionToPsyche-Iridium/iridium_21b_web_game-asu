@@ -1180,9 +1180,9 @@ MonoBehaviour:
     and recover lost spaceship parts.\n\nEach wave introduces challenges, from unstable
     surfaces to meteor showers and mysterious entities. Players use an energy ray
     to neutralize threats and clear obstacles, requiring strategic movement and timing.\n\nWith
-    each successful wave, players retrieve a spaceship component, bringing them closer
-    to escape. Inspired by NASA\u2019s Psyche mission, Psyche Rescue combines action
-    and exploration, offering a thrilling, non-violent space survival experience."
+    each 3 successful waves, players retrieve a spaceship component, bringing them
+    closer to escape. Inspired by NASA\u2019s Psyche mission, Psyche Rescue combines
+    action and exploration, offering a thrilling, non-violent space survival experience."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}

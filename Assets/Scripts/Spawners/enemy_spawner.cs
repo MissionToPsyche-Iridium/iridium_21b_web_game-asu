@@ -21,6 +21,7 @@ public class enemy_spawner : MonoBehaviour
     public GameObject damagePU;
     public GameObject fireRatePU;
     public GameObject healthPU;
+    public GameObject UpgradeMenu;
 
     //Node Maps
     public GameObject centerMap;
@@ -73,6 +74,11 @@ public class enemy_spawner : MonoBehaviour
         maps[3] = quadrant3;
         maps[4] = quadrant4;
         establishNodes(centerMap); //initially setting the spawn points to the central nodemap
+
+        if (UpgradeMenu != null)
+        {
+            UpgradeMenu.SetActive(false);
+        }
         Debug.Log("Entering Wave: " + waveNumber);
     }
 
@@ -301,10 +307,8 @@ public class enemy_spawner : MonoBehaviour
                 break;
         }
 
-        //Spawning the permanent powerups
-        Instantiate(healthPU, new Vector3(1, -1, 1), transform.rotation);
-        Instantiate(damagePU, new Vector3(-1, -1, 1), transform.rotation);
-        Instantiate(fireRatePU, new Vector3(0, 1, 1), transform.rotation);
+        //Showing upgrade menu for players
+        showMenu();
         waiting = true;
         StartCoroutine(WaitBetweenWaves());
     }
@@ -326,14 +330,18 @@ public class enemy_spawner : MonoBehaviour
         scaledEnemies = false;
     }
 
-    //temporarily reverting until i figure out how to implement timer
+    public void showMenu()
+    {
+        Time.timeScale = 0f;
+        UpgradeMenu.SetActive(true);
+    }
+
     IEnumerator WaitBetweenWaves()
     {
         timer.stopTimer = true;
-        yield return new WaitForSeconds(10f); // Increased break time to 10 seconds
+        yield return new WaitForSeconds(3f); // Increased break time to 10 seconds
         timer.stopTimer = false;
         timer.UpdateWaveUI();
         waiting = false;
-        //FindObjectOfType<Timer>().TriggerNextWave(); // Start next wave
     }
 }

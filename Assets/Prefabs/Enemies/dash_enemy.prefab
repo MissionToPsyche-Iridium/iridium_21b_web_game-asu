@@ -196,6 +196,9 @@ MonoBehaviour:
   dodgePU: {fileID: 3757655930577396639, guid: 1aaec45051051d642975b41f5184cb18, type: 3}
   healthPack: {fileID: 3175921877528465611, guid: e9d63d071b146104591b8d1d9045aa72, type: 3}
   AllStatIncrease: {fileID: 3175921877528465611, guid: 8c37472e007b8d449932d025b99c7055, type: 3}
+  damageUpgrade: {fileID: 5941782099448243991, guid: b1ce29da491ab6a4f83772fcbbe9a09d, type: 3}
+  firerateUpgrade: {fileID: 3175921877528465611, guid: 0d3897f72b412bc4baee424d431303e1, type: 3}
+  healthUpgrade: {fileID: 3175921877528465611, guid: 3ee3f47a4b5c9ea4f97f2fa9af3f452d, type: 3}
 --- !u!58 &3659187388071124661
 CircleCollider2D:
   m_ObjectHideFlags: 0

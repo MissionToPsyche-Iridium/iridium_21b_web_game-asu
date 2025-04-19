@@ -101,8 +101,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Sprite fireRateSprite;
     [SerializeField] private Sprite healthUpSprite;
     [SerializeField] private Sprite PushbackSprite;
-    [SerializeField] private Sprite RocketSprite; 
+    [SerializeField] private Sprite RocketSprite;
 
+    [SerializeField] private GameObject UpgradeMenu;
 
     private IridiumPopupManager popupManager;
 
@@ -683,5 +684,50 @@ public class PlayerMovement : MonoBehaviour
             "Cobalt: " + numCobalt + "\n" +
             "Iron: " + numIron + "\n" +
             "Nickel: " + numNickel);
+    }
+
+    public void giveDamage()
+    {
+        Projectile.defaultDamageAmount += 25f;
+        Debug.Log(Projectile.defaultDamageAmount);
+        hideMenu();
+        if (!firstDamageCollected)
+        {
+            ShowDamagePopup();
+            firstDamageCollected = true;
+        }
+    }
+
+    public void giveFirerate()
+    {
+        autoShooterScript.fireRate += 2f;
+        Debug.Log(autoShooterScript.fireRate);
+        hideMenu();
+        if (!firstFireRateCollected)
+        {
+            ShowFireRatePopup();
+            firstFireRateCollected = true;
+        }
+    }
+    
+    public void giveHealthUp()
+    {
+        health.maxHealth += 50;
+        health.curHealth += 50;
+        health.invincibilityTime += .25f;
+        health.healthBar.SetHealth(health.curHealth);
+        Debug.Log(health.maxHealth);
+        hideMenu();
+        if (!firstHealthUpCollected)
+        {
+            ShowHealthUpPopup();
+            firstHealthUpCollected = true;
+        }
+    }
+
+    private void hideMenu()
+    {
+        Time.timeScale = 1f;
+        UpgradeMenu.SetActive(false);
     }
 }
