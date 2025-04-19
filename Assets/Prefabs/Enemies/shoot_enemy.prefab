@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -1165623456903181340}
   - component: {fileID: 8815284805590740518}
   - component: {fileID: 5305748641073265508}
+  - component: {fileID: 2178811911738697503}
   m_Layer: 2
   m_Name: shoot_enemy
   m_TagString: basic_enemy
@@ -79,8 +80,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -2413806693520163455, guid: 2826dc51e84f1ce4c85790122ec44ec0, type: 3}
-  m_Color: {r: 0.5483421, g: 0.9924528, b: 0, a: 1}
+  m_Sprite: {fileID: -1545876235, guid: 17546a3beb1030a4a943e91664210f0c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -168,7 +169,7 @@ MonoBehaviour:
   Projectile: {fileID: 4770445908274976074, guid: 54d432263c63829418d1ac98f3b4f7bc, type: 3}
   nodeMap: {fileID: 4317903792429269812, guid: bc5edef9079d36f42a74824ba69ae001, type: 3}
   speed: 5
-  speedFactor: 1
+  animator: {fileID: 2178811911738697503}
 --- !u!114 &8815284805590740518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,6 +230,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &2178811911738697503
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6899617583450277495}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5b5a8ae04b4bce842830ed00f4737606, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &6093726038437664171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -239,7 +261,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1407847904036318525, guid: 5ee69bf6afc165e4e84811066a33e86a, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3186371043218765517, guid: 5ee69bf6afc165e4e84811066a33e86a, type: 3}
       propertyPath: m_LocalPosition.x

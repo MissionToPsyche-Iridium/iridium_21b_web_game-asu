@@ -7,7 +7,7 @@ public class head_behavior : MonoBehaviour
     public GameObject Player;
     public GameObject nodeMap;
     public GameObject body;
-    public Node[] nodeList = new Node[6];
+    public Node[] nodeList = new Node[24];
     public int numSegments = 5;
     public static float speedFactor = 1.0f;
     public Vector3 target;
@@ -163,9 +163,9 @@ public class head_behavior : MonoBehaviour
             i++;
         }
 
-        for (int j = 0; j < 6; j++)
+        for (int j = 0; j < nodeList.Length; j++)
         {
-            if ((j + 1) == 6)
+            if ((j + 1) == nodeList.Length)
             {
                 nodeList[j].next = nodeList[0];
             }
@@ -212,7 +212,7 @@ public class head_behavior : MonoBehaviour
             {
                 segmentScript.target = segments[i - 1].transform;
             }
-            
+
             segmentScript.delay = segmentScript.delay * i;
         }
     }

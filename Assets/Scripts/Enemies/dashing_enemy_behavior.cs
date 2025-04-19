@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class dash_enemy_script : MonoBehaviour
+public class dash_enemy_script : MonoBehaviour, IEnemyDeathHandler
 {
     public GameObject Player;
     public GameObject nodeMap;
@@ -11,7 +11,7 @@ public class dash_enemy_script : MonoBehaviour
     public static float speedFactor = 1.0f;
     public float dashSpeed = 12.0f;
     public float waitTimeAfterDash = 3.0f; // Time to wait after dashing
-    public Node[] nodeList = new Node[6];
+    public Node[] nodeList = new Node[24];
     private Node currentNode;
     private Vector3 dash_location;
     private float lastSeenX;
@@ -24,7 +24,8 @@ public class dash_enemy_script : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 lastVelocity;
     private EnemyHealth healthScript;
-
+    public Animator animator;
+    private Vector3 lastPosition;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +53,7 @@ public class dash_enemy_script : MonoBehaviour
             {
                 StartCoroutine(DamageEnemy(healthScript));
                 takingDamage = true;
-}
+            }
         }
 
         if (isWaiting) return; // Stop movement while waiting
@@ -66,6 +67,7 @@ public class dash_enemy_script : MonoBehaviour
                 hasTarget = true;
                 dash_location = Player.transform.position; // Capture the player's position for dashing
                 isDashing = true;
+                animator.SetBool("isDashing", true);
             }
         }
 
@@ -74,6 +76,7 @@ public class dash_enemy_script : MonoBehaviour
             if (dash_location == Vector3.zero) // Ensure dash location is valid
             {
                 isDashing = false;
+                
                 return;
             }
 
@@ -118,16 +121,23 @@ public class dash_enemy_script : MonoBehaviour
                 patrol(step);
             }
         }
+        Vector3 move = (transform.position - lastPosition).normalized;
+
+        // Pass the movement to directionAnim() to update animation
+        AnimDirection(move);
+        lastPosition = transform.position;
     }
 
     IEnumerator WaitAfterDash()
     {
         isDashing = false; // Stop dashing
+        
         isWaiting = true;  // Prevent movement
-
+        animator.SetBool("isDashing", false);
         yield return new WaitForSeconds(waitTimeAfterDash);
 
         isWaiting = false; // Resume movement
+        animator.SetBool("isDashing", true);
     }
 
     bool hasLineOfSight(Transform target, string tag)
@@ -169,16 +179,19 @@ public class dash_enemy_script : MonoBehaviour
 
     void moveTowardsPlayer(float step)
     {
+
         hasTarget = true;
         patrolling = false;
         speed = 4.0f * speedFactor;
         transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, step);
+        animator.SetBool("isDashing", true);
     }
 
     void moveTowardsLast(float step)
     {
         speed = 5.0f * speedFactor;
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(lastSeenX, lastSeenY, 0), step);
+        animator.SetBool("isDashing", true);
     }
 
     void moveToRoute(float step)
@@ -193,6 +206,7 @@ public class dash_enemy_script : MonoBehaviour
             currentNode = start;
             patrolling = true;
         }
+        animator.SetBool("isDashing", true);
     }
 
     void patrol(float step)
@@ -206,6 +220,7 @@ public class dash_enemy_script : MonoBehaviour
         {
             currentNode = currentNode.next;
         }
+        animator.SetBool("isDashing", true);
     }
 
     void establishNodes()
@@ -217,9 +232,9 @@ public class dash_enemy_script : MonoBehaviour
             i++;
         }
 
-        for (int j = 0; j < 6; j++)
+        for (int j = 0; j < nodeList.Length; j++)
         {
-            if ((j + 1) == 6)
+            if ((j + 1) == nodeList.Length)
             {
                 nodeList[j].next = nodeList[0];
             }
@@ -268,5 +283,16 @@ public class dash_enemy_script : MonoBehaviour
         }
 
         value = 0f; // Ensure it reaches exactly 0
+    }
+
+    private void AnimDirection(Vector3 move) {
+        if (move.sqrMagnitude > 0) {
+            animator.SetFloat("x", move.x);
+            animator.SetFloat("y", move.y);
+        }
+    }
+    public void OnDeath() {
+        this.enabled = false;
+        animator.SetBool("death", true);
     }
 }

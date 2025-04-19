@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class shoot_enemy_behavior : MonoBehaviour
+public class shoot_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
 {
     public GameObject Player;
     public GameObject Projectile;
     public GameObject nodeMap;
-    public Node[] nodeList = new Node[6];
+    public Node[] nodeList = new Node[24];
     public float speed = 5.0f;
     public static float speedFactor = 1.0f;
     private Node currentNode;
@@ -23,8 +23,15 @@ public class shoot_enemy_behavior : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 lastVelocity;
     private EnemyHealth healthScript;
+    public Animator animator;
+    private Vector3 lastPosition;
     // Start is called before the first frame update
 
+
+    void Awake() {
+        animator = GetComponent<Animator>();  // finds animator on wake
+
+    }
     void Start()
     {
         lastSeenX = transform.position.x;
@@ -72,7 +79,7 @@ public class shoot_enemy_behavior : MonoBehaviour
             // If the enemy reaches the last seen and it still doesnt have line of sight, no longer has target
             if (transform.position.x < lastSeenX + 2 &&
                 transform.position.x > lastSeenX - 2 &&
-                transform.position.y < lastSeenY + 2 && 
+                transform.position.y < lastSeenY + 2 &&
                 transform.position.y > lastSeenY - 2 &&
                 !hasLineOfSight(Player.transform, "PlayerTag"))
             {
@@ -89,7 +96,7 @@ public class shoot_enemy_behavior : MonoBehaviour
             {
                 patrol(step);
             }
-        } 
+        }
         else if (!shooting)
         {
             //shoot
@@ -97,6 +104,11 @@ public class shoot_enemy_behavior : MonoBehaviour
             Instantiate(Projectile, transform.position, Quaternion.identity);
             StartCoroutine(WaitAfterShot());
         }
+        Vector3 move = (transform.position - lastPosition).normalized;
+
+        // Pass the movement to directionAnim() to update animation
+        AnimDirection(move);
+        lastPosition = transform.position;
     }
 
     void moveTowardsPlayer(float step)
@@ -192,16 +204,17 @@ public class shoot_enemy_behavior : MonoBehaviour
             i++;
         }
 
-        for (int j = 0; j < 6; j++)
+        for (int j = 0; j < nodeList.Length; j++)
         {
-            if ((j + 1) == 6)
+            if ((j + 1) == nodeList.Length)
             {
                 nodeList[j].next = nodeList[0];
-            } else
-            {
-                nodeList[j].next = nodeList[j+1];
             }
-            
+            else
+            {
+                nodeList[j].next = nodeList[j + 1];
+            }
+
         }
     }
 
@@ -242,5 +255,15 @@ public class shoot_enemy_behavior : MonoBehaviour
         }
 
         value = 0f; // Ensure it reaches exactly 0
+    }
+    private void AnimDirection(Vector3 move) {
+        if (move.sqrMagnitude > 0) {
+            animator.SetFloat("x", move.x);
+            animator.SetFloat("y", move.y);
+        }
+    }
+    public void OnDeath() {
+        this.enabled = false;
+        animator.SetBool("death", true);
     }
 }

@@ -13,11 +13,8 @@ public class enemy_spawner : MonoBehaviour
     public GameObject EnemyType4;
 
     //Spawnable Powerups
-    //public GameObject pushBackPU;
     public GameObject multispec;
-    //public GameObject dashPU;
     public GameObject gammaSpec;
-    //public GameObject dodgePU;
     public GameObject magnetometer;
     public GameObject neutronSpec;
     public GameObject hallThruster;
@@ -26,7 +23,7 @@ public class enemy_spawner : MonoBehaviour
     public GameObject healthPU;
 
     //Node Maps
-    public GameObject nodeMap;
+    public GameObject centerMap;
     public GameObject quadrant1;
     public GameObject quadrant2;
     public GameObject quadrant3;
@@ -44,7 +41,7 @@ public class enemy_spawner : MonoBehaviour
     private float randY;
 
     //Distance
-    private float nodeMapDist;
+    private float centerQuadDist;
     private float quad1Dist;
     private float quad2Dist;
     private float quad3Dist;
@@ -64,24 +61,24 @@ public class enemy_spawner : MonoBehaviour
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
-        nodeMap = GameObject.FindGameObjectWithTag("node_map");
+        centerMap = GameObject.FindGameObjectWithTag("centerMap");
         timer = FindObjectOfType<Timer>();
         quadrant1 = GameObject.FindGameObjectWithTag("quad1");
         quadrant2 = GameObject.FindGameObjectWithTag("quad2");
         quadrant3 = GameObject.FindGameObjectWithTag("quad3");
         quadrant4 = GameObject.FindGameObjectWithTag("quad4");
-        maps[0] = nodeMap;
+        maps[0] = centerMap;
         maps[1] = quadrant1;
         maps[2] = quadrant2;
         maps[3] = quadrant3;
         maps[4] = quadrant4;
-        establishNodes(nodeMap); //initially setting the spawn points to the central nodemap
+        establishNodes(centerMap); //initially setting the spawn points to the central nodemap
         Debug.Log("Entering Wave: " + waveNumber);
     }
 
     void Update()
     {
-        
+
         //Check for end of wave
         if (waiting)
         {
@@ -185,6 +182,7 @@ public class enemy_spawner : MonoBehaviour
 
     void getRandCoord()
     {
+        //Obtains one of the valid nodes at random to spawn the enemy
         int index = (int)UnityEngine.Random.Range(0, 5);
         randX = nodeList[validSpawns[index]].x;
         randY = nodeList[validSpawns[index]].y;
@@ -270,7 +268,7 @@ public class enemy_spawner : MonoBehaviour
         nearestMap = maps[0];
         float currDist;
         float smallestDist = Vector3.Distance(Player.transform.position, nearestMap.transform.position);
-        for(int i = 0; i < maps.Length; i++)
+        for (int i = 0; i < maps.Length; i++)
         {
             currDist = Vector3.Distance(Player.transform.position, maps[i].transform.position);
             if (smallestDist > currDist)
