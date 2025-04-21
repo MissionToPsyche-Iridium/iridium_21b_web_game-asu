@@ -17,6 +17,12 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadSceneAsync("About");
     }
 
+    // Loads the Help scene
+    public void LoadHelpScene()
+    {
+        SceneManager.LoadSceneAsync("Help");
+    }
+
     // Loads the Main Menu (Index 0)
     public void BackToMainMenu()
     {

@@ -218,9 +218,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 310213027}
-  - {fileID: 1438247106}
   - {fileID: 1200000563}
   - {fileID: 1659509320}
+  - {fileID: 1438247106}
   - {fileID: 1409666038}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 310213029}
   - component: {fileID: 310213028}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -467,7 +467,7 @@ GameObject:
   - component: {fileID: 536249208}
   - component: {fileID: 536249207}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: ABOUT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -521,8 +521,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280796927
-  m_fontColor: {r: 1, g: 0.7764706, b: 0.15294118, a: 1}
+    rgba: 4278231289
+  m_fontColor: {r: 0.9764706, g: 0.627451, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -706,7 +706,7 @@ GameObject:
   - component: {fileID: 1041637000}
   - component: {fileID: 1041636999}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: START
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -760,8 +760,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280796927
-  m_fontColor: {r: 1, g: 0.7764706, b: 0.15294118, a: 1}
+    rgba: 4278231289
+  m_fontColor: {r: 0.9764706, g: 0.627451, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -908,7 +908,7 @@ GameObject:
   - component: {fileID: 1200000565}
   - component: {fileID: 1200000564}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Title Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -984,7 +984,7 @@ GameObject:
   - component: {fileID: 1409666040}
   - component: {fileID: 1409666039}
   m_Layer: 5
-  m_Name: About button
+  m_Name: About Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1091,7 +1091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.54901963, g: 0.11372549, b: 0.2509804, a: 1}
+  m_Color: {r: 0.34901962, g: 0.14901961, b: 0.31764707, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1129,7 +1129,7 @@ GameObject:
   - component: {fileID: 1438247108}
   - component: {fileID: 1438247107}
   m_Layer: 5
-  m_Name: HOW TO button
+  m_Name: Help Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1198,7 +1198,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1438247108}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 916504160}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: LoadHelpScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1438247108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1212,7 +1224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.54901963, g: 0.11372549, b: 0.2509804, a: 1}
+  m_Color: {r: 0.34901962, g: 0.14901961, b: 0.31764707, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1250,7 +1262,7 @@ GameObject:
   - component: {fileID: 1659509322}
   - component: {fileID: 1659509321}
   m_Layer: 5
-  m_Name: Start button
+  m_Name: Start Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1357,7 +1369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.54901963, g: 0.11372549, b: 0.2509804, a: 1}
+  m_Color: {r: 0.34901962, g: 0.14901961, b: 0.31764707, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1394,7 +1406,7 @@ GameObject:
   - component: {fileID: 1938058011}
   - component: {fileID: 1938058010}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: HELP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1448,8 +1460,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280796927
-  m_fontColor: {r: 1, g: 0.7764706, b: 0.15294118, a: 1}
+    rgba: 4278231289
+  m_fontColor: {r: 0.9764706, g: 0.627451, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
