@@ -113,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
         autoShooterScript = GetComponent<AutoShooter>();
         projectileScript = FindObjectOfType<Projectile>();
 
-        popupManager = FindObjectOfType<IridiumPopupManager>();
+        popupManager = FindObjectOfType<IridiumPopupManager>(true);
         originalMoveSpeed = moveSpeed;
         if (popupManager == null)
         {
