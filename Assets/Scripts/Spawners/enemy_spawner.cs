@@ -23,6 +23,21 @@ public class enemy_spawner : MonoBehaviour
     public GameObject fireRatePU;
     public GameObject healthPU;
     public GameObject UpgradeMenu;
+    public GameObject PartsPopup;
+
+    //Sprites
+    public Sprite multispecSprite;
+    public Sprite gammaSpecSprite;
+    public Sprite magnetometerSprite;
+    public Sprite neutronSpecSprite;
+    public Sprite xBandRadioSprite;
+
+    //Labels
+    private string multispecString = "Multi Spectral Imager";
+    private string gammaString = "Gamma Ray Spectrometer";
+    private string magnetometerString = "Magnetometer";
+    private string neutronString = "Neutron Spectrometer";
+    private string xBandRadioString = "X Band Radio";
 
     //Node Maps
     public GameObject centerMap;
@@ -80,6 +95,12 @@ public class enemy_spawner : MonoBehaviour
         {
             UpgradeMenu.SetActive(false);
         }
+
+        if (PartsPopup != null)
+        {
+            //PartsPopup.SetActive(false);
+        }
+
         Debug.Log("Entering Wave: " + waveNumber);
     }
 
@@ -292,6 +313,9 @@ public class enemy_spawner : MonoBehaviour
         switch (waveNumber)
         {
             case 4:
+                setImage(magnetometerSprite);
+                setText(magnetometerString);
+                showMenu(PartsPopup);
                 revealImage(magnetometer);
                 break;
             case 7:
@@ -309,7 +333,7 @@ public class enemy_spawner : MonoBehaviour
         }
 
         //Showing upgrade menu for players
-        showMenu();
+        showMenu(UpgradeMenu);
         waiting = true;
         StartCoroutine(WaitBetweenWaves());
     }
@@ -346,12 +370,44 @@ public class enemy_spawner : MonoBehaviour
         scaledEnemies = false;
     }
 
-    public void showMenu()
+    public void showMenu(GameObject menu)
     {
         Time.timeScale = 0f;
-        UpgradeMenu.SetActive(true);
+        menu.SetActive(true);
     }
 
+    public void closeMenu()
+    {
+        Time.timeScale = 1.0f;
+        PartsPopup.SetActive(false);
+    }
+
+    private void setImage(Sprite sprite)
+    {
+        Transform partImageTransform = PartsPopup.transform.Find("PartImage");
+        if (partImageTransform != null)
+        {
+            Image partImage = partImageTransform.GetComponent<Image>();
+            if (partImage != null)
+            {
+                partImage.sprite = sprite;
+            }
+        }
+
+    }
+
+    private void setText(string text)
+    {
+        Transform partTextTransform = PartsPopup.transform.Find("NameTemplate");
+        if (partTextTransform != null)
+        {
+            Text partText = partTextTransform.GetComponent<Text> ();
+            if (partText != null)
+            {
+                partText.text = text;
+            }
+        }
+    }
     IEnumerator WaitBetweenWaves()
     {
         timer.stopTimer = true;

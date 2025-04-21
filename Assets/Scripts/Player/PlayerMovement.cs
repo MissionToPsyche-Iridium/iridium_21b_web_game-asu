@@ -88,6 +88,9 @@ public class PlayerMovement : MonoBehaviour
     private bool firstPushbackCollected = false;
     private bool firstRocketCollected = false;
 
+    private List<GameObject> metalsLog = new List<GameObject>();
+    private List<GameObject> powerupsLog = new List<GameObject>();
+
     [SerializeField] private Sprite iridiumSprite;
     [SerializeField] private Sprite goldSprite;
     [SerializeField] private Sprite ironSprite;
