@@ -319,21 +319,35 @@ public class enemy_spawner : MonoBehaviour
                 revealImage(magnetometer);
                 break;
             case 7:
+                setImage(multispecSprite);
+                setText(multispecString);
+                showMenu(PartsPopup);
                 revealImage(multispec);
                 break;
             case 10:
+                setImage(neutronSpecSprite);
+                setText(neutronString);
+                showMenu(PartsPopup);
                 revealImage(neutronSpec);
                 break;
             case 13:
+                setImage(xBandRadioSprite);
+                setText(xBandRadioString);
+                showMenu(PartsPopup);
                 revealImage(xBandRadio);
                 break;
             case 16:
+                setImage(gammaSpecSprite);
+                setText(gammaString);
+                showMenu(PartsPopup);
                 revealImage(gammaSpec);
+                break;
+            default:
+                showMenu(UpgradeMenu);
                 break;
         }
 
         //Showing upgrade menu for players
-        showMenu(UpgradeMenu);
         waiting = true;
         StartCoroutine(WaitBetweenWaves());
     }
@@ -380,6 +394,7 @@ public class enemy_spawner : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         PartsPopup.SetActive(false);
+        showMenu(UpgradeMenu);
     }
 
     private void setImage(Sprite sprite)
