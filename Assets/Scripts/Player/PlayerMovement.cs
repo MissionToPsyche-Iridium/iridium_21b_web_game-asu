@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private Projectile projectileScript;
 
     public CoinManager cm;
-    public float moveSpeed = 5f;
+    public float moveSpeed = 8f;
     private float originalMoveSpeed;
     public float speedBoostMultiplier = 1.5f;  // Speed boost grants extra velocity
     public float boostDuration = 5f;            // Boost lasts for 2 seconds

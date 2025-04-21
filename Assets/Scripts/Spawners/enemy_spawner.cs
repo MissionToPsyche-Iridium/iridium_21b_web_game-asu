@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class enemy_spawner : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class enemy_spawner : MonoBehaviour
     public GameObject gammaSpec;
     public GameObject magnetometer;
     public GameObject neutronSpec;
-    public GameObject hallThruster;
+    public GameObject xBandRadio;
     public GameObject damagePU;
     public GameObject fireRatePU;
     public GameObject healthPU;
@@ -291,19 +292,19 @@ public class enemy_spawner : MonoBehaviour
         switch (waveNumber)
         {
             case 4:
-                Instantiate(gammaSpec, new Vector3(0, 0, 1), transform.rotation);
+                revealImage(magnetometer);
                 break;
             case 7:
-                Instantiate(neutronSpec, new Vector3(0, 0, 1), transform.rotation);
+                revealImage(multispec);
                 break;
             case 10:
-                Instantiate(magnetometer, new Vector3(0, 0, 1), transform.rotation);
+                revealImage(neutronSpec);
                 break;
             case 13:
-                Instantiate(multispec, new Vector3(0, 0, 1), transform.rotation);
+                revealImage(xBandRadio);
                 break;
             case 16:
-                Instantiate(hallThruster, new Vector3(0, 0, 1), transform.rotation);
+                revealImage(gammaSpec);
                 break;
         }
 
@@ -313,6 +314,21 @@ public class enemy_spawner : MonoBehaviour
         StartCoroutine(WaitBetweenWaves());
     }
 
+    private void revealImage(GameObject obj)
+    {
+        Image img = obj.GetComponent<Image>();
+        if (img != null)
+        {
+            string hexColor = "#FFFFFF"; // Magenta
+
+            // Convert hex string to Unity Color
+            Color newColor;
+            if (ColorUtility.TryParseHtmlString(hexColor, out newColor))
+            {
+                img.color = newColor;
+            }
+        }
+    }
     //calculates which enemies to spawn depending on wave number
     int calcEnemyRange()
     {
