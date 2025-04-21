@@ -98,7 +98,7 @@ public class enemy_spawner : MonoBehaviour
 
         if (PartsPopup != null)
         {
-            //PartsPopup.SetActive(false);
+            PartsPopup.SetActive(false);
         }
 
         Debug.Log("Entering Wave: " + waveNumber);
