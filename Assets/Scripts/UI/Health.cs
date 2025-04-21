@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    public int curHealth = 100;
-    public int maxHealth = 100;
+    public float curHealth = 200f;
+    public float maxHealth = 200f;
     public HealthBar healthBar;
     public Animator animator;
     public GameObject gameOverScreen; // Reference to Game Over UI
@@ -35,7 +35,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void DamagePlayer(int damage)
+    public void DamagePlayer(float damage)
     {
         // Only take damage if not invincible
         if (!isInvincible)

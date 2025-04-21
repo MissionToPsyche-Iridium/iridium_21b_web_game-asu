@@ -73371,6 +73371,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 725543554}
     - target: {fileID: 7915277361382739950, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: maxHealth
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7915277361382739950, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
       propertyPath: gameOverScreen
       value: 
       objectReference: {fileID: 533014245}

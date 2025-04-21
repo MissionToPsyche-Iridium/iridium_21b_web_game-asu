@@ -595,7 +595,7 @@ public class PlayerMovement : MonoBehaviour
                 firstHealthUpCollected = true;
             }
             health.maxHealth += 50;
-            health.curHealth += 50;
+            health.curHealth = curHealth + (maxHealth * 0.5f);
             health.invincibilityTime += .25f;
             health.healthBar.SetHealth(health.curHealth);
             Destroy(GameObject.FindGameObjectWithTag("damage"));
