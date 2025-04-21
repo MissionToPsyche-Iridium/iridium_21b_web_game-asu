@@ -365,7 +365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &56796063
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1125,7 +1125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &162458358
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -4084,7 +4084,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &713499625
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -63730,7 +63730,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &912409655
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -65488,7 +65488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1141867620
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -65618,7 +65618,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1167293643
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -66400,7 +66400,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1271719801
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -66968,7 +66968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1320674598
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -67098,7 +67098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1321037378
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -67647,7 +67647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1388862111
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -68395,7 +68395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1482671076
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -69245,7 +69245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1596047420
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -69605,7 +69605,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1617439521
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -69784,7 +69784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1629377784
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -69999,7 +69999,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1693012559
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -70130,7 +70130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1699689693
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -70955,7 +70955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1784475705
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -72013,7 +72013,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1856395047
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -72224,7 +72224,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1937382924
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -72854,7 +72854,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &2116742343
 PolygonCollider2D:
   m_ObjectHideFlags: 0

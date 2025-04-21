@@ -431,7 +431,7 @@ public class PlayerMovement : MonoBehaviour
                 ShowIridiumPopup();
             }
             numIridium++;
-            updateMetals();
+            //updateMetals();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Gold"))
@@ -453,7 +453,7 @@ public class PlayerMovement : MonoBehaviour
                 ShowGoldPopup();
             }
             numGold++;
-            updateMetals();
+            //updateMetals();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Nickel"))
@@ -475,7 +475,7 @@ public class PlayerMovement : MonoBehaviour
                 ShowNickelPopup();
             }
             numNickel++;
-            updateMetals();
+            //updateMetals();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Iron"))
@@ -497,7 +497,7 @@ public class PlayerMovement : MonoBehaviour
                 ShowIronPopup();
             }
             numIron++;
-            updateMetals();
+            //updateMetals();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Cobalt"))
@@ -519,7 +519,7 @@ public class PlayerMovement : MonoBehaviour
                 ShowCobaltPopup();
             }
             numCobalt++;
-            updateMetals();
+            //updateMetals();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Rocket"))
@@ -668,14 +668,14 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void updateMetals()
-    {
-        metalText.text = "Iridium: " + numIridium + "\n" +
-            "Gold: " + numGold + "\n" +
-            "Cobalt: " + numCobalt + "\n" +
-            "Iron: " + numIron + "\n" +
-            "Nickel: " + numNickel;
-    }
+    //private void updateMetals()
+    //{
+    //    metalText.text = "Iridium: " + numIridium + "\n" +
+    //        "Gold: " + numGold + "\n" +
+    //        "Cobalt: " + numCobalt + "\n" +
+    //        "Iron: " + numIron + "\n" +
+    //        "Nickel: " + numNickel;
+    //}
 
     private void printMetals()
     {
