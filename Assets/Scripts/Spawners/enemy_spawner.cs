@@ -122,11 +122,11 @@ public class enemy_spawner : MonoBehaviour
         {
             Player.GetComponent<PlayerMovement>().damageFactor += 2;
             EnemyHealth.healthScale += .4f;
-            basic_enemy_behavior.speedFactor += .1f;
-            dash_enemy_script.speedFactor += .1f;
-            shoot_enemy_behavior.speedFactor += .1f;
-            head_behavior.speedFactor += .1f;
-            body_follow.speedFactor += .1f;
+            basic_enemy_behavior.speedFactor += .02f; //no speed scaling
+            dash_enemy_script.speedFactor += .02f;
+            shoot_enemy_behavior.speedFactor += .02f;
+            head_behavior.speedFactor += .02f;
+            body_follow.speedFactor += .02f;
             scaledEnemies = true;
         }
         /*
