@@ -197,6 +197,7 @@ public class body_follow : MonoBehaviour
         gameObject.tag = "basic_enemy";
         hasNewBehavior = true;
         movScript.speed = 4.0f;
+        movScript.isBoss = true;
     }
 
     IEnumerator ResumeNextFrame()
