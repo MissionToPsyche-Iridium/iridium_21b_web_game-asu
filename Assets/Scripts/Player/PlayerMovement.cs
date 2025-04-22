@@ -606,8 +606,6 @@ public class PlayerMovement : MonoBehaviour
                 resetMetalIndex();
             }
             autoShooterScript.fireRate += 2f;
-            Destroy(GameObject.FindGameObjectWithTag("damage"));
-            Destroy(GameObject.FindGameObjectWithTag("healthUp"));
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("damage"))
@@ -620,8 +618,6 @@ public class PlayerMovement : MonoBehaviour
                 resetMetalIndex();
             }
             Projectile.defaultDamageAmount += 25f;
-            Destroy(GameObject.FindGameObjectWithTag("healthUp"));
-            Destroy(GameObject.FindGameObjectWithTag("FireRate"));
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("health"))
@@ -650,8 +646,6 @@ public class PlayerMovement : MonoBehaviour
 
             health.invincibilityTime += .25f;
             health.healthBar.SetHealth(health.curHealth);
-            Destroy(GameObject.FindGameObjectWithTag("damage"));
-            Destroy(GameObject.FindGameObjectWithTag("FireRate"));
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("AllStatsUp"))
