@@ -10,6 +10,8 @@ public class Health : MonoBehaviour
     public HealthBar healthBar;
     public Animator animator;
     public GameObject gameOverScreen; // Reference to Game Over UI
+    public GameObject metalsCollected;
+    public GameObject partsCollected;
 
     // Damage audio vars
     public AudioClip damageSFX;
@@ -90,6 +92,8 @@ public class Health : MonoBehaviour
 
         if (gameOverScreen != null)
         {
+            //metalsCollected.setActive(false);
+            //partsCollected.setActive(false);
             gameOverScreen.SetActive(true); // Show Game Over screen
             Time.timeScale = 0f; // Pause the game
         }
