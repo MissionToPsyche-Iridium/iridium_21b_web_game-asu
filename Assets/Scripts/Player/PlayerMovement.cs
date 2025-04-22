@@ -646,9 +646,11 @@ public class PlayerMovement : MonoBehaviour
                 resetMetalIndex();
             }
             health.maxHealth += 50;
-            health.curHealth += 50;
+            health.setMaxHealth(health.maxHealth + 50);
+            health.curHealth = health.maxHealth;
+            
             health.invincibilityTime += .25f;
-            health.healthBar.SetHealth(health.curHealth);
+            health.healthBar.SetHealth(health.curHealth, health.maxHealth);
             Destroy(GameObject.FindGameObjectWithTag("damage"));
             Destroy(GameObject.FindGameObjectWithTag("FireRate"));
             Destroy(other.gameObject);
@@ -775,7 +777,7 @@ public class PlayerMovement : MonoBehaviour
         health.maxHealth += 50;
         health.curHealth += 50;
         health.invincibilityTime += .25f;
-        health.healthBar.SetHealth(health.curHealth);
+        health.healthBar.SetHealth(health.curHealth, health.maxHealth);
         Debug.Log(health.maxHealth);
         hideMenu();
         if (!firstHealthUpCollected)

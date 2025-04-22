@@ -43,7 +43,7 @@ public class Health : MonoBehaviour
         if (!isInvincible)
         {
             curHealth -= damage;
-            healthBar.SetHealth(curHealth);
+            healthBar.SetHealth(curHealth, maxHealth);
             damageSFXfile.PlayOneShot(damageSFX, .75f); // Play damage audio 
 
             // Start invincibility
@@ -60,7 +60,12 @@ public class Health : MonoBehaviour
     public void healPlayerToFull() 
     {
         curHealth = maxHealth;
-        healthBar.SetHealth(maxHealth);
+        healthBar.SetHealth(curHealth, maxHealth);
+    }
+
+    public void setMaxHealth(int maxHP)
+    {
+        maxHealth = maxHP;
     }
 
     private IEnumerator InvincibilityFrames()
