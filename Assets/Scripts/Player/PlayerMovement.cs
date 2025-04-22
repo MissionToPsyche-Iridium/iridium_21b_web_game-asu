@@ -426,10 +426,10 @@ public class PlayerMovement : MonoBehaviour
         popupDict["Rocket"] = () => ShowRocketPopup();
         popupDict["Dash"] = () => ShowDashPopup();
         popupDict["PushBack"] = () => ShowPushbackPopup();
-        popupDict["damage"] = () => ShowDamagePopup();
+        popupDict["Damage"] = () => ShowDamagePopup();
         popupDict["FireRate"] = () => ShowFireRatePopup();
-        popupDict["health"] = () => ShowFullHealthPopup();
-        popupDict["healthUp"] = () => ShowHealthUpPopup();
+        popupDict["Health"] = () => ShowFullHealthPopup();
+        popupDict["HealthUp"] = () => ShowHealthUpPopup();
         popupDict["AllStatsUp"] = () => ShowAllStatUpPopup();
     }
     // Handle collisions between trigger objects and player object
@@ -614,7 +614,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 popupDict["Damage"]?.Invoke(); //shows the damage popup
                 firstDamageCollected = true;
-                metalLog.Add("damage");
+                metalLog.Add("Damage");
                 resetMetalIndex();
             }
             Projectile.defaultDamageAmount += 25f;
@@ -626,7 +626,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 popupDict["Health"]?.Invoke(); //shows the fullhealth popup
                 firstFullHealthCollected = true;
-                metalLog.Add("health");
+                metalLog.Add("Health");
                 resetMetalIndex();
             }
             health.healPlayerToFull();
@@ -638,7 +638,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 popupDict["HealthUp"]?.Invoke(); //shows the healthup popup
                 firstHealthUpCollected = true;
-                metalLog.Add("healthUp");
+                metalLog.Add("HealthUp");
                 resetMetalIndex();
             }
             health.maxHealth += 50;
@@ -745,7 +745,7 @@ public class PlayerMovement : MonoBehaviour
         if (!firstDamageCollected)
         {
             //ShowDamagePopup();
-            metalLog.Add("damage");
+            metalLog.Add("Damage");
             resetMetalIndex();
             firstDamageCollected = true;
         }
@@ -776,7 +776,7 @@ public class PlayerMovement : MonoBehaviour
         if (!firstHealthUpCollected)
         {
             //ShowHealthUpPopup();
-            metalLog.Add("healthUp");
+            metalLog.Add("HealthUp");
             resetMetalIndex();
             firstHealthUpCollected = true;
         }
