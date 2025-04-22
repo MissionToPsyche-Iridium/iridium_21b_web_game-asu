@@ -31,14 +31,48 @@ public class GameMusicManager : MonoBehaviour
         audioSource.Play();
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    /// <summary>
+    /// Fade out over the default fadeDuration (1s), then load MainMenu.
+    /// </summary>
+    public void FadeOutAndLoad(string sceneName)
+    {
+        // default fade duration
+        FadeOutAndLoad(sceneName, 1f);
+    }
+
+    /// <summary>
+    /// Fade out over the given duration, then load the given scene.
+    /// </summary>
+    public void FadeOutAndLoad(string sceneName, float fadeDuration)
+    {
+        StartCoroutine(FadeOutAndLoadCoroutine(sceneName, fadeDuration));
+    }
+
+    private IEnumerator FadeOutAndLoadCoroutine(string sceneName, float fadeDuration)
+    {
+        float startVol = audioSource.volume;
+        float t = 0f;
+
+        // unscaledDeltaTime so that UI transitions don't slow it
+        while (t < fadeDuration)
+        {
+            t += Time.unscaledDeltaTime;
+            audioSource.volume = Mathf.Lerp(startVol, 0f, t / fadeDuration);
+            yield return null;
+        }
+
+        SceneManager.LoadScene(sceneName);
+    }
+
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // when we hit MainMenu, kill ourselves so menu‑music can take over
         if (scene.name == "Main Menu")
             Destroy(gameObject);
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
