@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
     // Loads the game scene
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync("SampleScene");
+        MusicManager.Instance.FadeOutAndLoad("CutScene");
     }
 
     // Loads the About scene
