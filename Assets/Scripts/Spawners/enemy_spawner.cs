@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class enemy_spawner : MonoBehaviour
 {
@@ -168,6 +170,12 @@ public class enemy_spawner : MonoBehaviour
             bossEnemies = 0;
             maxWaveEnemies += 5;
             waveNumber++;
+
+            if (waveNumber == 16)
+            {
+                SceneManager.LoadScene("VictoryScene");
+                return;
+            }
             if (waveNumber % 5 == 0)
             {
                 maxBossEnemies += 1;
