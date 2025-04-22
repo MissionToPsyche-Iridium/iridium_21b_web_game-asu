@@ -681,7 +681,7 @@ public class PlayerMovement : MonoBehaviour
         else if (other.gameObject.CompareTag("Slow"))
         {
 
-            moveSpeed = moveSpeed * (.50f);
+            moveSpeed = moveSpeed * (1.0f); //disabling slow zones
         }
     }
     void OnTriggerExit2D(Collider2D other)
