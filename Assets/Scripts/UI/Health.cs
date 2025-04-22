@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
     public int curHealth = 100;
-    public int maxHealth = 100;
+    public int maxHealth = 200;
     public HealthBar healthBar;
     public Animator animator;
     public GameObject gameOverScreen; // Reference to Game Over UI
