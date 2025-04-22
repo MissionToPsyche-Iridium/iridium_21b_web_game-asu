@@ -169,7 +169,7 @@ public class basic_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
 
     void patrol(float step)
     {
-        speed = 7.0f * speedFactor;
+        speed = 6.0f * speedFactor;
         target = currentNode.node_obj.position;
         transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
         if (transform.position.x < currentNode.node_obj.position.x + 2 &&

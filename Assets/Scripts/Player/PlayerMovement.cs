@@ -457,7 +457,7 @@ public class PlayerMovement : MonoBehaviour
                 firstIridiumCollected = true;
                 metalLog.Add("Iridium");
                 resetMetalIndex();
-                popupDict["Iridium"]?.Invoke(); //shows the iridium popup
+                
             }
             numIridium++;
             updateMetals();
@@ -481,7 +481,7 @@ public class PlayerMovement : MonoBehaviour
                 firstGoldCollected = true;
                 metalLog.Add("Gold");
                 resetMetalIndex();
-                popupDict["Gold"]?.Invoke(); //shows the gold popup
+                
             }
             numGold++;
             updateMetals();
@@ -505,7 +505,7 @@ public class PlayerMovement : MonoBehaviour
                 firstNickelCollected = true;
                 metalLog.Add("Nickel");
                 resetMetalIndex();
-                popupDict["Nickel"]?.Invoke(); //shows the nickel popup
+                
             }
             numNickel++;
             updateMetals();
@@ -529,7 +529,7 @@ public class PlayerMovement : MonoBehaviour
                 firstIronCollected = true;
                 metalLog.Add("Iron");
                 resetMetalIndex();
-                popupDict["Iron"]?.Invoke(); //shows the iron popup
+                
             }
             numIron++;
             updateMetals();
@@ -553,7 +553,7 @@ public class PlayerMovement : MonoBehaviour
                 firstColbaltCollected = true;
                 metalLog.Add("Cobalt");
                 resetMetalIndex();
-                popupDict["Cobalt"]?.Invoke(); //shows the cobalt popup
+                
             }
             numCobalt++;
             updateMetals();
@@ -606,8 +606,6 @@ public class PlayerMovement : MonoBehaviour
                 resetMetalIndex();
             }
             autoShooterScript.fireRate += 2f;
-            Destroy(GameObject.FindGameObjectWithTag("damage"));
-            Destroy(GameObject.FindGameObjectWithTag("healthUp"));
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("damage"))
@@ -616,12 +614,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 popupDict["Damage"]?.Invoke(); //shows the damage popup
                 firstDamageCollected = true;
-                metalLog.Add("damage");
+                metalLog.Add("Damage");
                 resetMetalIndex();
             }
             Projectile.defaultDamageAmount += 25f;
-            Destroy(GameObject.FindGameObjectWithTag("healthUp"));
-            Destroy(GameObject.FindGameObjectWithTag("FireRate"));
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("health"))
@@ -630,7 +626,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 popupDict["Health"]?.Invoke(); //shows the fullhealth popup
                 firstFullHealthCollected = true;
-                metalLog.Add("health");
+                metalLog.Add("Health");
                 resetMetalIndex();
             }
             health.healPlayerToFull();
@@ -642,17 +638,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 popupDict["HealthUp"]?.Invoke(); //shows the healthup popup
                 firstHealthUpCollected = true;
-                metalLog.Add("healthUp");
+                metalLog.Add("HealthUp");
                 resetMetalIndex();
             }
             health.maxHealth += 50;
-            health.setMaxHealth(health.maxHealth + 50);
             health.curHealth = health.maxHealth;
-            
+
             health.invincibilityTime += .25f;
-            health.healthBar.SetHealth(health.curHealth, health.maxHealth);
-            Destroy(GameObject.FindGameObjectWithTag("damage"));
-            Destroy(GameObject.FindGameObjectWithTag("FireRate"));
+            health.healthBar.SetHealth(health.curHealth);
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("AllStatsUp"))
@@ -683,7 +676,7 @@ public class PlayerMovement : MonoBehaviour
         else if (other.gameObject.CompareTag("Slow"))
         {
 
-            moveSpeed = moveSpeed * (.50f);
+            moveSpeed = moveSpeed * (1.0f); //disabling slow zones
         }
     }
     void OnTriggerExit2D(Collider2D other)
@@ -752,7 +745,7 @@ public class PlayerMovement : MonoBehaviour
         if (!firstDamageCollected)
         {
             popupDict["Damage"]?.Invoke(); //shows the damage popup
-            metalLog.Add("damage");
+            metalLog.Add("Damage");
             resetMetalIndex();
             firstDamageCollected = true;
         }
@@ -765,7 +758,7 @@ public class PlayerMovement : MonoBehaviour
         hideMenu();
         if (!firstFireRateCollected)
         {
-            popupDict["FireRate"]?.Invoke(); //shows the FireRate popup
+            popupDict["FireRate"]?.Invoke(); //shows the firerate popup
             metalLog.Add("FireRate");
             resetMetalIndex();
             firstFireRateCollected = true;
@@ -777,13 +770,13 @@ public class PlayerMovement : MonoBehaviour
         health.maxHealth += 50;
         health.curHealth += 50;
         health.invincibilityTime += .25f;
-        health.healthBar.SetHealth(health.curHealth, health.maxHealth);
+        health.healthBar.SetHealth(health.curHealth);
         Debug.Log(health.maxHealth);
         hideMenu();
         if (!firstHealthUpCollected)
         {
-            popupDict["HealthUp"]?.Invoke(); //shows the HealthUp popup
-            metalLog.Add("healthUp");
+            popupDict["HealthUp"]?.Invoke(); //shows the HEalthup popup
+            metalLog.Add("HealthUp");
             resetMetalIndex();
             firstHealthUpCollected = true;
         }

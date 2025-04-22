@@ -211,7 +211,7 @@ public class dash_enemy_script : MonoBehaviour, IEnemyDeathHandler
 
     void patrol(float step)
     {
-        speed = 7.0f * speedFactor;
+        speed = 6.0f * speedFactor;
         transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
         if (transform.position.x < currentNode.node_obj.position.x + 2 &&
             transform.position.x > currentNode.node_obj.position.x - 2 &&

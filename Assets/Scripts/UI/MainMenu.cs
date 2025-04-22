@@ -8,13 +8,19 @@ public class MainMenu : MonoBehaviour
     // Loads the game scene
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync("SampleScene");
+        MusicManager.Instance.FadeOutAndLoad("CutScene");
     }
 
     // Loads the About scene
     public void LoadAboutScene()
     {
         SceneManager.LoadSceneAsync("About");
+    }
+
+    // Loads the Help scene
+    public void LoadHelpScene()
+    {
+        SceneManager.LoadSceneAsync("Help");
     }
 
     // Loads the Main Menu (Index 0)

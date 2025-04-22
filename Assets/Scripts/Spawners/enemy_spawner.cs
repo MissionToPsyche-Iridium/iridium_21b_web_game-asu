@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class enemy_spawner : MonoBehaviour
 {
@@ -121,7 +123,7 @@ public class enemy_spawner : MonoBehaviour
         if (timer.getWaveTime() == 0 && !scaledEnemies)
         {
             Player.GetComponent<PlayerMovement>().damageFactor += 2;
-            EnemyHealth.healthScale += .4f;
+            EnemyHealth.healthScale += .25f;
             basic_enemy_behavior.speedFactor += .02f; //no speed scaling
             dash_enemy_script.speedFactor += .02f;
             shoot_enemy_behavior.speedFactor += .02f;
@@ -168,6 +170,12 @@ public class enemy_spawner : MonoBehaviour
             bossEnemies = 0;
             maxWaveEnemies += 5;
             waveNumber++;
+
+            if (waveNumber == 16)
+            {
+                SceneManager.LoadScene("VictoryScene");
+                return;
+            }
             if (waveNumber % 5 == 0)
             {
                 maxBossEnemies += 1;

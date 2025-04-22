@@ -15,7 +15,7 @@ public class shoot_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
     private float lastSeenX;
     private float lastSeenY;
     private int[] nodeSeq;
-    private float time_between_shot = 0.4f;
+    private float time_between_shot = 1.0f;
     private bool hasTarget = false;
     private bool patrolling = false;
     private bool shooting = false;
@@ -63,8 +63,8 @@ public class shoot_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
 
         float dist = Vector3.Distance(transform.position, Player.transform.position);
         float step = speed * Time.deltaTime;
-        //If distance from player = 6
-        if (dist > 12)
+        //If distance from player = 10
+        if (dist > 10)
         {
             if (hasLineOfSight(Player.transform, "PlayerTag"))
             {
@@ -141,7 +141,7 @@ public class shoot_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
 
     void patrol(float step)
     {
-        speed = 7.0f * speedFactor;
+        speed = 6.0f * speedFactor;
         transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
         if (transform.position.x < currentNode.node_obj.position.x + 2 &&
             transform.position.x > currentNode.node_obj.position.x - 2 &&
