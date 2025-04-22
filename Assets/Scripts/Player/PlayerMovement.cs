@@ -457,7 +457,7 @@ public class PlayerMovement : MonoBehaviour
                 firstIridiumCollected = true;
                 metalLog.Add("Iridium");
                 resetMetalIndex();
-                popupDict["Iridium"]?.Invoke(); //shows the iridium popup
+                
             }
             numIridium++;
             updateMetals();
@@ -481,7 +481,7 @@ public class PlayerMovement : MonoBehaviour
                 firstGoldCollected = true;
                 metalLog.Add("Gold");
                 resetMetalIndex();
-                popupDict["Gold"]?.Invoke(); //shows the gold popup
+                
             }
             numGold++;
             updateMetals();
@@ -505,7 +505,7 @@ public class PlayerMovement : MonoBehaviour
                 firstNickelCollected = true;
                 metalLog.Add("Nickel");
                 resetMetalIndex();
-                popupDict["Nickel"]?.Invoke(); //shows the nickel popup
+                
             }
             numNickel++;
             updateMetals();
@@ -529,7 +529,7 @@ public class PlayerMovement : MonoBehaviour
                 firstIronCollected = true;
                 metalLog.Add("Iron");
                 resetMetalIndex();
-                popupDict["Iron"]?.Invoke(); //shows the iron popup
+                
             }
             numIron++;
             updateMetals();
@@ -553,7 +553,7 @@ public class PlayerMovement : MonoBehaviour
                 firstColbaltCollected = true;
                 metalLog.Add("Cobalt");
                 resetMetalIndex();
-                popupDict["Cobalt"]?.Invoke(); //shows the cobalt popup
+                
             }
             numCobalt++;
             updateMetals();
@@ -744,7 +744,7 @@ public class PlayerMovement : MonoBehaviour
         hideMenu();
         if (!firstDamageCollected)
         {
-            //ShowDamagePopup();
+            popupDict["Damage"]?.Invoke(); //shows the damage popup
             metalLog.Add("Damage");
             resetMetalIndex();
             firstDamageCollected = true;
@@ -758,7 +758,7 @@ public class PlayerMovement : MonoBehaviour
         hideMenu();
         if (!firstFireRateCollected)
         {
-            //ShowFireRatePopup();
+            popupDict["FireRate"]?.Invoke(); //shows the firerate popup
             metalLog.Add("FireRate");
             resetMetalIndex();
             firstFireRateCollected = true;
@@ -775,7 +775,7 @@ public class PlayerMovement : MonoBehaviour
         hideMenu();
         if (!firstHealthUpCollected)
         {
-            //ShowHealthUpPopup();
+            popupDict["HealthUp"]?.Invoke(); //shows the HEalthup popup
             metalLog.Add("HealthUp");
             resetMetalIndex();
             firstHealthUpCollected = true;
