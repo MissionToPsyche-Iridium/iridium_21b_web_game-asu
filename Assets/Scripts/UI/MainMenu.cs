@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
     // Loads the game scene
     public void PlayGame()
     {
+        Time.timeScale = 1f;
         MusicManager.Instance.FadeOutAndLoad("CutScene");
     }
 
