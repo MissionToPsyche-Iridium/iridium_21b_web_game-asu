@@ -183,6 +183,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
         AttractCoins();
+
+        // Get mouse position in screen coordinates
+        Vector3 screenPosition = Input.mousePosition;
+
+        // Convert screen position to world position
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+
+        // Print X and Y coordinates
+        Debug.Log($"Mouse Screen Position: {screenPosition}");
+        Debug.Log($"Mouse World Position: X = {worldPosition.x}, Y = {worldPosition.y}");
     }
 
     void AttractCoins()
