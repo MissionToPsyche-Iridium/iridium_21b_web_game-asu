@@ -31,6 +31,6 @@ public class PauseMenu : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        SceneManager.LoadSceneAsync("Main Menu"); // Loads the Main Menu scene
+        SceneNavigator.GoToMainMenu(2f); // Loads the Main Menu scene
     }
 }

@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class enemy_spawner : MonoBehaviour
 {
@@ -17,10 +20,26 @@ public class enemy_spawner : MonoBehaviour
     public GameObject gammaSpec;
     public GameObject magnetometer;
     public GameObject neutronSpec;
-    public GameObject hallThruster;
+    public GameObject xBandRadio;
     public GameObject damagePU;
     public GameObject fireRatePU;
     public GameObject healthPU;
+    public GameObject UpgradeMenu;
+    public GameObject PartsPopup;
+
+    //Sprites
+    public Sprite multispecSprite;
+    public Sprite gammaSpecSprite;
+    public Sprite magnetometerSprite;
+    public Sprite neutronSpecSprite;
+    public Sprite xBandRadioSprite;
+
+    //Labels
+    private string multispecString = "Multi Spectral Imager";
+    private string gammaString = "Gamma Ray Spectrometer";
+    private string magnetometerString = "Magnetometer";
+    private string neutronString = "Neutron Spectrometer";
+    private string xBandRadioString = "X Band Radio";
 
     //Node Maps
     public GameObject centerMap;
@@ -73,6 +92,17 @@ public class enemy_spawner : MonoBehaviour
         maps[3] = quadrant3;
         maps[4] = quadrant4;
         establishNodes(centerMap); //initially setting the spawn points to the central nodemap
+
+        if (UpgradeMenu != null)
+        {
+            UpgradeMenu.SetActive(false);
+        }
+
+        if (PartsPopup != null)
+        {
+            PartsPopup.SetActive(false);
+        }
+
         Debug.Log("Entering Wave: " + waveNumber);
     }
 
@@ -93,12 +123,12 @@ public class enemy_spawner : MonoBehaviour
         if (timer.getWaveTime() == 0 && !scaledEnemies)
         {
             Player.GetComponent<PlayerMovement>().damageFactor += 2;
-            EnemyHealth.healthScale += .4f;
-            basic_enemy_behavior.speedFactor += .1f;
-            dash_enemy_script.speedFactor += .1f;
-            shoot_enemy_behavior.speedFactor += .1f;
-            head_behavior.speedFactor += .1f;
-            body_follow.speedFactor += .1f;
+            EnemyHealth.healthScale += .25f;
+            basic_enemy_behavior.speedFactor += .02f; //no speed scaling
+            dash_enemy_script.speedFactor += .02f;
+            shoot_enemy_behavior.speedFactor += .02f;
+            head_behavior.speedFactor += .02f;
+            body_follow.speedFactor += .02f;
             scaledEnemies = true;
         }
         /*
@@ -140,6 +170,12 @@ public class enemy_spawner : MonoBehaviour
             bossEnemies = 0;
             maxWaveEnemies += 5;
             waveNumber++;
+
+            if (waveNumber == 16)
+            {
+                SceneManager.LoadScene("VictoryScene");
+                return;
+            }
             if (waveNumber % 5 == 0)
             {
                 maxBossEnemies += 1;
@@ -285,30 +321,60 @@ public class enemy_spawner : MonoBehaviour
         switch (waveNumber)
         {
             case 4:
-                Instantiate(gammaSpec, new Vector3(0, 0, 1), transform.rotation);
+                setImage(magnetometerSprite);
+                setText(magnetometerString);
+                showMenu(PartsPopup);
+                revealImage(magnetometer);
                 break;
             case 7:
-                Instantiate(neutronSpec, new Vector3(0, 0, 1), transform.rotation);
+                setImage(multispecSprite);
+                setText(multispecString);
+                showMenu(PartsPopup);
+                revealImage(multispec);
                 break;
             case 10:
-                Instantiate(magnetometer, new Vector3(0, 0, 1), transform.rotation);
+                setImage(neutronSpecSprite);
+                setText(neutronString);
+                showMenu(PartsPopup);
+                revealImage(neutronSpec);
                 break;
             case 13:
-                Instantiate(multispec, new Vector3(0, 0, 1), transform.rotation);
+                setImage(xBandRadioSprite);
+                setText(xBandRadioString);
+                showMenu(PartsPopup);
+                revealImage(xBandRadio);
                 break;
             case 16:
-                Instantiate(hallThruster, new Vector3(0, 0, 1), transform.rotation);
+                setImage(gammaSpecSprite);
+                setText(gammaString);
+                showMenu(PartsPopup);
+                revealImage(gammaSpec);
+                break;
+            default:
+                showMenu(UpgradeMenu);
                 break;
         }
 
-        //Spawning the permanent powerups
-        Instantiate(healthPU, new Vector3(1, -1, 1), transform.rotation);
-        Instantiate(damagePU, new Vector3(-1, -1, 1), transform.rotation);
-        Instantiate(fireRatePU, new Vector3(0, 1, 1), transform.rotation);
+        //Showing upgrade menu for players
         waiting = true;
         StartCoroutine(WaitBetweenWaves());
     }
 
+    private void revealImage(GameObject obj)
+    {
+        Image img = obj.GetComponent<Image>();
+        if (img != null)
+        {
+            string hexColor = "#FFFFFF"; // Magenta
+
+            // Convert hex string to Unity Color
+            Color newColor;
+            if (ColorUtility.TryParseHtmlString(hexColor, out newColor))
+            {
+                img.color = newColor;
+            }
+        }
+    }
     //calculates which enemies to spawn depending on wave number
     int calcEnemyRange()
     {
@@ -326,14 +392,51 @@ public class enemy_spawner : MonoBehaviour
         scaledEnemies = false;
     }
 
-    //temporarily reverting until i figure out how to implement timer
+    public void showMenu(GameObject menu)
+    {
+        Time.timeScale = 0f;
+        menu.SetActive(true);
+    }
+
+    public void closeMenu()
+    {
+        Time.timeScale = 1.0f;
+        PartsPopup.SetActive(false);
+        showMenu(UpgradeMenu);
+    }
+
+    private void setImage(Sprite sprite)
+    {
+        Transform partImageTransform = PartsPopup.transform.Find("PartImage");
+        if (partImageTransform != null)
+        {
+            Image partImage = partImageTransform.GetComponent<Image>();
+            if (partImage != null)
+            {
+                partImage.sprite = sprite;
+            }
+        }
+
+    }
+
+    private void setText(string text)
+    {
+        Transform partTextTransform = PartsPopup.transform.Find("NameTemplate");
+        if (partTextTransform != null)
+        {
+            Text partText = partTextTransform.GetComponent<Text> ();
+            if (partText != null)
+            {
+                partText.text = text;
+            }
+        }
+    }
     IEnumerator WaitBetweenWaves()
     {
         timer.stopTimer = true;
-        yield return new WaitForSeconds(10f); // Increased break time to 10 seconds
+        yield return new WaitForSeconds(3f); // Increased break time to 10 seconds
         timer.stopTimer = false;
         timer.UpdateWaveUI();
         waiting = false;
-        //FindObjectOfType<Timer>().TriggerNextWave(); // Start next wave
     }
 }

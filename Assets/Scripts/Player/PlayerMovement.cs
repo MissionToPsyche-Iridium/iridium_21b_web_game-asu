@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private Projectile projectileScript;
 
     public CoinManager cm;
-    public float moveSpeed = 5f;
+    public float moveSpeed = 8f;
     private float originalMoveSpeed;
     public float speedBoostMultiplier = 1.5f;  // Speed boost grants extra velocity
     public float boostDuration = 5f;            // Boost lasts for 2 seconds
@@ -30,9 +31,9 @@ public class PlayerMovement : MonoBehaviour
     public float boostAvailabilityDuration = 30f; // Duration the boost power-up is available
     public float dashAvailabilityDuration = 30f;
     public float fireRateBoostDuration = 30f;
-    public float dashDistance = 4f;           
-    public float doublePressThreshold = 0.3f;   
-    public float dashCooldown = 2f;              
+    public float dashDistance = 4f;
+    public float doublePressThreshold = 0.3f;
+    public float dashCooldown = 2f;
     public int damageFactor = 1;
     public Text metalText;
 
@@ -77,8 +78,9 @@ public class PlayerMovement : MonoBehaviour
     private int numNickel = 0;
     private int numCobalt = 0;
     private int numIron = 0;
+    private int indexInList = 0;
+    private int indexInList2 = 0;
 
-    private bool firstCobaltCollected = false;
     private bool firstAllStatUpCollected = false;
     private bool firstDamageCollected = false;
     private bool firstDashCollected = false;
@@ -87,6 +89,10 @@ public class PlayerMovement : MonoBehaviour
     private bool firstHealthUpCollected = false;
     private bool firstPushbackCollected = false;
     private bool firstRocketCollected = false;
+
+    private Dictionary<string, Action> popupDict = new Dictionary<string, Action>();
+    private List<GameObject> metalsLog = new List<GameObject>();
+    private List<GameObject> powerupsLog = new List<GameObject>();
 
     [SerializeField] private Sprite iridiumSprite;
     [SerializeField] private Sprite goldSprite;
@@ -101,9 +107,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Sprite fireRateSprite;
     [SerializeField] private Sprite healthUpSprite;
     [SerializeField] private Sprite PushbackSprite;
-    [SerializeField] private Sprite RocketSprite; 
+    [SerializeField] private Sprite RocketSprite;
 
-
+    [SerializeField] private GameObject UpgradeMenu;
+    [SerializeField] private List<String> powerupLog = new List<String>();
+    [SerializeField] private List<String> metalLog = new List<String>();
+    public Text metalLogCount;
+    public Text powerupLogCount;
     private IridiumPopupManager popupManager;
 
     private void Start()
@@ -112,8 +122,10 @@ public class PlayerMovement : MonoBehaviour
         autoShooterScript = GetComponent<AutoShooter>();
         projectileScript = FindObjectOfType<Projectile>();
 
-        popupManager = FindObjectOfType<IridiumPopupManager>();
+        popupManager = FindObjectOfType<IridiumPopupManager>(true);
         originalMoveSpeed = moveSpeed;
+        fillDict();
+
         if (popupManager == null)
         {
             Debug.LogError("PopupManager not found in the scene!");
@@ -404,6 +416,22 @@ public class PlayerMovement : MonoBehaviour
         popupManager.ShowPopup("Rocket Equipped! For the next 30 seconds, if you press the spacebar while moving in a direction it will boost your speed. 2 second cooldown in-between uses.", RocketSprite);
     }
 
+    private void fillDict()
+    {
+        popupDict["Iridium"] = () => ShowIridiumPopup();
+        popupDict["Gold"] = () => ShowGoldPopup();
+        popupDict["Cobalt"] = () => ShowCobaltPopup();
+        popupDict["Iron"] = () => ShowIronPopup();
+        popupDict["Nickel"] = () => ShowNickelPopup();
+        popupDict["Rocket"] = () => ShowRocketPopup();
+        popupDict["Dash"] = () => ShowDashPopup();
+        popupDict["PushBack"] = () => ShowPushbackPopup();
+        popupDict["Damage"] = () => ShowDamagePopup();
+        popupDict["FireRate"] = () => ShowFireRatePopup();
+        popupDict["Health"] = () => ShowFullHealthPopup();
+        popupDict["HealthUp"] = () => ShowHealthUpPopup();
+        popupDict["AllStatsUp"] = () => ShowAllStatUpPopup();
+    }
     // Handle collisions between trigger objects and player object
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -427,7 +455,9 @@ public class PlayerMovement : MonoBehaviour
             if (!firstIridiumCollected)
             {
                 firstIridiumCollected = true;
-                ShowIridiumPopup();
+                metalLog.Add("Iridium");
+                resetMetalIndex();
+                
             }
             numIridium++;
             updateMetals();
@@ -449,7 +479,9 @@ public class PlayerMovement : MonoBehaviour
             if (!firstGoldCollected)
             {
                 firstGoldCollected = true;
-                ShowGoldPopup();
+                metalLog.Add("Gold");
+                resetMetalIndex();
+                
             }
             numGold++;
             updateMetals();
@@ -471,7 +503,9 @@ public class PlayerMovement : MonoBehaviour
             if (!firstNickelCollected)
             {
                 firstNickelCollected = true;
-                ShowNickelPopup();
+                metalLog.Add("Nickel");
+                resetMetalIndex();
+                
             }
             numNickel++;
             updateMetals();
@@ -493,7 +527,9 @@ public class PlayerMovement : MonoBehaviour
             if (!firstIronCollected)
             {
                 firstIronCollected = true;
-                ShowIronPopup();
+                metalLog.Add("Iron");
+                resetMetalIndex();
+                
             }
             numIron++;
             updateMetals();
@@ -515,7 +551,9 @@ public class PlayerMovement : MonoBehaviour
             if (!firstColbaltCollected)
             {
                 firstColbaltCollected = true;
-                ShowCobaltPopup();
+                metalLog.Add("Cobalt");
+                resetMetalIndex();
+                
             }
             numCobalt++;
             updateMetals();
@@ -525,8 +563,10 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!firstRocketCollected)
             {
-                ShowRocketPopup();
+                popupDict["Rocket"]?.Invoke(); //shows the rocket popup
                 firstRocketCollected = true;
+                metalLog.Add("Rocket");
+                resetMetalIndex();
             }
             StartCoroutine(BoostAvailability());
             Destroy(other.gameObject);
@@ -535,8 +575,10 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!firstDashCollected)
             {
-                ShowDashPopup();
+                popupDict["Dash"]?.Invoke(); //shows the dash popup
                 firstDashCollected = true;
+                metalLog.Add("Dash");
+                resetMetalIndex();
             }
             StartCoroutine(DashAvailability());
             Destroy(other.gameObject);
@@ -545,8 +587,10 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!firstPushbackCollected)
             {
-                ShowPushbackPopup();
+                popupDict["PushBack"]?.Invoke(); //shows the pushback popup
                 firstPushbackCollected = true;
+                metalLog.Add("PushBack");
+                resetMetalIndex();
             }
             StartCoroutine(PushBackAvailability());
             Destroy(other.gameObject);
@@ -556,32 +600,34 @@ public class PlayerMovement : MonoBehaviour
 
             if (!firstFireRateCollected)
             {
-                ShowFireRatePopup();
+                popupDict["FireRate"]?.Invoke(); //shows the firerate popup
                 firstFireRateCollected = true;
+                powerupLog.Add("FireRate");
+                resetMetalIndex();
             }
             autoShooterScript.fireRate += 2f;
-            Destroy(GameObject.FindGameObjectWithTag("damage"));
-            Destroy(GameObject.FindGameObjectWithTag("healthUp"));
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("damage"))
         {
             if (!firstDamageCollected)
             {
-                ShowDamagePopup();
+                popupDict["Damage"]?.Invoke(); //shows the damage popup
                 firstDamageCollected = true;
+                metalLog.Add("Damage");
+                resetMetalIndex();
             }
             Projectile.defaultDamageAmount += 25f;
-            Destroy(GameObject.FindGameObjectWithTag("healthUp"));
-            Destroy(GameObject.FindGameObjectWithTag("FireRate"));
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("health"))
         {
             if (!firstFullHealthCollected)
             {
-                ShowFullHealthPopup();
+                popupDict["Health"]?.Invoke(); //shows the fullhealth popup
                 firstFullHealthCollected = true;
+                metalLog.Add("Health");
+                resetMetalIndex();
             }
             health.healPlayerToFull();
             Destroy(other.gameObject);
@@ -590,23 +636,26 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!firstHealthUpCollected)
             {
-                ShowHealthUpPopup();
+                popupDict["HealthUp"]?.Invoke(); //shows the healthup popup
                 firstHealthUpCollected = true;
+                metalLog.Add("HealthUp");
+                resetMetalIndex();
             }
             health.maxHealth += 50;
-            health.curHealth += 50;
+            health.curHealth = health.maxHealth;
+
             health.invincibilityTime += .25f;
             health.healthBar.SetHealth(health.curHealth);
-            Destroy(GameObject.FindGameObjectWithTag("damage"));
-            Destroy(GameObject.FindGameObjectWithTag("FireRate"));
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("AllStatsUp"))
         {
             if (!firstAllStatUpCollected)
             {
-                ShowAllStatUpPopup();
+                popupDict["AllStatsUp"]?.Invoke(); //shows the fullhealth popup
                 firstAllStatUpCollected = true;
+                metalLog.Add("AllStatsUp");
+                resetMetalIndex();
             }
             //Damage
             Projectile.defaultDamageAmount += 25f;
@@ -624,20 +673,23 @@ public class PlayerMovement : MonoBehaviour
             partsCollected++;
             Destroy(other.gameObject);
         }
-        else if (other.gameObject.CompareTag("Slow")) {
+        else if (other.gameObject.CompareTag("Slow"))
+        {
 
-            moveSpeed = moveSpeed * (.50f);
+            moveSpeed = moveSpeed * (1.0f); //disabling slow zones
         }
     }
-    void OnTriggerExit2D(Collider2D other) {
-        if (other.gameObject.CompareTag("Slow")) {
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Slow"))
+        {
             moveSpeed = originalMoveSpeed;
         }
     }
-        /**
-         * Need this function for animation
-         */
-        void AnimDirection(Vector3 move)
+    /**
+     * Need this function for animation
+     */
+    void AnimDirection(Vector3 move)
     {
         if (move.sqrMagnitude > 0)
         {
@@ -683,5 +735,88 @@ public class PlayerMovement : MonoBehaviour
             "Cobalt: " + numCobalt + "\n" +
             "Iron: " + numIron + "\n" +
             "Nickel: " + numNickel);
+    }
+
+    public void giveDamage()
+    {
+        Projectile.defaultDamageAmount += 25f;
+        Debug.Log(Projectile.defaultDamageAmount);
+        hideMenu();
+        if (!firstDamageCollected)
+        {
+            popupDict["Damage"]?.Invoke(); //shows the damage popup
+            metalLog.Add("Damage");
+            resetMetalIndex();
+            firstDamageCollected = true;
+        }
+    }
+
+    public void giveFirerate()
+    {
+        autoShooterScript.fireRate += 2f;
+        Debug.Log(autoShooterScript.fireRate);
+        hideMenu();
+        if (!firstFireRateCollected)
+        {
+            popupDict["FireRate"]?.Invoke(); //shows the firerate popup
+            metalLog.Add("FireRate");
+            resetMetalIndex();
+            firstFireRateCollected = true;
+        }
+    }
+
+    public void giveHealthUp()
+    {
+        health.maxHealth += 50;
+        health.curHealth += 50;
+        health.invincibilityTime += .25f;
+        health.healthBar.SetHealth(health.curHealth);
+        Debug.Log(health.maxHealth);
+        hideMenu();
+        if (!firstHealthUpCollected)
+        {
+            popupDict["HealthUp"]?.Invoke(); //shows the HEalthup popup
+            metalLog.Add("HealthUp");
+            resetMetalIndex();
+            firstHealthUpCollected = true;
+        }
+    }
+
+    private void resetMetalIndex()
+    {
+        indexInList = metalLog.Count - 1;
+        metalLogCount.text = "" + metalLog.Count + " / 13";
+    }
+
+    private void hideMenu()
+    {
+        Time.timeScale = 1f;
+        UpgradeMenu.SetActive(false);
+    }
+
+    public void showNewest()
+    {
+        if (metalLog.Count > 0)
+        {
+            popupDict[metalLog[^1]]();
+        }
+    }
+
+    public void cycleNext()
+    {
+        if (indexInList + 1 < metalLog.Count)
+        {
+            popupDict[metalLog[indexInList + 1]]();
+            indexInList++;
+        }
+    }
+
+    public void cyclePrev()
+    {
+        if (indexInList - 1 >= 0)
+        {
+            popupDict[metalLog[indexInList - 1]]();
+            indexInList--;
+        }
     }
 }

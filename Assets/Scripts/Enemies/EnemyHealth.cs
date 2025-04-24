@@ -19,7 +19,11 @@ public class EnemyHealth : MonoBehaviour
     public GameObject dodgePU;
     public GameObject healthPack;
     public GameObject AllStatIncrease;
+    public GameObject damageUpgrade;
+    public GameObject firerateUpgrade;
+    public GameObject healthUpgrade;
     private GameObject[] metals;
+    private GameObject[] upgrades;
     private float newXScale;
     private Vector3 healthBar_Scale;
     private Vector3 healthBar_Pos;
@@ -37,6 +41,8 @@ public class EnemyHealth : MonoBehaviour
         healthBar_Scale = healthBar.transform.localScale;
         healthBar_Pos = healthBar.transform.localPosition;
         metals = new GameObject[] { goldDrop, cobaltDrop, iridiumDrop, ironDrop, nickelDrop };
+        upgrades = new GameObject[] { damageUpgrade, firerateUpgrade, healthUpgrade };
+
     }
 
     public void TakeDamage(float amount)
@@ -82,7 +88,7 @@ public class EnemyHealth : MonoBehaviour
 
     void randomDrop()
     {
-        float drop = UnityEngine.Random.Range(1, 151);
+        float drop = UnityEngine.Random.Range(1, 121);
         if (drop == 1) //healthpack
         {
             Instantiate(healthPack, transform.position, Quaternion.identity);
@@ -103,15 +109,21 @@ public class EnemyHealth : MonoBehaviour
         {
             Instantiate(AllStatIncrease, transform.position, Quaternion.identity);
         }
+        else if (drop == 6) //Damage / Firerate / HealthUp
+        {
+            //random upgrade drop
+            randomDrops(upgrades);
+        }
         else
         {
-            randomMetalDrop();
+            //random metal drop by default
+            randomDrops(metals);
         }
     }
 
-    void randomMetalDrop()
+    void randomDrops(GameObject[] options)
     {
-        float drop = UnityEngine.Random.Range(0, 5);
-        Instantiate(metals[Convert.ToInt32(drop)], transform.position, Quaternion.identity);
+        float drop = UnityEngine.Random.Range(0, options.Length);
+        Instantiate(options[Convert.ToInt32(drop)], transform.position, Quaternion.identity);
     }
 }

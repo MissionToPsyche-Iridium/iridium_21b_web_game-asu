@@ -19,6 +19,7 @@ public class basic_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
     private bool hasTarget = false;
     private bool patrolling = false;
     private bool takingDamage = false;
+    public bool isBoss = false;
     private Rigidbody2D rb;
     private Vector2 lastVelocity;
     private EnemyHealth healthScript;
@@ -90,7 +91,11 @@ public class basic_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
         Vector3 move = (transform.position - lastPosition).normalized;
 
         // Pass the movement to directionAnim() to update animation
-        AnimDirection(move);
+        if (!isBoss)
+        {
+            AnimDirection(move);
+        }
+        
         lastPosition = transform.position;
     }
 
@@ -164,7 +169,7 @@ public class basic_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
 
     void patrol(float step)
     {
-        speed = 7.0f * speedFactor;
+        speed = 6.0f * speedFactor;
         target = currentNode.node_obj.position;
         transform.position = Vector3.MoveTowards(transform.position, currentNode.node_obj.position, step);
         if (transform.position.x < currentNode.node_obj.position.x + 2 &&
@@ -244,8 +249,15 @@ public class basic_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
         }
     }
     public void OnDeath() {
-        this.enabled = false;
-        animator.SetBool("death", true);
+        if (!isBoss)
+        {
+            this.enabled = false;
+            animator.SetBool("death", true);
+        }
+        else
+        {
+            return;
+        }
     }
 
 }
