@@ -353,7 +353,7 @@ public class PlayerMovement : MonoBehaviour
 
     void ShowIridiumPopup()
     {
-        popupManager.ShowPopup("Iridium, a rare platinum-group metal with atomic number 77, has fascinating connections to the Psyche asteroid (16 Psyche). This dense, highly corrosion-resistant element is one of the rarest in Earth's crust, but scientists believe it may be abundant in metallic asteroids like Psyche. The asteroid, located in the main asteroid belt between Mars and Jupiter, is thought to be the exposed metallic core of a protoplanet that lost its outer layers through violent collisions during the early solar system.\n\r\nNASA's upcoming Psyche mission aims to study this unique asteroid, which could contain significant amounts of iron and nickel along with precious metals like iridium. ", iridiumSprite);
+        popupManager.ShowPopup("Iridium, a rare platinum-group metal with atomic number 77, has fascinating connections to the Psyche asteroid (16 Psyche). This dense, highly corrosion-resistant element is one of the rarest in Earth's crust, but scientists believe it may be abundant in metallic asteroids like Psyche. The asteroid, located in the main asteroid belt between Mars and Jupiter, is thought to be the exposed metallic core of a protoplanet that lost its outer layers through violent collisions during the early solar system. Surprise Note:  Discovery of an iridium-rich clay layer in rocks in Gubbio, Italy, produced at the end of the Cretaceous period, indicated a giant asteroid strike wiped out the dinosaurs 65 million years ago! NASA's upcoming Psyche mission aims to study this unique asteroid, which could contain significant amounts of iron and nickel along with precious metals like iridium. ", iridiumSprite);
     }
 
     void ShowGoldPopup()
@@ -373,7 +373,7 @@ public class PlayerMovement : MonoBehaviour
 
     void ShowCobaltPopup()
     {
-        popupManager.ShowPopup("Cobalt, atomic number 27, represents an important element in the study of the Psyche asteroid (16 Psyche). This magnetic metal often occurs naturally alongside iron and nickel in meteorites, and scientists believe it could be present in significant quantities within Psyche's composition. As a transition metal commonly found in planetary cores, cobalt's presence and distribution within Psyche could provide valuable clues about the formation of planetary bodies.\n\r\nThe NASA Psyche mission's investigation of this metallic asteroid could reveal new insights about how cobalt and other metals were distributed during the early solar system's formation, potentially improving our understanding of planetary core composition.", cobaltSprite);
+        popupManager.ShowPopup("Cobalt, atomic number 27, represents an important element in the study of the Psyche asteroid (16 Psyche). This magnetic metal often occurs naturally alongside iron and nickel in meteorites, and scientists believe it could be present in significant quantities within Psyche's interior. As a transition metal commonly found in planetary cores, cobalt's presence and distribution within Psyche could provide valuable clues about the formation of planetary bodies.\n\r\nThe NASA Psyche mission's investigation of this metallic asteroid could reveal new insights about how cobalt and other metals were distributed during the early solar system's formation, potentially improving our understanding of planetary core composition.", cobaltSprite);
     }
 
     void ShowAllStatUpPopup()
