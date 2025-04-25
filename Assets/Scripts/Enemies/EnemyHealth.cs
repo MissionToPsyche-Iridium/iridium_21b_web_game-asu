@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
@@ -22,8 +23,9 @@ public class EnemyHealth : MonoBehaviour
     public GameObject damageUpgrade;
     public GameObject firerateUpgrade;
     public GameObject healthUpgrade;
-    private GameObject[] metals;
-    private GameObject[] upgrades;
+    public static int numMetals = 1;
+    private List<GameObject> currentMetals;
+    private List<GameObject> upgrades = new List<GameObject>();
     private float newXScale;
     private Vector3 healthBar_Scale;
     private Vector3 healthBar_Pos;
@@ -40,8 +42,9 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = currentHealth * healthScale;
         healthBar_Scale = healthBar.transform.localScale;
         healthBar_Pos = healthBar.transform.localPosition;
-        metals = new GameObject[] { goldDrop, cobaltDrop, iridiumDrop, ironDrop, nickelDrop };
-        upgrades = new GameObject[] { damageUpgrade, firerateUpgrade, healthUpgrade };
+
+        currentMetals = new List<GameObject> { iridiumDrop, goldDrop,  cobaltDrop, ironDrop, nickelDrop };
+        upgrades = new List<GameObject> { damageUpgrade, firerateUpgrade, healthUpgrade };
 
     }
 
@@ -117,13 +120,13 @@ public class EnemyHealth : MonoBehaviour
         else
         {
             //random metal drop by default
-            randomDrops(metals);
+            randomDrops(currentMetals);
         }
     }
 
-    void randomDrops(GameObject[] options)
+    void randomDrops(List<GameObject> options)
     {
-        float drop = UnityEngine.Random.Range(0, options.Length);
+        float drop = UnityEngine.Random.Range(0, numMetals);
         Instantiate(options[Convert.ToInt32(drop)], transform.position, Quaternion.identity);
     }
 }
