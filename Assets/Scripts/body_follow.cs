@@ -32,8 +32,14 @@ public class body_follow : MonoBehaviour
     private string lastFacingDirection = "";
     private bool ready = false;
     private bool hasNewBehavior = false;
+
+    public AudioClip deathSound;
+    public AudioClip bossHitSound;
+    private AudioSource audioSource;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         spriteRend = GetComponent<SpriteRenderer>();
         StartCoroutine(Wait(delay));
     }
@@ -205,5 +211,18 @@ public class body_follow : MonoBehaviour
         yield return null; // Wait one frame
         animator.SetTrigger(lastFacingDirection);
         waitingBeforeRedirect = false;
+    }
+
+    public void OnDeath() {
+        this.enabled = false;
+        if (audioSource != null && deathSound != null) {
+            audioSource.PlayOneShot(deathSound);
+        }
+        animator.SetBool("death", true);
+    }
+    public void OnHit() {
+        if (audioSource != null && deathSound != null) {
+            audioSource.PlayOneShot(bossHitSound);
+        }
     }
 }

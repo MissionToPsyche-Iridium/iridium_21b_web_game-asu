@@ -29,6 +29,7 @@ public class head_behavior : MonoBehaviour, IEnemyDeathHandler
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         lastSeenX = transform.position.x;
         lastSeenY = transform.position.y;
         speed = speed * speedFactor;
