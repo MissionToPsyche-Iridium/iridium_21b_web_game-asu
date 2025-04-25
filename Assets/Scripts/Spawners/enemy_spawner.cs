@@ -108,8 +108,13 @@ public class enemy_spawner : MonoBehaviour
 
     void Update()
     {
-
-        //Check for end of wave
+        if (currentInvalid != -1)
+        {
+            Debug.Log(nodeList[currentInvalid].x + " " + nodeList[currentInvalid].y);
+            Debug.DrawLine(Player.transform.position, new Vector3(nodeList[currentInvalid].x, nodeList[currentInvalid].y), Color.green);
+            //Debug.DrawLine(Player.transform.position, new Vector3(nearestMap.transform.position.x, nearestMap.transform.position.y), Color.green);
+        }
+            //Check for end of wave
         if (waiting)
         {
             return;
@@ -170,7 +175,8 @@ public class enemy_spawner : MonoBehaviour
             bossEnemies = 0;
             maxWaveEnemies += 5;
             waveNumber++;
-
+            if (EnemyHealth.numMetals < 5) EnemyHealth.numMetals++;
+            
             if (waveNumber == 16)
             {
                 SceneManager.LoadScene("VictoryScene");
@@ -277,15 +283,12 @@ public class enemy_spawner : MonoBehaviour
         for (int i = 0; i < nodeList.Length; i++)
         {
             node = nodeList[i];
-            if (hasLineOfSight(node.node_obj, "node"))
+            temp_dist = Vector3.Distance(node.node_obj.position, Player.transform.position);
+            if (temp_dist < dist)
             {
-                temp_dist = Vector3.Distance(node.node_obj.position, Player.transform.position);
-                if (temp_dist < dist)
-                {
-                    dist = temp_dist;
-                    ret_node = node;
-                    ret_index = i;
-                }
+                dist = temp_dist;
+                ret_node = node;
+                ret_index = i;
             }
         }
 
