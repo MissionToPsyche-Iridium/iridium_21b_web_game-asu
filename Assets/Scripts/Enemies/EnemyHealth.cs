@@ -115,18 +115,20 @@ public class EnemyHealth : MonoBehaviour
         else if (drop == 6) //Damage / Firerate / HealthUp
         {
             //random upgrade drop
-            randomDrops(upgrades);
+            randomDrops(upgrades, 3);
         }
         else
         {
             //random metal drop by default
-            randomDrops(currentMetals);
+            randomDrops(currentMetals, numMetals);
         }
     }
 
-    void randomDrops(List<GameObject> options)
+    void randomDrops(List<GameObject> options, int upper)
     {
-        float drop = UnityEngine.Random.Range(0, numMetals);
+        Debug.Log("numMetals: " + numMetals);
+        float drop = UnityEngine.Random.Range(0, upper);
+        Debug.Log("drop float: " + drop);
         Instantiate(options[Convert.ToInt32(drop)], transform.position, Quaternion.identity);
     }
 }
