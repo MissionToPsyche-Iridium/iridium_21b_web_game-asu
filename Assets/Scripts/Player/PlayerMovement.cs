@@ -454,10 +454,10 @@ public class PlayerMovement : MonoBehaviour
             }
             if (!firstIridiumCollected)
             {
+                popupDict["Iridium"]?.Invoke();
                 firstIridiumCollected = true;
                 metalLog.Add("Iridium");
                 resetMetalIndex();
-                
             }
             numIridium++;
             updateMetals();
@@ -478,10 +478,10 @@ public class PlayerMovement : MonoBehaviour
             }
             if (!firstGoldCollected)
             {
+                popupDict["Gold"]?.Invoke();
                 firstGoldCollected = true;
                 metalLog.Add("Gold");
                 resetMetalIndex();
-                
             }
             numGold++;
             updateMetals();
@@ -502,10 +502,10 @@ public class PlayerMovement : MonoBehaviour
             }
             if (!firstNickelCollected)
             {
+                popupDict["Nickel"]?.Invoke();
                 firstNickelCollected = true;
                 metalLog.Add("Nickel");
-                resetMetalIndex();
-                
+                resetMetalIndex(); 
             }
             numNickel++;
             updateMetals();
@@ -526,10 +526,10 @@ public class PlayerMovement : MonoBehaviour
             }
             if (!firstIronCollected)
             {
+                popupDict["Iron"]?.Invoke();
                 firstIronCollected = true;
                 metalLog.Add("Iron");
                 resetMetalIndex();
-                
             }
             numIron++;
             updateMetals();
@@ -550,6 +550,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (!firstColbaltCollected)
             {
+                popupDict["Cobalt"]?.Invoke();
                 firstColbaltCollected = true;
                 metalLog.Add("Cobalt");
                 resetMetalIndex();
