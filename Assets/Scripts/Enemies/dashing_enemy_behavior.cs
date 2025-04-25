@@ -26,9 +26,14 @@ public class dash_enemy_script : MonoBehaviour, IEnemyDeathHandler
     private EnemyHealth healthScript;
     public Animator animator;
     private Vector3 lastPosition;
+
+    public AudioClip deathSound;
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         lastSeenX = transform.position.x;
         lastSeenY = transform.position.y;
         speed = speed * speedFactor;
@@ -293,6 +298,9 @@ public class dash_enemy_script : MonoBehaviour, IEnemyDeathHandler
     }
     public void OnDeath() {
         this.enabled = false;
+        if (audioSource != null && deathSound != null) {
+            audioSource.PlayOneShot(deathSound);
+        }
         animator.SetBool("death", true);
     }
 }

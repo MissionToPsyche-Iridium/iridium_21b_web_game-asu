@@ -25,8 +25,9 @@ public class shoot_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
     private EnemyHealth healthScript;
     public Animator animator;
     private Vector3 lastPosition;
-    // Start is called before the first frame update
 
+    public AudioClip deathSound;
+    private AudioSource audioSource;
 
     void Awake() {
         animator = GetComponent<Animator>();  // finds animator on wake
@@ -34,6 +35,7 @@ public class shoot_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
     }
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         lastSeenX = transform.position.x;
         lastSeenY = transform.position.y;
         speed = speed * speedFactor;
@@ -264,6 +266,9 @@ public class shoot_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
     }
     public void OnDeath() {
         this.enabled = false;
+        if (audioSource != null && deathSound != null) {
+            audioSource.PlayOneShot(deathSound);
+        }
         animator.SetBool("death", true);
     }
 }
