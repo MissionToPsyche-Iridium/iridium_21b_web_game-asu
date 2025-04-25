@@ -108,13 +108,7 @@ public class enemy_spawner : MonoBehaviour
 
     void Update()
     {
-        if (currentInvalid != -1)
-        {
-            Debug.Log(nodeList[currentInvalid].x + " " + nodeList[currentInvalid].y);
-            Debug.DrawLine(Player.transform.position, new Vector3(nodeList[currentInvalid].x, nodeList[currentInvalid].y), Color.green);
-            //Debug.DrawLine(Player.transform.position, new Vector3(nearestMap.transform.position.x, nearestMap.transform.position.y), Color.green);
-        }
-            //Check for end of wave
+        //Check for end of wave
         if (waiting)
         {
             return;
