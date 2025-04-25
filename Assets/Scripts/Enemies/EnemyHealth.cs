@@ -131,4 +131,18 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log("drop float: " + drop);
         Instantiate(options[Convert.ToInt32(drop)], transform.position, Quaternion.identity);
     }
+    public void OnDeathAnimationEnd() {
+        // disable renderers on death
+        GetComponent<SpriteRenderer>().enabled = false;
+
+        // disable all child renderers
+        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>()) {
+            sr.enabled = false;
+        }
+
+        // Disable hitboxes on death
+        foreach (Collider2D col in GetComponentsInChildren<Collider2D>()) {
+            col.enabled = false;
+        }
+    }
 }
