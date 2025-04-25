@@ -63,7 +63,7 @@ public class EnemyHealth : MonoBehaviour
         {
             randomDrop();
             deathHandler?.OnDeath();
-            StartCoroutine(Die(.36f));
+            StartCoroutine(Die(.90f));
         }
     }
 
