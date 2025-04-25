@@ -106,7 +106,7 @@ public class Health : MonoBehaviour
     }
     public void OnDeathAnimationEnd() {
         // disable renderers on death
-        GetComponent<SpriteRenderer>().enabled = false;
+        //GetComponent<SpriteRenderer>().enabled = false;
 
         // disable all child renderers
         foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>()) {

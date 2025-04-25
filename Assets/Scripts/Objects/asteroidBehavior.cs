@@ -15,11 +15,15 @@ public class asteroidBehavior : MonoBehaviour
 
     private bool isDespawn = false;
     private Health playerHealth;
-    
+    public AudioClip deathClip;
+    private AudioSource audioSource;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         Player = GameObject.FindGameObjectWithTag("PlayerTag");
         playerHealth = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Health>();
         destroyY = transform.position.y - 15f;//Player.transform.position.y;
@@ -70,9 +74,23 @@ public class asteroidBehavior : MonoBehaviour
         }
     }
     private IEnumerator WaitForDespawn() {
+
+        audioSource.PlayOneShot(deathClip);
+
         // Wait for the animation duration (adjust based on your actual animation length)
         yield return new WaitForSeconds(despawnDelay);
+        // disable renderers on death
+        GetComponent<SpriteRenderer>().enabled = false;
 
+        // disable all child renderers
+        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>()) {
+            sr.enabled = false;
+        }
+
+        // Disable hitboxes on death
+        foreach (Collider2D col in GetComponentsInChildren<Collider2D>()) {
+            col.enabled = false;
+        }
         // Destroy the object after the animation is done
         Destroy(gameObject);
         isDespawn = false;

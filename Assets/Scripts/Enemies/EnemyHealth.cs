@@ -133,13 +133,17 @@ public class EnemyHealth : MonoBehaviour
     }
     public void OnDeathAnimationEnd() {
         // disable renderers on death
-        GetComponent<SpriteRenderer>().enabled = false;
+        //GetComponent<SpriteRenderer>().enabled = false;
 
         // disable all child renderers
         foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>()) {
             sr.enabled = false;
         }
 
+        
+        
+    }
+    public void OnDeathHitBox() {
         // Disable hitboxes on death
         foreach (Collider2D col in GetComponentsInChildren<Collider2D>()) {
             col.enabled = false;
