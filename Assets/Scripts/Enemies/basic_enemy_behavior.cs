@@ -26,9 +26,13 @@ public class basic_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
     public Animator animator;
     private Vector3 lastPosition;
 
+    public AudioClip deathSound;
+    private AudioSource audioSource;
+
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         lastSeenX = transform.position.x;
         lastSeenY = transform.position.y;
         speed = speed * speedFactor;
@@ -252,6 +256,9 @@ public class basic_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
         if (!isBoss)
         {
             this.enabled = false;
+            if (audioSource != null && deathSound != null) {
+                audioSource.PlayOneShot(deathSound);
+            }
             animator.SetBool("death", true);
         }
         else
