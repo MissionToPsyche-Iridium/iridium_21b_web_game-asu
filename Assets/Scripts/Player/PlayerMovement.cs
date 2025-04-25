@@ -155,24 +155,21 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(SpeedBoost());
         }
 
-        // Handle X-axis Dash
-        if (Input.GetButtonDown("Horizontal") && canUseDash && !isDashOnCooldown)
+        // Dash checking
+        if ((Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) &&
+            (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)))
         {
-            if (Time.time - lastPressTimeX < doublePressThreshold) // Checks for rapid double press
+            if (canUseDash && !isDashOnCooldown)
             {
-                Dash(Vector3.right * Mathf.Sign(Input.GetAxisRaw("Horizontal")));
-            }
-            lastPressTimeX = Time.time;
-        }
+                // Create a diagonal direction vector
+                Vector3 dashDirection = new Vector3(
+                    Input.GetAxisRaw("Horizontal"),
+                    Input.GetAxisRaw("Vertical"),
+                    0
+                ).normalized;
 
-        // Handle Y-axis Dash
-        if (Input.GetButtonDown("Vertical") && canUseDash && !isDashOnCooldown)
-        {
-            if (Time.time - lastPressTimeY < doublePressThreshold)
-            {
-                Dash(Vector3.up * Mathf.Sign(Input.GetAxisRaw("Vertical")));
+                Dash(dashDirection);
             }
-            lastPressTimeY = Time.time;
         }
 
         // --- Push-Back Activation ---
@@ -212,8 +209,9 @@ public class PlayerMovement : MonoBehaviour
     {
         AnimDirection(direction);
         animator.SetTrigger("isDashing");
+
         transform.position += direction * dashDistance;
-        StartCoroutine(DashCooldown());  // Start dash cooldown after each dash
+        StartCoroutine(DashCooldown());
     }
 
     // Dash cooldown coroutine
@@ -388,7 +386,7 @@ public class PlayerMovement : MonoBehaviour
 
     void ShowDashPopup()
     {
-        popupManager.ShowPopup("Evade Unlocked! Double-tap a direction and you will do a quick evade in that direction. Useful for getting out of sticky situations. 2 second cooldown in-between uses.", dashSprite);
+        popupManager.ShowPopup("Evade Unlocked! Use it by pressing either Shift button. Useful for getting out of sticky situations. 2 second cooldown in-between uses.", dashSprite);
     }
 
     void ShowFullHealthPopup()
