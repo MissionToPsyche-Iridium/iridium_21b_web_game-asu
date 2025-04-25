@@ -643,7 +643,7 @@ public class PlayerMovement : MonoBehaviour
                 resetMetalIndex();
             }
             health.maxHealth += 50;
-            health.curHealth = health.maxHealth;
+            health.curHealth += 50;
 
             health.invincibilityTime += .25f;
             health.healthBar.SetHealth(health.curHealth);
