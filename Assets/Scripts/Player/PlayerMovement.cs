@@ -737,11 +737,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void updateMetals()
     {
-        metalText.text = "Iridium: " + numIridium + "\n" +
+        metalText.text = 
+            "Iridium: " + numIridium + "\n" +
             "Gold: " + numGold + "\n" +
             "Cobalt: " + numCobalt + "\n" +
             "Iron: " + numIron + "\n" +
-            "Nickel: " + numNickel;
+            "Nickel: " + numNickel + "\n" +
+            "Score: " + ((numIridium) + (numGold*2) + (numCobalt*4) + (numIron*6) + (numNickel*8));
     }
 
     private void printMetals()

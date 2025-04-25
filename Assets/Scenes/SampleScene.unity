@@ -2771,7 +2771,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -300}
+  m_AnchoredPosition: {x: 91.4, y: -328}
   m_SizeDelta: {x: 223.791, y: 43.491}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &352159587
@@ -75352,6 +75352,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2573789138505074668, guid: 452628f621a924f44ae2085adbee5e6a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 893.07
+      objectReference: {fileID: 0}
     - target: {fileID: 2832285356229142566, guid: 452628f621a924f44ae2085adbee5e6a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -75491,6 +75495,21 @@ PrefabInstance:
     - target: {fileID: 3784258422008835922, guid: 452628f621a924f44ae2085adbee5e6a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3907171532869704450, guid: 452628f621a924f44ae2085adbee5e6a, type: 3}
+      propertyPath: m_Text
+      value: 'Iridium: 0
+
+        Gold: 0
+
+        Cobalt: 0
+
+        Iron: 0
+
+        Nickel:
+        0
+
+        Score: 0'
       objectReference: {fileID: 0}
     - target: {fileID: 4144525834780723411, guid: 452628f621a924f44ae2085adbee5e6a, type: 3}
       propertyPath: m_AnchorMax.x
