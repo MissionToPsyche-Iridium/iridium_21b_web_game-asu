@@ -130,7 +130,12 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log("numMetals: " + numMetals);
         float drop = UnityEngine.Random.Range(0, upper);
         Debug.Log("drop float: " + drop);
-        Instantiate(options[Convert.ToInt32(drop)], transform.position, Quaternion.identity);
+        int index = Mathf.Clamp(Mathf.FloorToInt(drop), 0, options.Count - 1);
+        GameObject dropObj = options[index];
+        // previous Instantiate below. There was more code that was suggested in the fix
+        // to make it safer but ima do it dirty
+        //Instantiate(options[Convert.ToInt32(drop)], transform.position, Quaternion.identity);
+        Instantiate(dropObj, transform.position, Quaternion.identity);
     }
     public void OnDeathAnimationEnd() {
         // disable renderers on death

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class head_behavior : MonoBehaviour
+public class head_behavior : MonoBehaviour, IEnemyDeathHandler
 {
     public GameObject Player;
     public GameObject nodeMap;
@@ -22,6 +22,10 @@ public class head_behavior : MonoBehaviour
     private bool hasTarget = false;
     private bool patrolling = false;
     private bool isSegment;
+
+    public AudioClip deathSound;
+    public AudioClip bossHitSound;
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -245,6 +249,18 @@ public class head_behavior : MonoBehaviour
             animator.ResetTrigger(lastFacingDirection); // Clear previous trigger
             animator.SetTrigger(newDirection);
             lastFacingDirection = newDirection; // Update last known direction
+        }
+    }
+    public void OnDeath() {
+        this.enabled = false;
+        if (audioSource != null && deathSound != null) {
+            audioSource.PlayOneShot(deathSound);
+        }
+        animator.SetBool("death", true);
+    }
+    public void OnHit() {
+        if (audioSource != null && deathSound != null) {
+            audioSource.PlayOneShot(bossHitSound);
         }
     }
 }

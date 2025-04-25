@@ -59925,6 +59925,7 @@ MonoBehaviour:
   firePoint: {fileID: 924899516}
   fireRate: 3
   detectionRadius: 8
+  animator: {fileID: 0}
 --- !u!114 &965104762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59942,6 +59943,8 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   animator: {fileID: 965104760}
   gameOverScreen: {fileID: 0}
+  metalsCollected: {fileID: 0}
+  partsCollected: {fileID: 0}
   damageSFX: {fileID: 8300000, guid: 93fba0b1bf5014543918fa775911b6a3, type: 3}
   invincibilityTime: 1
 --- !u!61 &965104763
@@ -60082,7 +60085,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curHealth: 0
   maxHealth: 0
-  projectileScript: {fileID: 0}
   cm: {fileID: 1331048783}
   moveSpeed: 5
   speedBoostMultiplier: 1.5
@@ -60100,6 +60102,7 @@ MonoBehaviour:
   pushBackForce: 50
   pushBackCooldown: 2
   pushBackAvailabilityDuration: 30
+  abilityEffectPrefab: {fileID: 0}
   animator: {fileID: 965104760}
   vcam: {fileID: 0}
   zoomOutSize: 14
@@ -60112,6 +60115,21 @@ MonoBehaviour:
   ironSprite: {fileID: 21300000, guid: 1d18bd728741b70438e1342f17f6a72f, type: 3}
   nickelSprite: {fileID: 21300000, guid: c837bad3711b3564eb5504eef49f80b8, type: 3}
   cobaltSprite: {fileID: 21300000, guid: d785e049b88f821409da9155a8b5b254, type: 3}
+  allStatUpSprite: {fileID: 0}
+  damageSprite: {fileID: 0}
+  dashSprite: {fileID: 0}
+  fullHealthSprite: {fileID: 0}
+  fireRateSprite: {fileID: 0}
+  healthUpSprite: {fileID: 0}
+  PushbackSprite: {fileID: 0}
+  RocketSprite: {fileID: 0}
+  UpgradeMenu: {fileID: 0}
+  powerupLog: []
+  metalLog: []
+  metalLogCount: {fileID: 0}
+  powerupLogCount: {fileID: 0}
+  itemSound: {fileID: 0}
+  powerUpSound: {fileID: 0}
 --- !u!4 &965104767
 Transform:
   m_ObjectHideFlags: 0
@@ -61828,7 +61846,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.73, y: 0.56}
+    oldSize: {x: 11.3125, y: 8.3125}
     newSize: {x: 5, y: 3}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -61890,7 +61908,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 83e23af82ae574ad1a18b7ab92cb3205, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4735eaa83f0f7bf4ab44847ce6f683a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -61911,7 +61929,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.9791, y: 0.6, z: 0}
-  m_LocalScale: {x: 5.070855, y: 4.33102, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

@@ -115,9 +115,13 @@ public class PlayerMovement : MonoBehaviour
     public Text metalLogCount;
     public Text powerupLogCount;
     private IridiumPopupManager popupManager;
+    public AudioClip itemSound;
+    public AudioClip powerUpSound;
+    private AudioSource audioSource;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         health = GetComponent<Health>();
         autoShooterScript = GetComponent<AutoShooter>();
         projectileScript = FindObjectOfType<Projectile>();
@@ -457,6 +461,7 @@ public class PlayerMovement : MonoBehaviour
                 metalLog.Add("Iridium");
                 resetMetalIndex();
             }
+            audioSource.PlayOneShot(itemSound);
             numIridium++;
             updateMetals();
             Destroy(other.gameObject);
@@ -481,6 +486,7 @@ public class PlayerMovement : MonoBehaviour
                 metalLog.Add("Gold");
                 resetMetalIndex();
             }
+            audioSource.PlayOneShot(itemSound);
             numGold++;
             updateMetals();
             Destroy(other.gameObject);
@@ -505,6 +511,7 @@ public class PlayerMovement : MonoBehaviour
                 metalLog.Add("Nickel");
                 resetMetalIndex(); 
             }
+            audioSource.PlayOneShot(itemSound);
             numNickel++;
             updateMetals();
             Destroy(other.gameObject);
@@ -529,6 +536,7 @@ public class PlayerMovement : MonoBehaviour
                 metalLog.Add("Iron");
                 resetMetalIndex();
             }
+            audioSource.PlayOneShot(itemSound);
             numIron++;
             updateMetals();
             Destroy(other.gameObject);
@@ -554,12 +562,14 @@ public class PlayerMovement : MonoBehaviour
                 resetMetalIndex();
                 
             }
+            audioSource.PlayOneShot(itemSound);
             numCobalt++;
             updateMetals();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Rocket"))
         {
+            audioSource.PlayOneShot(powerUpSound);
             if (!firstRocketCollected)
             {
                 popupDict["Rocket"]?.Invoke(); //shows the rocket popup
@@ -572,6 +582,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Dash"))
         {
+            audioSource.PlayOneShot(powerUpSound);
             if (!firstDashCollected)
             {
                 popupDict["Dash"]?.Invoke(); //shows the dash popup
@@ -584,6 +595,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("PushBack"))
         {
+            audioSource.PlayOneShot(powerUpSound);
             if (!firstPushbackCollected)
             {
                 popupDict["PushBack"]?.Invoke(); //shows the pushback popup
@@ -596,6 +608,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("FireRate"))
         {
+            audioSource.PlayOneShot(powerUpSound);
 
             if (!firstFireRateCollected)
             {
@@ -609,6 +622,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("damage"))
         {
+            audioSource.PlayOneShot(powerUpSound);
             if (!firstDamageCollected)
             {
                 popupDict["Damage"]?.Invoke(); //shows the damage popup
@@ -621,6 +635,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("health"))
         {
+            audioSource.PlayOneShot(powerUpSound);
             if (!firstFullHealthCollected)
             {
                 popupDict["Health"]?.Invoke(); //shows the fullhealth popup
@@ -633,6 +648,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("healthUp"))
         {
+            audioSource.PlayOneShot(powerUpSound);
             if (!firstHealthUpCollected)
             {
                 popupDict["HealthUp"]?.Invoke(); //shows the healthup popup
@@ -649,6 +665,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("AllStatsUp"))
         {
+            audioSource.PlayOneShot(powerUpSound);
             if (!firstAllStatUpCollected)
             {
                 popupDict["AllStatsUp"]?.Invoke(); //shows the fullhealth popup
