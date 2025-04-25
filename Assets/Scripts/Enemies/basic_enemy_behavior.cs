@@ -27,6 +27,7 @@ public class basic_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
     private Vector3 lastPosition;
 
     public AudioClip deathSound;
+    public AudioClip rockHitSound;
     private AudioSource audioSource;
 
 
@@ -264,6 +265,11 @@ public class basic_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
         else
         {
             return;
+        }
+    }
+    public void OnHit() {
+        if (audioSource != null && deathSound != null) {
+            audioSource.PlayOneShot(rockHitSound, .3f);
         }
     }
 

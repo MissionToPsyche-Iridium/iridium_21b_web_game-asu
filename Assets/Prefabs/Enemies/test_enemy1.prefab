@@ -112,6 +112,7 @@ MonoBehaviour:
   isBoss: 0
   animator: {fileID: 6926458356702954250}
   deathSound: {fileID: 8300000, guid: c751183820abeea4eb6ab9151017820d, type: 3}
+  rockHitSound: {fileID: 8300000, guid: 8f861ec110d18f0439a799adcc869a5b, type: 3}
 --- !u!58 &8652868582898079585
 CircleCollider2D:
   m_ObjectHideFlags: 0

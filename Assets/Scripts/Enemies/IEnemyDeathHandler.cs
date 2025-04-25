@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IEnemyDeathHandler
 {
     void OnDeath();
+    void OnHit();
 }

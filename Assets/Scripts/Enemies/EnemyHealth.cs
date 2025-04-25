@@ -51,6 +51,7 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(float amount)
     {
         if (currentHealth <= 0) return; // Prevent multiple death calls
+        deathHandler?.OnHit();          // Calls the hit function in each enemy type. DeathHandler might have been a bad name
         currentHealth = Mathf.Max(currentHealth - amount, 0f);
 
         // Update health bar

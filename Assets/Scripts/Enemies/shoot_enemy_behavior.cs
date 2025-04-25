@@ -27,6 +27,7 @@ public class shoot_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
     private Vector3 lastPosition;
 
     public AudioClip deathSound;
+    public AudioClip ghostHitSound;
     private AudioSource audioSource;
 
     void Awake() {
@@ -270,5 +271,10 @@ public class shoot_enemy_behavior : MonoBehaviour, IEnemyDeathHandler
             audioSource.PlayOneShot(deathSound);
         }
         animator.SetBool("death", true);
+    }
+    public void OnHit() {
+        if (audioSource != null && deathSound != null) {
+            audioSource.PlayOneShot(ghostHitSound);
+        }
     }
 }

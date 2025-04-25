@@ -28,6 +28,7 @@ public class dash_enemy_script : MonoBehaviour, IEnemyDeathHandler
     private Vector3 lastPosition;
 
     public AudioClip deathSound;
+    public AudioClip rockHitSound;
     private AudioSource audioSource;
 
     // Start is called before the first frame update
@@ -302,5 +303,10 @@ public class dash_enemy_script : MonoBehaviour, IEnemyDeathHandler
             audioSource.PlayOneShot(deathSound);
         }
         animator.SetBool("death", true);
+    }
+    public void OnHit() {
+        if (audioSource != null && deathSound != null) {
+            audioSource.PlayOneShot(rockHitSound, .3f);
+        }
     }
 }

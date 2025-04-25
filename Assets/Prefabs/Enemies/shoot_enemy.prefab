@@ -172,6 +172,7 @@ MonoBehaviour:
   speed: 5
   animator: {fileID: 2178811911738697503}
   deathSound: {fileID: 8300000, guid: 8ef74c766f0fe5d40a85426504c8e0e2, type: 3}
+  ghostHitSound: {fileID: 8300000, guid: b77ee8e03797a7140a8d67fdc9d53b70, type: 3}
 --- !u!114 &8815284805590740518
 MonoBehaviour:
   m_ObjectHideFlags: 0
