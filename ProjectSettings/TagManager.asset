@@ -37,6 +37,7 @@ TagManager:
   - spacecraft_part
   - Slow
   - centerMap
+  - Crater
   layers:
   - Default
   - TransparentFX

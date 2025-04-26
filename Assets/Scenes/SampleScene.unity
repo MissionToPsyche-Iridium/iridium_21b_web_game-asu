@@ -2881,7 +2881,7 @@ GameObject:
   - component: {fileID: 353951100}
   m_Layer: 0
   m_Name: Crater_Medium (19)
-  m_TagString: wall
+  m_TagString: Crater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3111,7 +3111,7 @@ GameObject:
   - component: {fileID: 385109602}
   m_Layer: 0
   m_Name: Crater_Medium (16)
-  m_TagString: Untagged
+  m_TagString: Crater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3333,7 +3333,7 @@ GameObject:
   - component: {fileID: 389525292}
   m_Layer: 2
   m_Name: North Crater
-  m_TagString: Untagged
+  m_TagString: Crater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3963,7 +3963,7 @@ GameObject:
   - component: {fileID: 485633678}
   m_Layer: 0
   m_Name: Crater_Small (8)
-  m_TagString: wall
+  m_TagString: Crater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41103,8 +41103,8 @@ Tilemap:
   - first: {x: -7, y: 11, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 27
-      m_TileSpriteIndex: 27
+      m_TileIndex: 103
+      m_TileSpriteIndex: 103
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -44563,8 +44563,8 @@ Tilemap:
   - first: {x: 3, y: 15, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 24
-      m_TileSpriteIndex: 24
+      m_TileIndex: 104
+      m_TileSpriteIndex: 104
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -45413,8 +45413,8 @@ Tilemap:
   - first: {x: 4, y: 16, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 24
-      m_TileSpriteIndex: 24
+      m_TileIndex: 104
+      m_TileSpriteIndex: 104
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -64240,13 +64240,13 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 90c09a0e63a2a594b9b0cdf58982c81b, type: 2}
   - m_RefCount: 30
     m_Data: {fileID: 11400000, guid: 578ae322d1099b94fa3057b04ec6ac22, type: 2}
-  - m_RefCount: 436
+  - m_RefCount: 434
     m_Data: {fileID: 11400000, guid: 0e2cdce116aa2124a9123b61d74d37c8, type: 2}
   - m_RefCount: 21
     m_Data: {fileID: 11400000, guid: 195d30c857e606a419a3839d7b123451, type: 2}
   - m_RefCount: 23
     m_Data: {fileID: 11400000, guid: ae487494cfc5e804ea7b32633dfdf184, type: 2}
-  - m_RefCount: 280
+  - m_RefCount: 279
     m_Data: {fileID: 11400000, guid: ad3777511a2536a4f8de7309b00e66b9, type: 2}
   - m_RefCount: 23
     m_Data: {fileID: 11400000, guid: 097ab38f995d82a4eb67513accf9658c, type: 2}
@@ -64398,9 +64398,9 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: bf6c30ee226da974a849ceb3c28e8880, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 06897582f2c48d6439f30243ac24b736, type: 2}
-  - m_RefCount: 5
+  - m_RefCount: 6
     m_Data: {fileID: 11400000, guid: 7b25f3e2022e681408cec5f671c8629d, type: 2}
-  - m_RefCount: 3
+  - m_RefCount: 5
     m_Data: {fileID: 11400000, guid: 40a3302aaf00c1048b22b697852d54d2, type: 2}
   - m_RefCount: 5
     m_Data: {fileID: 11400000, guid: 7ef3c1ae2f32cf84eaa93297196bc565, type: 2}
@@ -64489,13 +64489,13 @@ Tilemap:
     m_Data: {fileID: -1304426543, guid: ea24e9716491a7a4b88c43ec924da993, type: 3}
   - m_RefCount: 30
     m_Data: {fileID: -1972163091, guid: ea24e9716491a7a4b88c43ec924da993, type: 3}
-  - m_RefCount: 436
+  - m_RefCount: 434
     m_Data: {fileID: -324585045, guid: ea24e9716491a7a4b88c43ec924da993, type: 3}
   - m_RefCount: 21
     m_Data: {fileID: 1733753508, guid: ea24e9716491a7a4b88c43ec924da993, type: 3}
   - m_RefCount: 23
     m_Data: {fileID: 1106569954, guid: ea24e9716491a7a4b88c43ec924da993, type: 3}
-  - m_RefCount: 280
+  - m_RefCount: 279
     m_Data: {fileID: 434036850, guid: ea24e9716491a7a4b88c43ec924da993, type: 3}
   - m_RefCount: 23
     m_Data: {fileID: -1030312112, guid: ea24e9716491a7a4b88c43ec924da993, type: 3}
@@ -64647,9 +64647,9 @@ Tilemap:
     m_Data: {fileID: -158217932, guid: 482b5b45d14955749baeb178d7edd53b, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 918347988, guid: 482b5b45d14955749baeb178d7edd53b, type: 3}
-  - m_RefCount: 5
+  - m_RefCount: 6
     m_Data: {fileID: -1883191285, guid: a1f984ae359340c4caa9fbd0e006173e, type: 3}
-  - m_RefCount: 3
+  - m_RefCount: 5
     m_Data: {fileID: 495667296, guid: a1f984ae359340c4caa9fbd0e006173e, type: 3}
   - m_RefCount: 5
     m_Data: {fileID: 225903821, guid: a1f984ae359340c4caa9fbd0e006173e, type: 3}
@@ -65276,7 +65276,7 @@ GameObject:
   - component: {fileID: 869089585}
   m_Layer: 0
   m_Name: Crater_Medium (14)
-  m_TagString: wall
+  m_TagString: Crater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66863,18 +66863,18 @@ PolygonCollider2D:
       - {x: 15.406459, y: -4.468662}
       - {x: 14.504741, y: -5.4313517}
       - {x: 15.94943, y: -5.4402714}
-      - {x: 16.867016, y: -4.9806876}
-      - {x: 17.550367, y: -4.5498543}
+      - {x: 17.479177, y: -5.446276}
+      - {x: 17.481392, y: -4.541232}
       - {x: 20.708853, y: -4.4625645}
-      - {x: 23.128614, y: -2.0150948}
-      - {x: 23.836575, y: -1.6511631}
+      - {x: 23.074171, y: -2.0150948}
+      - {x: 23.727692, y: -1.460618}
       - {x: 24.465006, y: -1.477541}
       - {x: 25.502604, y: -0.36617088}
       - {x: 26.026377, y: 0.14835358}
       - {x: 26.411388, y: 0.5428047}
-      - {x: 26.921833, y: 0.919817}
-      - {x: 27.559278, y: 1.1164513}
-      - {x: 27.768833, y: 1.3676243}
+      - {x: 27.14655, y: 0.50912666}
+      - {x: 27.48954, y: 0.5585365}
+      - {x: 27.551865, y: 1.468359}
       - {x: 28.40677, y: 1.4831505}
       - {x: 31.754044, y: 4.3262386}
       - {x: 32.271965, y: 4.4375324}
@@ -67229,7 +67229,7 @@ GameObject:
   - component: {fileID: 1011491200}
   m_Layer: 0
   m_Name: Crater_Small (7)
-  m_TagString: wall
+  m_TagString: Crater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67511,7 +67511,7 @@ GameObject:
   - component: {fileID: 1056413573}
   m_Layer: 2
   m_Name: East Crater
-  m_TagString: wall
+  m_TagString: Crater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68690,7 +68690,7 @@ GameObject:
   - component: {fileID: 1242061107}
   m_Layer: 0
   m_Name: Crater_Medium (1)
-  m_TagString: Untagged
+  m_TagString: Crater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69159,7 +69159,7 @@ GameObject:
   - component: {fileID: 1294170511}
   m_Layer: 0
   m_Name: Crater_Small (1)
-  m_TagString: wall
+  m_TagString: Crater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69908,7 +69908,7 @@ GameObject:
   - component: {fileID: 1351719026}
   m_Layer: 0
   m_Name: Crater_Medium
-  m_TagString: wall
+  m_TagString: Crater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73708,7 +73708,7 @@ GameObject:
   - component: {fileID: 1730159309}
   m_Layer: 0
   m_Name: Crater_Small (16)
-  m_TagString: Untagged
+  m_TagString: Crater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75350,7 +75350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2416794294359285958, guid: 452628f621a924f44ae2085adbee5e6a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2573789138505074668, guid: 452628f621a924f44ae2085adbee5e6a, type: 3}
       propertyPath: m_SizeDelta.y
@@ -75454,7 +75454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3683308077280161702, guid: 452628f621a924f44ae2085adbee5e6a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3713435846085431075, guid: 452628f621a924f44ae2085adbee5e6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -76829,7 +76829,7 @@ GameObject:
   - component: {fileID: 2042025073}
   m_Layer: 0
   m_Name: Crater_Medium (3)
-  m_TagString: wall
+  m_TagString: Crater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76970,7 +76970,7 @@ GameObject:
   - component: {fileID: 2050341421}
   m_Layer: 0
   m_Name: Crater_Medium (9)
-  m_TagString: Untagged
+  m_TagString: Crater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77330,7 +77330,7 @@ GameObject:
   - component: {fileID: 2135724712}
   m_Layer: 2
   m_Name: Southwest Crater
-  m_TagString: wall
+  m_TagString: Crater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

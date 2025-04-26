@@ -29,7 +29,7 @@ public class EnemyHealth : MonoBehaviour
     private float newXScale;
     private Vector3 healthBar_Scale;
     private Vector3 healthBar_Pos;
-    private IEnemyDeathHandler deathHandler;
+    private IEnemyDeathHandler deathHandler;        // calls objects with this script to signal hit/death
 
 
     private void Awake() {
