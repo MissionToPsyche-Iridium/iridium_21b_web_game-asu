@@ -56,6 +56,7 @@ public class AutoShooter : MonoBehaviour {
             Debug.LogWarning("Projectile prefab or FirePoint is not assigned on AutoShooter.");
         }
     }
+    // This was for animation directioning but I dont think its needed anymore
     void directionAnim(Vector3 move) {
         if (move.sqrMagnitude > 0) {
             animator.SetFloat("x", move.x);

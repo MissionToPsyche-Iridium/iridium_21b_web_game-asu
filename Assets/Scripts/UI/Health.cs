@@ -52,8 +52,15 @@ public class Health : MonoBehaviour
 
             if (curHealth <= 0)
             {
+                // Disable AutoShooter
+                AutoShooter shooter = GetComponent<AutoShooter>();
+                if (shooter != null) {
+                    shooter.enabled = false;
+                }
+                // audio and animator stuff
                 audioSource.PlayOneShot(deathSound, 1f);
                 animator.SetBool("death", true); // Trigger death animation
+                
                 StartCoroutine(ShowGameOverScreen(2f)); // Wait before showing Game Over
             }
         }
@@ -120,4 +127,5 @@ public class Health : MonoBehaviour
             col.enabled = false;
         }
     }
+    
 }

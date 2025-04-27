@@ -756,6 +756,7 @@ public class PlayerMovement : MonoBehaviour
             "Nickel: " + numNickel);
     }
 
+    // damage power up
     public void giveDamage()
     {
         Projectile.defaultDamageAmount += 25f;
@@ -769,7 +770,7 @@ public class PlayerMovement : MonoBehaviour
             firstDamageCollected = true;
         }
     }
-
+    // fire rate power up
     public void giveFirerate()
     {
         autoShooterScript.fireRate += 2f;
@@ -783,7 +784,7 @@ public class PlayerMovement : MonoBehaviour
             firstFireRateCollected = true;
         }
     }
-
+    // health up power up
     public void giveHealthUp()
     {
         health.maxHealth += 50;
