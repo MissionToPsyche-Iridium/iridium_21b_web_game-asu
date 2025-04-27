@@ -23,6 +23,7 @@ public class EnemyHealth : MonoBehaviour
     public GameObject damageUpgrade;
     public GameObject firerateUpgrade;
     public GameObject healthUpgrade;
+    public float deathDelay = .90f;
     public static int numMetals = 1;
     private List<GameObject> currentMetals;
     private List<GameObject> upgrades = new List<GameObject>();
@@ -64,7 +65,7 @@ public class EnemyHealth : MonoBehaviour
         {
             randomDrop();
             deathHandler?.OnDeath();
-            StartCoroutine(Die(.90f));
+            StartCoroutine(Die(deathDelay));
         }
     }
 

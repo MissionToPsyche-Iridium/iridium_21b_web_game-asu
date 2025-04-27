@@ -8,12 +8,13 @@ public class head_behavior : MonoBehaviour, IEnemyDeathHandler
     public GameObject nodeMap;
     public GameObject body;
     public Node[] nodeList = new Node[24];
-    public int numSegments = 5;
+    public static int numSegments = 5;
     public static float speedFactor = 1.0f;
     public Vector3 target;
     public Animator animator;
     private string lastFacingDirection = "";
     private List<GameObject> segments = new List<GameObject>();
+    private EnemyHealth healthScript;
     private Node currentNode;
     private GameObject[] enemyObjects;
     private float lastSeenX;
@@ -30,6 +31,8 @@ public class head_behavior : MonoBehaviour, IEnemyDeathHandler
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        healthScript = GetComponent<EnemyHealth>();
+        healthScript.deathDelay = 0f;
         lastSeenX = transform.position.x;
         lastSeenY = transform.position.y;
         speed = speed * speedFactor;
@@ -252,6 +255,7 @@ public class head_behavior : MonoBehaviour, IEnemyDeathHandler
             lastFacingDirection = newDirection; // Update last known direction
         }
     }
+
     public void OnDeath() {
         this.enabled = false;
         if (audioSource != null && deathSound != null) {

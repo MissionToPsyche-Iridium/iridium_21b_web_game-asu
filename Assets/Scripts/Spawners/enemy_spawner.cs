@@ -179,7 +179,7 @@ public class enemy_spawner : MonoBehaviour
             if (waveNumber % 5 == 0)
             {
                 maxBossEnemies += 1;
-                EnemyType4.GetComponentInChildren<head_behavior>().numSegments += 1;
+                head_behavior.numSegments += 1;
             }
 
             checkpoint();

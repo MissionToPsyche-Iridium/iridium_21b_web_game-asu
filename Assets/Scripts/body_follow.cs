@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class body_follow : MonoBehaviour
+public class body_follow : MonoBehaviour, IEnemyDeathHandler
 {
     public float speed = 7.0f;
     public static float speedFactor = 1.0f;
@@ -23,6 +23,9 @@ public class body_follow : MonoBehaviour
     public GameObject dodgePU;
     public GameObject healthPack;
     public GameObject AllStatIncrease;
+    public GameObject dmgUpgrade;
+    public GameObject firerateUpgrade;
+    public GameObject healthUpgrade;
     public Animator animator;
     private bool waitingBeforeRedirect = false;
     private SpriteRenderer spriteRend;
@@ -154,6 +157,7 @@ public class body_follow : MonoBehaviour
     {
         healthScript.currentHealth = 1500;
         healthScript.maxHealth = 1500;
+        healthScript.deathDelay = 0f;
         healthScript.healthBar = healthBar.gameObject;
         healthScript.goldDrop = goldDrop;
         healthScript.cobaltDrop = cobaltDrop;
@@ -164,6 +168,9 @@ public class body_follow : MonoBehaviour
         healthScript.dashPU = dashPU;
         healthScript.dodgePU = dodgePU;
         healthScript.healthPack = healthPack;
+        healthScript.damageUpgrade = dmgUpgrade;
+        healthScript.firerateUpgrade = firerateUpgrade;
+        healthScript.healthUpgrade = healthUpgrade;
         healthScript.AllStatIncrease = AllStatIncrease;
     }
 
