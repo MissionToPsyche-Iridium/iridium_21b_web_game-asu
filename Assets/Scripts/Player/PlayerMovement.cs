@@ -112,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject UpgradeMenu;
     [SerializeField] private List<String> powerupLog = new List<String>();
     [SerializeField] private List<String> metalLog = new List<String>();
+    public GameObject pushBackPrefab;
     public Text metalLogCount;
     public Text powerupLogCount;
     private IridiumPopupManager popupManager;
@@ -325,7 +326,7 @@ public class PlayerMovement : MonoBehaviour
     void ActivatePushBack()
     {
         //Debug.Log("ActivatePushBack called");
-
+        Instantiate(pushBackPrefab, transform.position, Quaternion.identity);
         // Find all colliders within the pushBackRadius
         int layerMask = LayerMask.GetMask("Ignore Raycast");
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, pushBackRadius, layerMask);

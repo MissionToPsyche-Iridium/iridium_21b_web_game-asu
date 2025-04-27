@@ -15,7 +15,8 @@ public class Health : MonoBehaviour
 
     // Damage audio vars
     public AudioClip damageSFX;
-    private AudioSource damageSFXfile;
+    public AudioClip deathSound;
+    private AudioSource audioSource;
 
     // Invincibility variables
     public float invincibilityTime = 0.5f; // Time player is invincible after taking damage
@@ -27,7 +28,7 @@ public class Health : MonoBehaviour
     void Start()
     {
         curHealth = maxHealth;
-        damageSFXfile = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         // Ensure Game Over screen is hidden at start
@@ -44,13 +45,14 @@ public class Health : MonoBehaviour
         {
             curHealth -= damage;
             healthBar.SetHealth(curHealth);
-            damageSFXfile.PlayOneShot(damageSFX, .75f); // Play damage audio 
+            audioSource.PlayOneShot(damageSFX, .75f); // Play damage audio 
 
             // Start invincibility
             StartCoroutine(InvincibilityFrames());
 
             if (curHealth <= 0)
             {
+                audioSource.PlayOneShot(deathSound, 1f);
                 animator.SetBool("death", true); // Trigger death animation
                 StartCoroutine(ShowGameOverScreen(2f)); // Wait before showing Game Over
             }

@@ -75350,7 +75350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2416794294359285958, guid: 452628f621a924f44ae2085adbee5e6a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2573789138505074668, guid: 452628f621a924f44ae2085adbee5e6a, type: 3}
       propertyPath: m_SizeDelta.y
@@ -75454,7 +75454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3683308077280161702, guid: 452628f621a924f44ae2085adbee5e6a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3713435846085431075, guid: 452628f621a924f44ae2085adbee5e6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -77719,6 +77719,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 725543554}
     - target: {fileID: 7915277361382739950, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0f237df51d0f0b54580418ad1ccb0614, type: 3}
+    - target: {fileID: 7915277361382739950, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
       propertyPath: gameOverScreen
       value: 
       objectReference: {fileID: 533014245}
@@ -77822,6 +77826,10 @@ PrefabInstance:
       propertyPath: healthUpSprite
       value: 
       objectReference: {fileID: 21300000, guid: 0ad13b8e972149b47ba0a0f72e6df301, type: 3}
+    - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
+      propertyPath: pushBackPrefab
+      value: 
+      objectReference: {fileID: 4071876765203131343, guid: 03b095bef6d185040b466bd3a604d8be, type: 3}
     - target: {fileID: 9093623938124146837, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
       propertyPath: allStatUpSprite
       value: 

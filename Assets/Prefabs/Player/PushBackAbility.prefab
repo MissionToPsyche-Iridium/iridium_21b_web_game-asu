@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2054389852513973669}
   - component: {fileID: -7983031482371330756}
   - component: {fileID: 760326961312216621}
+  - component: {fileID: 8058289599668738687}
   m_Layer: 0
   m_Name: PushBackAbility
   m_TagString: Untagged
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -347784672, guid: e37c215a150d5394d8028c8ab06c7c01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -106,3 +107,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8058289599668738687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4071876765203131343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac31770ff18e4f04ab2829eafd70ba2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
