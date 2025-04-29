@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
 
     // Invincibility variables
     public float invincibilityTime = 0.5f; // Time player is invincible after taking damage
-    private bool isInvincible = false;
+    public bool isInvincible = false;
 
     // Sprite renderer for blinking effect
     private SpriteRenderer spriteRenderer;

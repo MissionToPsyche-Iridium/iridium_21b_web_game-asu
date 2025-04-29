@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Projectile projectileScript;
 
+    private Rigidbody2D rigidBody;
+
     public CoinManager cm;
     public float moveSpeed = 8f;
     private float originalMoveSpeed;
@@ -126,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
         health = GetComponent<Health>();
         autoShooterScript = GetComponent<AutoShooter>();
         projectileScript = FindObjectOfType<Projectile>();
-
+        rigidBody = GetComponent<Rigidbody2D>();
         popupManager = FindObjectOfType<IridiumPopupManager>(true);
         originalMoveSpeed = moveSpeed;
         fillDict();
@@ -215,7 +217,10 @@ public class PlayerMovement : MonoBehaviour
         AnimDirection(direction);
         animator.SetTrigger("isDashing");
 
-        transform.position += direction * dashDistance;
+        //transform.position += direction * dashDistance;
+        float forceMagnitude = 20f;
+
+        StartCoroutine(forceBurst(forceMagnitude, direction, 0.25f));
         StartCoroutine(DashCooldown());
     }
 
@@ -227,6 +232,17 @@ public class PlayerMovement : MonoBehaviour
         isDashOnCooldown = false;               // Dash is no longer on cooldown
     }
 
+    IEnumerator forceBurst(float magnitude, Vector3 direction, float duration)
+    {
+        rigidBody.mass = 0f;
+        rigidBody.AddForce(direction * magnitude, ForceMode2D.Impulse);
+        rigidBody.velocity = direction * magnitude;
+        health.isInvincible = true;
+        yield return new WaitForSeconds(duration);
+        health.isInvincible = false;
+        rigidBody.velocity = Vector2.zero;
+        rigidBody.mass = 1.0f;
+    }
     // Speed boost coroutine
     IEnumerator SpeedBoost()
     {
