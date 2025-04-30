@@ -30,6 +30,7 @@ public class PauseMenu : MonoBehaviour
         dash_enemy_script.speedFactor = 1.0f;
         shoot_enemy_behavior.speedFactor = 1.0f;
         head_behavior.speedFactor = 1.0f;
+        head_behavior.numSegments = 5;
         body_follow.speedFactor = 1.0f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload current scene
     }
