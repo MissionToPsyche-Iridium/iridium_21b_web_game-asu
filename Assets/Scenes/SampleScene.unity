@@ -2349,7 +2349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -262.3895, y: 138.89001}
+  m_AnchoredPosition: {x: -262.38947, y: 138.89001}
   m_SizeDelta: {x: 1699.63, y: 1615.26}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &288344665
@@ -4247,7 +4247,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 411e69dbadaf6b7428d647ac078a7b51, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -70311,7 +70311,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 411e69dbadaf6b7428d647ac078a7b51, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -71401,7 +71401,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 411e69dbadaf6b7428d647ac078a7b51, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -75987,7 +75987,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 411e69dbadaf6b7428d647ac078a7b51, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -76088,7 +76088,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 411e69dbadaf6b7428d647ac078a7b51, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -77436,7 +77436,7 @@ PrefabInstance:
     - target: {fileID: 7915277361382739950, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
       propertyPath: damageSFX
       value: 
-      objectReference: {fileID: 8300000, guid: 138fdd6bf4f60584587589e0fc4e7f26, type: 3}
+      objectReference: {fileID: 8300000, guid: e40d22bf27b004e4084d1f7c5ff14952, type: 3}
     - target: {fileID: 7915277361382739950, guid: 5292f82225ef5e54484e47d079f10e3b, type: 3}
       propertyPath: healthBar
       value: 
