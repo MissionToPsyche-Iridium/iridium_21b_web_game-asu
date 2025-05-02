@@ -29,4 +29,9 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(0); // Loads the Main Menu scene
     }
+
+    // Loads Special Thanks Menu
+    public void LoadSpecialThanks() {
+        SceneManager.LoadSceneAsync("SpecialThanks");
+    }
 }
