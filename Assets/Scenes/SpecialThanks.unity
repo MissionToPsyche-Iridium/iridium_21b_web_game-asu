@@ -681,12 +681,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\rMusic: Crazy Danger - Josh penn-Pierson\nhttps://github.com/OpenSourceMusic/Crazy-Danger\n\nRibhav
-    Agrawal from Pixabay\r\nhttps://pixabay.com/sound-effects/explosion-under-snow-sfx-230505/\r\n\nfloraphonic
+  m_text: "\rMusic: \nCrazy Danger - Josh penn-Pierson\nhttps://github.com/OpenSourceMusic/Crazy-Danger\n\nspacey_suspence
+    - sindwiller\nhttps://opengameart.org/content/space-ish-suspense-trackloop\n\nSound
+    effects:\nRibhav Agrawal from Pixabay\r\nhttps://pixabay.com/sound-effects/explosion-under-snow-sfx-230505/\r\n\nfloraphonic
     from Pixabay\r\nhttps://pixabay.com/sound-effects/scifi-gun-shoot-1-266417/\r\n\r\r\nfreesound_community
     from Pixabay\r\nhttps://pixabay.com/sound-effects/slap-93075/\r\n\r\nfreesound_community
-    from Pixabay\r\nhttps://pixabay.com/sound-effects/metal-knock-2-103060/\r\n\r\nfreesound_community
-    from Pixabay\r\nhttps://pixabay.com/sound-effects/click-36683/\r\n\r\n"
+    from Pixabay\r\nhttps://pixabay.com/sound-effects/metal-knock-2-103060/\r\n\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -1127,11 +1127,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\rRibhav Agrawal from Pixabay\r\nhttps://pixabay.com/sound-effects/explosion-under-snow-sfx-230505/\r\n\nfloraphonic
-    from Pixabay\r\nhttps://pixabay.com/sound-effects/scifi-gun-shoot-1-266417/\r\n\r\r\nfreesound_community
-    from Pixabay\r\nhttps://pixabay.com/sound-effects/slap-93075/\r\n\r\nfreesound_community
-    from Pixabay\r\nhttps://pixabay.com/sound-effects/metal-knock-2-103060/\r\n\r\nfreesound_community
-    from Pixabay\r\nhttps://pixabay.com/sound-effects/click-36683/\r\n\r\n"
+  m_text: "freesound_community from Pixabay\r\nhttps://pixabay.com/sound-effects/click-36683/\r\n\r\r\nfreesound_community
+    from Pixabay\r\nhttps://pixabay.com/sound-effects/success2-57646/\r\n\r\nfreesound_community
+    from Pixabay\r\nhttps://pixabay.com/sound-effects/pop-91931/\r\n\r\nfreesound_community
+    from Pixabay\r\nhttps://pixabay.com/sound-effects/bass-plunk-72796/\r\n\r\nDavid
+    Dumais from Pixabay\r\nhttps://pixabay.com/sound-effects/large-underwater-explosion-190270/\r\n\r\nfreesound_community
+    from Pixabay\r\nhttps://pixabay.com/sound-effects/poof-of-smoke-87381/\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}

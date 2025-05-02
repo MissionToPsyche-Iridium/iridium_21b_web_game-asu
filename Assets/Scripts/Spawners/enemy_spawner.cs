@@ -173,7 +173,9 @@ public class enemy_spawner : MonoBehaviour
             
             if (waveNumber == 16)
             {
-                SceneManager.LoadScene("VictoryScene");
+                checkpoint();
+                StartCoroutine(WaitAndLoadVictory());
+                
                 return;
             }
             if (waveNumber % 5 == 0)
@@ -399,7 +401,10 @@ public class enemy_spawner : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         PartsPopup.SetActive(false);
-        showMenu(UpgradeMenu);
+        if(waveNumber < 16) {
+            showMenu(UpgradeMenu);
+        }
+        
     }
 
     private void setImage(Sprite sprite)
@@ -435,5 +440,9 @@ public class enemy_spawner : MonoBehaviour
         timer.stopTimer = false;
         timer.UpdateWaveUI();
         waiting = false;
+    }
+    IEnumerator WaitAndLoadVictory() {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("VictoryScene");
     }
 }
