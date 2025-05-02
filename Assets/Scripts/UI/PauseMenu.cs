@@ -32,6 +32,7 @@ public class PauseMenu : MonoBehaviour
         head_behavior.speedFactor = 1.0f;
         head_behavior.numSegments = 5;
         body_follow.speedFactor = 1.0f;
+        Projectile.defaultDamageAmount = 50f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload current scene
     }
 
